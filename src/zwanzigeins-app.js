@@ -56,30 +56,82 @@ var Sound = (function(){
             window.speechSynthesis.speak(msg);
         }
         
-        function createZwanzigEinsNumber(num){
-            var numStr = num.toString();
-            var res = "";
-
-            for(var i = 0; i < numStr.length; i++){
-                var c = numStr.charAt(i);
-                
-                if(i == numStr.length - 1 && c == '0'){
-                    continue;
+        function letterizeZwanzigEinsNumber(num){
+            var word = '';
+            var numLength = num.length;
+            
+            function getArityWord(arity){
+                switch(arity){               
+                case 4:
+                    return 'tausend';
+                case 3:
+                    return 'hundert';
                 }
-                
-                res += c;   
-                
-                var zerosLength = numStr.length - i - 1;
-                for(var j = 0; j < zerosLength; j++){
-                    res += "0";
-                }
-                
-                res += " ";
             }
             
-            console.log('zwanzigeins-number: ' + res);
-            return res;
+            function getGreaterOneWord(arity, digitName, twoArityName){
+                var res;
+                if(arity == 2){
+                    res = twoArityName;
+                }
+                else{
+                    res = digitName;
+                    if(arity > 2){
+                        res += getArityWord(arity);
+                    }
+                }
+                return res;
+            }
+            
+            for(var i = 0; i < numLength; i++){
+                var digit = parseInt(num.charAt(i));
+                
+                var arity = numLength - i;
+                switch(digit){
+                case 1:
+                    if(arity > 2){
+                        word += getArityWord(arity);
+                    }
+                    else if(arity == 2){
+                        word += 'zehn';
+                    }
+                    else{
+                        word += 'eins';
+                    }
+                    break;
+                case 2:
+                    word += getGreaterOneWord(arity, 'zwei', 'zwanzig');
+                    break;
+                case 3:
+                    word += getGreaterOneWord(arity, 'drei', 'dreißig');
+                    break;
+                case 4:
+                    word += getGreaterOneWord(arity, 'vier', 'vierzig');
+                    break;
+                case 5:
+                    word += getGreaterOneWord(arity, 'fünf', 'fünfzig');
+                    break;
+                case 6:
+                    word += getGreaterOneWord(arity, 'sechs', 'sechzig');
+                    break;
+                case 7:
+                    word += getGreaterOneWord(arity, 'sieben', 'siebzig');
+                    break;
+                case 8:
+                    word += getGreaterOneWord(arity, 'acht', 'achtzig');
+                    break;
+                case 9:
+                    word += getGreaterOneWord(arity, 'neun', 'neunzig');
+                    break;
+                }
+                word += ' ';
+                    
+            }
+            
+            return word;
         }
+        
+        
         
         this.playTask = function(num1, operator, num2){
             
@@ -88,10 +140,15 @@ var Sound = (function(){
             lastNum2 = num2;
             
                         
-            num1 = createZwanzigEinsNumber(num1);
-            num2 = createZwanzigEinsNumber(num2);
+            //num1 = createZwanzigEinsNumber(num1);
+            
+            num1 = num1.toString();
+            var num1Word = letterizeZwanzigEinsNumber(num1);
+            num2 = num2.toString();
+            var num2Word = letterizeZwanzigEinsNumber(num2);
+                                  
 
-            var word = num1 + " " + operator + " " + num2;
+            var word = num1Word + " " + operator + " " + num2Word;
             playWord(word);
             
         } 
