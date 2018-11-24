@@ -1,0 +1,19 @@
+{
+  "name": "zwanzigeins-app",
+  "version": "1.0.0",
+  "description": "Kopfrechen-Trainer für die unverdrehte Zahlensprechweise.",
+  "main": "src/zwanzigeins-app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lglowania/zwanzigeins-app.git"
+  },
+  "author": "Lukas Glowania",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/lglowania/zwanzigeins-app/issues"
+  },
+  "homepage": "https://github.com/lglowania/zwanzigeins-app#readme"
+}

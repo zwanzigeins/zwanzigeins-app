@@ -1,0 +1,319 @@
+* {
+	/* reset */
+	margin: 0;
+	padding: 0;
+	/* soll Benutzer-Auswahl verhindern */
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	/* 	-khtml-user-select: none; */
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	/* soll default-Tap-Farbe verhindern */
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	box-sizing: border-box;
+}
+
+html {
+	font-size: 66%;
+	height: 100%;
+}
+
+body {
+	font-family: sans-serif;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+
+h1 {
+	text-align: center;
+	font-size: 4rem;
+}
+
+h2 {
+	font-size: 3rem;
+	margin-bottom: 0.8rem;
+}
+
+h3 {
+	font-size: 2.5rem;
+}
+
+#menu:last-of-type, #game:last-of-type {
+	display: none;
+}
+
+#menu, #game {
+	height: 100%;
+}
+
+#menu {
+	/* 	display: none; */
+	padding: 2% 5%;
+}
+
+#menu>button {
+	margin-top: 1rem;
+}
+
+#menu>div {
+	margin-top: 2.5rem;
+}
+
+#menu input {
+	/* 	padding: 5%; */
+	border-radius: 5px;
+}
+
+.fromTo:last-child {
+	margin-top: 1rem;
+}
+
+.fromTo td:last-child {
+	width: 100%;
+}
+
+.fromTo label {
+	margin-right: 0.5rem;
+	margin-left: 1.5rem;
+}
+
+.fromTo input {
+	width: 100%;
+	font-size: inherit;
+}
+
+#startBtnArea, #lastGameTimeWrapper {
+	text-align: center;
+}
+
+.dialog {
+	display: block;
+	text-align: center;
+	opacity: 0;
+	z-index: -1;	
+	font-size: 3rem;
+	transition: all 0.5s;
+	
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	margin-top: 0 !important;
+	background: rgba(255,255,255,0);
+}
+
+.dialog.showing{
+	transition: all 0.7s;	
+	opacity: 1;
+	background: rgba(255,255,255,1);
+	z-index: 1000;
+}	
+
+/* #lastGameTime{ */
+/* 	position: absolute; */
+/* 	top: 45%;	 */
+/* } */
+
+.vcenter{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+
+#menu button {
+	font-size: 3rem;
+	padding: 10px;
+	display: block;
+	width: 100%;
+	background-color: #f4f5f5;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#f4f5f5),
+		to(#dfdddd));
+	background-image: -webkit-linear-gradient(top, #f4f5f5, #dfdddd);
+	background-image: -moz-linear-gradient(top, #f4f5f5, #dfdddd);
+	background-image: -ms-linear-gradient(top, #f4f5f5, #dfdddd);
+	background-image: -o-linear-gradient(top, #f4f5f5, #dfdddd);
+	background-image: linear-gradient(to bottom, #f4f5f5, #dfdddd);
+	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,
+		startColorstr=#f4f5f5, endColorstr=#dfdddd);
+	border-radius: 5px;
+	border: 1px solid #aaa;
+}
+
+#menu table {
+	font-size: 2rem;
+}
+
+#menu table tr:not (:first-child ) td {
+	padding-top: 0.5rem;
+}
+
+label {
+	font-size: 2rem;
+}
+
+#menu input {
+	border: 1px solid grey;
+	background: white;
+	text-align: right;
+	padding: 0.5rem;
+	border: 1px solid #aaa;
+}
+
+#arities {
+	text-align: left;
+}
+
+#arities>div {
+	display: inline-block;
+	width: 48%;
+}
+
+#menu input[type="checkbox"] {
+	display: none;
+}
+
+input[type="checkbox"] + label {
+	display: inline-block;
+	font-size: 6rem;
+	margin-bottom: 1.5rem;
+}
+
+input[type="checkbox"] + label span {
+	display: inline-block;
+	width: 80px;
+	height: 80px;
+	margin-right: 1rem;
+	vertical-align: middle;
+	/* muss ein bisschen korrigiert werden */
+	position: relative;
+	/*     background:url(check_radio_sheet.png) left top no-repeat; */
+	cursor: pointer;
+	border: 1px solid #aaa;
+	border-radius: 5px;
+}
+
+input[type="checkbox"]:checked + label span {
+	background: url(img/checkmark.svg) center
+		center no-repeat;
+	background-size: 90% 90%;
+
+	/* 	background: blue; */
+}
+
+#numTasks > div{
+    width: 30%;
+    display: inline-block;
+    
+}
+
+#numTasks > div label{
+    font-size: 2.5rem;
+}
+
+#prefs input[type="checkbox"] + label {
+	font-size: 2.5rem;
+}
+
+#game {
+	display: table;
+	font-size: 4rem;
+	width: 100%;
+	text-align: center;
+}
+
+#task, #answer {
+	height: 9rem;
+	line-height: 9rem;
+}
+
+#task {
+	border-bottom: 1px solid #aaa;
+}
+
+.auditive #task {
+	display: none;
+}
+
+.auditive .answerWrapper {
+	display: table;
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.auditive #answer {
+	width: 100%;
+	border-right: 1px solid #aaa;
+}
+
+#playAgainBtn {
+	display: none;
+}
+
+.auditive #playAgainBtn {
+	display: table-cell;
+	/* 	position: absolute;	 */
+	width: 33.333333%;
+	/* 	right: 0; */
+	/* 	top: 0; */
+	height: 9rem;
+	
+}
+
+.playIcon {
+	background: url(//cdn.justedit.com/icomoon/play3.svg);
+}
+
+.tblHeightStretcher {
+	display: table-row;
+	height: 100%;
+}
+
+#tblInput {
+	width: 100%;
+	height: 100%;
+	border-collapse: collapse;
+}
+
+#tblInput tr {
+	border-top: 1px solid #aaa;
+}
+
+#tblInput td, .auditive #playAgainBtn{
+	width: 33.33333%;
+	vertical-align: middle;
+	text-align: center;
+	background-color: #f4f5f5;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#f4f5f5),
+		to(#dfdddd));
+	background-image: -webkit-linear-gradient(top, #f4f5f5, #dfdddd);
+	background-image: -moz-linear-gradient(top, #f4f5f5, #dfdddd);
+	background-image: -ms-linear-gradient(top, #f4f5f5, #dfdddd);
+	background-image: -o-linear-gradient(top, #f4f5f5, #dfdddd);
+	background-image: linear-gradient(to bottom, #f4f5f5, #dfdddd);
+	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,
+		startColorstr=#f4f5f5, endColorstr=#dfdddd);
+	border-right: 1px solid #aaa;
+}
+
+#tblInput td:last-child {
+	border-right: 0;
+}
+
+#game td.touching, #playAgainBtn.touching {
+	/* 	border: 1px solid #bfc4c4; */
+	background-color: #d9dddd;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#d9dddd), to(#c6c3c3));
+	background-image: -webkit-linear-gradient(top, #d9dddd, #c6c3c3);
+	background-image: -moz-linear-gradient(top, #d9dddd, #c6c3c3);
+	background-image: -ms-linear-gradient(top, #d9dddd, #c6c3c3);
+	background-image: -o-linear-gradient(top, #d9dddd, #c6c3c3);
+	background-image: linear-gradient(to bottom, #d9dddd, #c6c3c3);
+	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,
+		startColorstr=#d9dddd, endColorstr=#c6c3c3);
+}
