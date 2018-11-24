@@ -69,7 +69,7 @@ var Sound = (function(){
                 }
             }
             
-            function getGreaterOneWord(arity, digitName, twoArityName){
+            function getDigitWord(arity, digitName, twoArityName){
                 var res;
                 if(arity == 2){
                     res = twoArityName;
@@ -100,28 +100,28 @@ var Sound = (function(){
                     }
                     break;
                 case 2:
-                    word += getGreaterOneWord(arity, 'zwei', 'zwanzig');
+                    word += getDigitWord(arity, 'zwei', 'zwanzig');
                     break;
                 case 3:
-                    word += getGreaterOneWord(arity, 'drei', 'dreißig');
+                    word += getDigitWord(arity, 'drei', 'dreißig');
                     break;
                 case 4:
-                    word += getGreaterOneWord(arity, 'vier', 'vierzig');
+                    word += getDigitWord(arity, 'vier', 'vierzig');
                     break;
                 case 5:
-                    word += getGreaterOneWord(arity, 'fünf', 'fünfzig');
+                    word += getDigitWord(arity, 'fünf', 'fünfzig');
                     break;
                 case 6:
-                    word += getGreaterOneWord(arity, 'sechs', 'sechzig');
+                    word += getDigitWord(arity, 'sechs', 'sechzig');
                     break;
                 case 7:
-                    word += getGreaterOneWord(arity, 'sieben', 'siebzig');
+                    word += getDigitWord(arity, 'sieben', 'siebzig');
                     break;
                 case 8:
-                    word += getGreaterOneWord(arity, 'acht', 'achtzig');
+                    word += getDigitWord(arity, 'acht', 'achtzig');
                     break;
                 case 9:
-                    word += getGreaterOneWord(arity, 'neun', 'neunzig');
+                    word += getDigitWord(arity, 'neun', 'neunzig');
                     break;
                 }
                 word += ' ';
