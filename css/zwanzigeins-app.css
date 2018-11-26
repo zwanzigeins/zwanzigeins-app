@@ -1,0 +1,135 @@
+#menu>button {
+	margin-top: 1rem;
+}
+
+.fromTo:last-child {
+	margin-top: 1rem;
+}
+
+.fromTo td:last-child {
+	width: 100%;
+}
+
+.fromTo label {
+	margin-right: 0.5rem;
+	margin-left: 1.5rem;
+}
+
+.fromTo input {
+	width: 100%;
+}
+
+#startBtnArea, #lastGameTimeWrapper {
+	text-align: center;
+}
+
+#menu table {
+	font-size: 2rem;
+}
+
+#menu table tr:not (:first-child ) td {
+	padding-top: 0.5rem;
+}
+
+
+#arities {
+	text-align: left;
+}
+
+
+#game {
+	display: table;
+	font-size: 2.5rem;
+	text-align: center;
+}
+
+#task, #answer {
+	height: 9rem;
+	line-height: 9rem;
+}
+
+#task {
+	border-bottom: 1px solid #aaa;
+}
+
+.auditive #task {
+	display: none;
+}
+
+.auditive .answerWrapper {
+	display: table;
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.auditive #answer {
+	width: 100%;
+	border-right: 1px solid #aaa;
+}
+
+#playAgainBtn {
+	display: none;
+}
+
+.auditive #playAgainBtn {
+	display: table-cell;
+	/* 	position: absolute;	 */
+	width: 33.333333%;
+	/* 	right: 0; */
+	/* 	top: 0; */
+	height: 9rem;
+	
+}
+
+.playIcon {
+	background: url(//cdn.justedit.com/icomoon/play3.svg);
+}
+
+.tblHeightStretcher {
+	display: table-row;
+	height: 100%;
+}
+
+#tblInput {
+	width: 100%;
+	height: 100%;
+	border-collapse: collapse;
+}
+
+#tblInput tr {
+	border-top: 1px solid #aaa;
+}
+
+#tblInput td, .auditive #playAgainBtn{
+	width: 33.33333%;
+	vertical-align: middle;
+	text-align: center;
+	background-color: #f4f5f5;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#f4f5f5),
+		to(#dfdddd));
+	background-image: -webkit-linear-gradient(top, #f4f5f5, #dfdddd);
+	background-image: -moz-linear-gradient(top, #f4f5f5, #dfdddd);
+	background-image: -ms-linear-gradient(top, #f4f5f5, #dfdddd);
+	background-image: -o-linear-gradient(top, #f4f5f5, #dfdddd);
+	background-image: linear-gradient(to bottom, #f4f5f5, #dfdddd);
+	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,
+		startColorstr=#f4f5f5, endColorstr=#dfdddd);
+	border-right: 1px solid #aaa;
+}
+
+#tblInput td:last-child {
+	border-right: 0;
+}
+
+#game td.touching, #playAgainBtn.touching {
+	/* 	border: 1px solid #bfc4c4; */
+	background-color: #d9dddd;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#d9dddd), to(#c6c3c3));
+	background-image: -webkit-linear-gradient(top, #d9dddd, #c6c3c3);
+	background-image: -moz-linear-gradient(top, #d9dddd, #c6c3c3);
+	background-image: -ms-linear-gradient(top, #d9dddd, #c6c3c3);
+	background-image: -o-linear-gradient(top, #d9dddd, #c6c3c3);
+	background-image: linear-gradient(to bottom, #d9dddd, #c6c3c3);
+	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,
+		startColorstr=#d9dddd, endColorstr=#c6c3c3);
+}

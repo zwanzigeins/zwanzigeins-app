@@ -6,91 +6,138 @@
     content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
 <title>ZwanzigEins App</title>
 
-<link rel="stylesheet" type="text/css" href="zwanzigeins-app.css">
+<link rel="stylesheet" type="text/css" href="css/normalize.css">
+<link rel="stylesheet" type="text/css" href="css/framework.css">
+<link rel="stylesheet" type="text/css" href="css/zwanzigeins-app.css">
 </head>
 <body>
-    <div id="menu">
-        <h1>Zwanzigeins-App</h1>
-        <button id="btnStart">Start</button>
-        <div>
-            <h2>Stelligkeiten</h2>
-            <table class="fromTo">
-                <tr>
-                    <td rowspan="2"><h3>Zahl&nbsp;1&nbsp;</h3></td>
-                    <td><label>von</label></td>
-                    <td><input type="number" id="from1"></td>
-                </tr>
-                <tr>
-                    <td><label>bis</label></td>
-                    <td><input type="number" id="to1"></td>
-                </tr>
-            </table>
+    <div id="menu" class="page">
+        <header>
+            <h1>Zwanzigeins-App</h1>
+        </header>
+        <div class="center">
 
-            <table class="fromTo secondNumArity">
-                <tr>
-                    <td rowspan="2"><h3>Zahl&nbsp;2&nbsp;</h3></td>
-                    <td><label>von</label></td>
-                    <td><input type="number" id="from2"></td>
+            <button id="btnStart">Start</button>
+            <div>
+                <h2>Stelligkeiten</h2>
+                <table class="fromTo">
+                    <tr>
+                        <td rowspan="2"><h3>Zahl&nbsp;1&nbsp;</h3></td>
+                        <td><label>von</label></td>
+                        <td>
+                            <div class="field">
+                                <input type="number" id="from1">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label>bis</label></td>
+                        <td>
+                            <div class="field">
+                                <input type="number" id="to1">
+                            </div>
+                        </td>
+                    </tr>
+                </table>
 
-                </tr>
-                <tr>
-                    <td><label>bis</label></td>
-                    <td><input type="number" id="to2"></td>
-                </tr>
-            </table>
+                <table class="fromTo secondNumArity">
+                    <tr>
+                        <td rowspan="2"><h3>Zahl&nbsp;2&nbsp;</h3></td>
+                        <td><label>von</label></td>
+                        <td>
+                            <div class="field">
+                                <input type="number" id="from2">
+                            </div>
+                        </td>
 
-        </div>
+                    </tr>
+                    <tr>
+                        <td><label>bis</label></td>
+                        <td>
+                            <div class="field">
+                                <input type="number" id="to2">
+                            </div>
+                        </td>
+                    </tr>
+                </table>
 
-        <div id="arities">
-            <h2>Rechenarten</h2>
-            <div>
-                <input type="checkbox" id="plus"><label for="plus"><span></span>+</label>
             </div>
-            <div>
-                <input type="checkbox" id="multiply"><label for="multiply"><span></span>&times;</label>
-            </div>
-            <div>
-                <input type="checkbox" id="minus"><label for="minus"><span></span>&thinsp;-</label>
-            </div>
-            <div>
-                <input type="checkbox" id="divide"><label for="divide"><span></span>&divide;</label>
-            </div>
-        </div>
-        
-        <div id="numTasks">
-            <h2>Anzahl Aufgaben</h2>
-            <div>
-                <input type="radio" id="numTasks10" name="numTasks" checked><label for="numTasks10"> 10</label>
-            </div>
-<!--             <div> -->
-<!--                 <input type="radio" id="numTasks20" name="numTasks"><label for="numTasks20"> 20</label> -->
-<!--             </div> -->
-<!--             <div> -->
-<!--                 <input type="radio" id="numTasks30" name="numTasks"><label for="numTasks30"> 30</label> -->
-<!--             </div> -->
-        </div>
-        
-        <div id="prefs">
-            <h2>Einstellungen</h2>
-            <div>
-                <input type="checkbox" id="fullscreen"><label for="fullscreen"><span></span>Vollbild</label>
-            </div>
-            <div>
-                <input type="checkbox" id="auditive"><label for="auditive"><span></span>Auditiver Modus (Aufgabe nur vorlesen)</label>
-            </div>
-        
-        </div>
 
-        <div class="dialog" ><!-- class="showing" -->
-            <div class="vcenter"> Deine Zeit: <span id="lastGameTime"></span></div>
+            <div id="arities">
+                <h2>Rechenarten</h2>
+                <div class="controlGroup">
+                    <div class="field">
+                        <input type="checkbox" id="plus">
+                        <label for="plus">
+                            +
+                        </label>
+                    </div>
+                    <div class="field">
+                        <input type="checkbox" id="multiply">
+                        <label for="multiply">
+                            &times;
+                        </label>
+                    </div>
+                    <div class="field">
+                        <input type="checkbox" id="minus">
+                        <label for="minus">
+                            &thinsp;-
+                        </label>
+                    </div>
+                    <div class="field">
+                        <input type="checkbox" id="divide">
+                        <label for="divide">
+                            &divide;
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="numTasks">
+                <h2>Anzahl Aufgaben</h2>
+                <div class="field">
+                    <input type="radio" id="numTasks10" name="numTasks" checked>
+                    <label for="numTasks10"> 10</label>
+                </div>
+                <!--             <div> -->
+                <!--                 <input type="radio" id="numTasks20" name="numTasks"><label for="numTasks20"> 20</label> -->
+                <!--             </div> -->
+                <!--             <div> -->
+                <!--                 <input type="radio" id="numTasks30" name="numTasks"><label for="numTasks30"> 30</label> -->
+                <!--             </div> -->
+            </div>
+
+            <div id="prefs">
+                <h2>Einstellungen</h2>
+                <div>
+                    <input type="checkbox" id="fullscreen">
+                    <label for="fullscreen">
+                        <span></span>Vollbild
+                    </label>
+                </div>
+                <div>
+                    <input type="checkbox" id="auditive">
+                    <label for="auditive">
+                        <span></span>Auditiver Modus (Aufgabe nur vorlesen)
+                    </label>
+                </div>
+
+            </div>
+
+            <div class="dialog">
+                <!-- class="showing" -->
+                <div class="vcenter">
+                    Deine Zeit: <span id="lastGameTime"></span>
+                </div>
+            </div>
         </div>
     </div>
-    <div id="game">
+    <div id="game" class="page">
         <div id="task"></div>
-        
+
         <div class="answerWrapper">
             <div id="answer"></div>
-            <div id="playAgainBtn"> &#x25B6;</div>
+            <div id="playAgainBtn">&#x25B6;</div>
         </div>
         <div class="tblHeightStretcher">
             <table id="tblInput">
@@ -114,9 +161,9 @@
                     <td id="clearBtn">C</td>
                 </tr>
             </table>
-        </div>      
+        </div>
     </div>
-    
-    <script type="text/javascript" src="src/zwanzigeins-app.js"></script>
+
+    <script type="text/javascript" src="js/zwanzigeins-app.js"></script>
 </body>
 </html>
