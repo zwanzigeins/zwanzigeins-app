@@ -41,66 +41,54 @@
 	display: table;
 	font-size: 2.5rem;
 	text-align: center;
+	border-collapse: collapse;   	
 }
 
-#task, #answer {
-	height: 9rem;
-	line-height: 9rem;
+#game .task, #game .answer {
+	height: 6rem;
+	line-height: 6rem;
+	background: white;
 }
 
-#task {
+#game .task {
 	border-bottom: 1px solid #aaa;
 }
 
-.auditive #task {
+#game.auditive .task {
 	display: none;
 }
 
-.auditive .answerWrapper {
-	display: table;
-	width: 100%;
-	border-collapse: collapse;
+#game .answerWrapper{
+    display: none;
 }
 
-.auditive #answer {
-	width: 100%;
+#game.auditive .answerWrapper.auditive{
+	display: table-row;
+}
+
+#game:not(.auditive) .answerWrapper.simple{
+    display: table-row;
+}
+
+#game.auditive .answer {
 	border-right: 1px solid #aaa;
 }
 
-#playAgainBtn {
+#game .playAgainBtn {
 	display: none;
 }
 
-.auditive #playAgainBtn {
+#game.auditive .playAgainBtn {
 	display: table-cell;
-	/* 	position: absolute;	 */
 	width: 33.333333%;
-	/* 	right: 0; */
-	/* 	top: 0; */
-	height: 9rem;
-	
+	height: 9rem;	
 }
 
-.playIcon {
+#game .playIcon {
 	background: url(//cdn.justedit.com/icomoon/play3.svg);
 }
 
-.tblHeightStretcher {
-	display: table-row;
-	height: 100%;
-}
-
-#tblInput {
-	width: 100%;
-	height: 100%;
-	border-collapse: collapse;
-}
-
-#tblInput tr {
-	border-top: 1px solid #aaa;
-}
-
-#tblInput td, .auditive #playAgainBtn{
+#game td, .auditive #playAgainBtn{
 	width: 33.33333%;
 	vertical-align: middle;
 	text-align: center;
@@ -117,7 +105,7 @@
 	border-right: 1px solid #aaa;
 }
 
-#tblInput td:last-child {
+#game td:last-child {
 	border-right: 0;
 }
 

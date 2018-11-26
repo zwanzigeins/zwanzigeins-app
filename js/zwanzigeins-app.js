@@ -2,7 +2,13 @@ function _(id) {
     return document.getElementById(id);
 }
 
+var gameElem = _('game');
+var taskElem = gameElem.querySelector('.task > td');
+var playAgainBtn = gameElem.querySelector('.playAgainBtn');
+var answerElem = gameElem.querySelector('.answer');
 
+
+var menuElem = _('menu');
 
 /** Der PressHandler wird bei Klicken mit Maus am PC oder
  * bei Berührung auf Tochgeräten ausgeführt.
@@ -139,14 +145,10 @@ var Sound = (function(){
             lastOperator = operator;
             lastNum2 = num2;
             
-                        
-            //num1 = createZwanzigEinsNumber(num1);
-            
             num1 = num1.toString();
             var num1Word = letterizeZwanzigEinsNumber(num1);
             num2 = num2.toString();
             var num2Word = letterizeZwanzigEinsNumber(num2);
-                                  
 
             var word = num1Word + " " + operator + " " + num2Word;
             playWord(word);
@@ -170,9 +172,6 @@ var wrongAnswerOccured;
 var wrongAnswerTimeStamp;
 
 var touchEventOccured = false;
-
-
-var answerElem = _('answer');
 
 var tasksPut = 0;
 var gameStartTimeStamp;
@@ -265,7 +264,7 @@ for (var i = 0; i < numBtns.length; i++) {
 
 var curTaskParts = [];
 
-addPressHandler(_('playAgainBtn'), function(){
+addPressHandler(playAgainBtn, function(){
     Sound.playAgain()
 });
 
@@ -296,6 +295,18 @@ function startGame(){
 
         }
     }
+    
+    if(options['auditive']){
+        gameElem.classList.add('auditive');
+    }
+    else{
+        gameElem.classList.remove('auditive');
+    }
+    
+    var queryTerm = 
+        '#game:not(.auditive) .answerWrapper.simple .answer,' + 
+        '#game.auditive .answerWrapper.auditive .answer';
+    answerElem = gameElem.querySelector(queryTerm);
     
     if(location.hash != '#game'){
         var hashChangeListener = window.onhashchange;
@@ -338,19 +349,13 @@ function putNewTask() {
     var num2 = getRandomNumber(options['from2'], options['to2']);
     console.log("random numbers: " + num1 + ", " + num2);
     
-    var gamePage = _('game');
-    if(options['auditive']){
-        gamePage.classList.add('auditive');
-    }
-    else{
-        gamePage.classList.remove('auditive');
-    }
+   
     
     switch(operator){
     
     case "plus":
         rightResult = num1 + num2;
-        _('task').innerHTML = num1 + ' + ' + num2;
+        taskElem.innerHTML = num1 + ' + ' + num2;
         Sound.playTask(num1, operator, num2);
         break;
     
@@ -368,17 +373,19 @@ function putNewTask() {
         Sound.playTask(minuend, operator, subtrahent);
         
         rightResult = minuend - subtrahent;
-        _('task').innerHTML = minuend + ' - ' + subtrahent;
+        taskElem.innerHTML = minuend + ' - ' + subtrahent;
         
         break;
     
     case "multiply":
+        operator = "mal";
         Sound.playTask(num1, operator, num2);
         rightResult = num1 * num2;
-        _('task').innerHTML = num1 + ' &times; ' + num2;
+        taskElem.innerHTML = num1 + ' &times; ' + num2;
         break;
     
     case "divide":
+        operator = "durch";
         var dividend, divisor;
         if(num1 > num2){
             dividend = num1;
@@ -390,7 +397,7 @@ function putNewTask() {
         }
         Sound.playTask(dividend, operator, divisor);
         rightResult = dividend / divisor;
-        _('task').innerHTML = dividend + ' &divide; ' + divisor;
+        taskElem.innerHTML = dividend + ' &divide; ' + divisor;
         break;
     
     }
