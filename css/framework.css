@@ -25,20 +25,24 @@ body {
 	height: 100%;
 	line-height: 1.3;
 	color: var(--default-font-color);
-	display: flex;
-    justify-content: center;
-    align-items: center;
     background: #eee;
 }
 
 /***** layout-elements *****/
 
 .pages{
+    margin: auto;
     width: 100%;
     height: 100%;
     max-width: 600px;
     max-height: 800px;
     background: white;
+}
+
+@media(min-width:768px){
+    .pages{
+        margin-top: 5%;
+    }
 }
 
 .page{
@@ -48,17 +52,18 @@ body {
 	width: 100%;
 	height: 100%;
 	max-width: 600px;
-    max-height: 800px;
+	max-height: 800px;
 	transform: translate(-2000%);
 }
 
-.page:first-child{	
-	overflow: visible;
+.page:first-child{
 	transform: translate(0);
 }
 
 .page > .center{
+    flex: 1;
 	padding: 1em;
+	overflow: auto;
 }
 
 .page > .center > *:first-child{
