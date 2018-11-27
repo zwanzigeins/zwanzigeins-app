@@ -31,11 +31,9 @@
 	padding-top: 0.5rem;
 }
 
-
 #arities {
 	text-align: left;
 }
-
 
 #game {
 	display: table;
@@ -71,37 +69,32 @@
 }
 
 #game.auditive .answer {
-	border-right: 1px solid #aaa;
+    border-right: 0;	
 }
 
-#game .playAgainBtn {
+#game.auditive .playAgainBtn {
 	display: none;
+	width: 33.333333%;
+	height: 9rem;
+	background: url(../img/ic_play_arrow_24px.svg) center center no-repeat, linear-gradient(to bottom, #f4f5f5, #dfdddd);
+	background-size: 48px;
+	border-left: 0;
 }
 
 #game.auditive .playAgainBtn {
 	display: table-cell;
-	width: 33.333333%;
-	height: 9rem;	
 }
 
 #game .playIcon {
 	background: url(//cdn.justedit.com/icomoon/play3.svg);
 }
 
-#game td, .auditive #playAgainBtn{
+#game td, #game.auditive #playAgainBtn{
 	width: 33.33333%;
 	vertical-align: middle;
 	text-align: center;
-	background-color: #f4f5f5;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#f4f5f5),
-		to(#dfdddd));
-	background-image: -webkit-linear-gradient(top, #f4f5f5, #dfdddd);
-	background-image: -moz-linear-gradient(top, #f4f5f5, #dfdddd);
-	background-image: -ms-linear-gradient(top, #f4f5f5, #dfdddd);
-	background-image: -o-linear-gradient(top, #f4f5f5, #dfdddd);
+	background-color: #f4f5f5;	
 	background-image: linear-gradient(to bottom, #f4f5f5, #dfdddd);
-	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,
-		startColorstr=#f4f5f5, endColorstr=#dfdddd);
 	border-right: 1px solid #aaa;
 }
 
@@ -110,14 +103,6 @@
 }
 
 #game td.touching, #playAgainBtn.touching {
-	/* 	border: 1px solid #bfc4c4; */
 	background-color: #d9dddd;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#d9dddd), to(#c6c3c3));
-	background-image: -webkit-linear-gradient(top, #d9dddd, #c6c3c3);
-	background-image: -moz-linear-gradient(top, #d9dddd, #c6c3c3);
-	background-image: -ms-linear-gradient(top, #d9dddd, #c6c3c3);
-	background-image: -o-linear-gradient(top, #d9dddd, #c6c3c3);
-	background-image: linear-gradient(to bottom, #d9dddd, #c6c3c3);
-	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,
-		startColorstr=#d9dddd, endColorstr=#c6c3c3);
+	background-image: linear-gradient(to bottom, #d9dddd, #c6c3c3);	
 }
