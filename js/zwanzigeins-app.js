@@ -2,13 +2,13 @@ function _(id) {
     return document.getElementById(id);
 }
 
+var pagesElem = document.querySelector('.pages');
+var mainMenuElem = _('main-menu');
 var gameElem = _('game');
 var taskElem = gameElem.querySelector('.task > td');
 var playAgainBtn = gameElem.querySelector('.playAgainBtn');
 var answerElem = gameElem.querySelector('.answer');
 
-
-var menuElem = _('menu');
 
 /** Der PressHandler wird bei Klicken mit Maus am PC oder
  * bei Berührung auf Tochgeräten ausgeführt.
@@ -492,11 +492,12 @@ function finishGame(){
 }
 
 function showPage(id){
-    if(!id){
-        id = ('menu');
-    }
+  
     var pageElem = _(id);
-    document.body.insertBefore(pageElem, document.body.firstChild);
+    if(!pageElem){
+        pageElem = mainMenuElem;
+    }
+    pagesElem.insertBefore(pageElem, pagesElem.firstChild);
     
     if(id == 'game'){
         startGame();
@@ -513,7 +514,8 @@ addPressHandler(clearBtn, function() {
 });
 
 var btnStart = _('btnStart');
-addPressHandler(btnStart, function(){
+addPressHandler(btnStart, function(evt){
+    evt.preventDefault();
     showPage('game');
 });
 

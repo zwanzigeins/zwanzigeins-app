@@ -11,149 +11,193 @@
 <link rel="stylesheet" type="text/css" href="css/zwanzigeins-app.css">
 </head>
 <body>
-    <div id="menu" class="page">
-        <header>
-            <h1>Zwanzigeins-App</h1>
-        </header>
-        <div class="center">
 
-            <button id="btnStart">Start</button>
-            <div>
-                <h2>Stelligkeiten</h2>
-                <table class="fromTo">
-                    <tr>
-                        <td rowspan="2"><h3>Zahl&nbsp;1&nbsp;</h3></td>
-                        <td><label>von</label></td>
-                        <td>
-                            <div class="field">
-                                <input type="number" id="from1">
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label>bis</label></td>
-                        <td>
-                            <div class="field">
-                                <input type="number" id="to1">
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-
-                <table class="fromTo secondNumArity">
-                    <tr>
-                        <td rowspan="2"><h3>Zahl&nbsp;2&nbsp;</h3></td>
-                        <td><label>von</label></td>
-                        <td>
-                            <div class="field">
-                                <input type="number" id="from2">
-                            </div>
-                        </td>
-
-                    </tr>
-                    <tr>
-                        <td><label>bis</label></td>
-                        <td>
-                            <div class="field">
-                                <input type="number" id="to2">
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-
+    <div class="pages">
+        <div id="main-menu" class="page">
+            <header>
+                <h1>Zwanzigeins-App</h1>
+            </header>
+            <div class="center">
+            
+                <p>Willkommen bei <b>der App</b> zur Erforschung der unverdrehten, stellenwertgerechten Zahlensprechweise.</p>
+                <h2>Hauptmenü</h2>
+                <a href="#listen-and-write">Hören &amp; Schreiben</a>
+                <a href="#mental-arithmetic-menu">Kopfrechen-Trainer</a>
+                <a href="#settings">Einstellungen</a> 
+                <a href="#help">Hilfe</a>
+                <a href="https://zwanzigeins.jetzt">Zur Zwanzigeins-Website</a>
             </div>
 
-            <div id="arities">
-                <h2>Rechenarten</h2>
-                <div class="controlGroup">
-                    <div class="field">
-                        <input type="checkbox" id="plus">
-                        <label for="plus"> + </label>
-                    </div>
-                    <div class="field">
-                        <input type="checkbox" id="multiply">
-                        <label for="multiply"> &times; </label>
-                    </div>
-                    <div class="field">
-                        <input type="checkbox" id="minus">
-                        <label for="minus"> &thinsp;- </label>
-                    </div>
-                    <div class="field">
-                        <input type="checkbox" id="divide">
-                        <label for="divide"> &divide; </label>
-                    </div>
+        </div>
+        
+        <div id="listen-and-write" class="page">
+                //TODO
+        </div>
+        
+        
+
+        <div id="mental-arithmetic-menu" class="page">
+            <header>
+                <h1>Kopfrechen-Trainer</h1>
+            </header>
+            <div class="center">
+                <a id="btnStart" href="#game">Start</a>
+                <div>
+                    <h2>Stelligkeiten</h2>
+                    <table class="fromTo">
+                        <tr>
+                            <td rowspan="2"><h3>Zahl&nbsp;1&nbsp;</h3></td>
+                            <td><label>von</label></td>
+                            <td>
+                                <div class="field">
+                                    <input type="number" id="from1">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>bis</label></td>
+                            <td>
+                                <div class="field">
+                                    <input type="number" id="to1">
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table class="fromTo secondNumArity">
+                        <tr>
+                            <td rowspan="2"><h3>Zahl&nbsp;2&nbsp;</h3></td>
+                            <td><label>von</label></td>
+                            <td>
+                                <div class="field">
+                                    <input type="number" id="from2">
+                                </div>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td><label>bis</label></td>
+                            <td>
+                                <div class="field">
+                                    <input type="number" id="to2">
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
                 </div>
-            </div>
 
-            <div id="numTasks">
-                <h2>Anzahl Aufgaben</h2>
-                <div class="field">
-                    <input type="radio" id="numTasks10" name="numTasks" checked>
-                    <label for="numTasks10"> 10</label>
-                </div>
-                <!--             <div> -->
-                <!--                 <input type="radio" id="numTasks20" name="numTasks"><label for="numTasks20"> 20</label> -->
-                <!--             </div> -->
-                <!--             <div> -->
-                <!--                 <input type="radio" id="numTasks30" name="numTasks"><label for="numTasks30"> 30</label> -->
-                <!--             </div> -->
-            </div>
-
-            <div id="prefs">
-                <h2>Einstellungen</h2>
-                <div class="controlGroup">
-                    <div class="field">
-                        <input type="checkbox" id="fullscreen">
-                        <label for="fullscreen"> Vollbild </label>
-                    </div> 
-                    <div class="field">
-                        <input type="checkbox" id="auditive">
-                        <label for="auditive"> Auditiver Modus (Aufgabe nur vorlesen) </label>
+                <div id="arities">
+                    <h2>Rechenarten</h2>
+                    <div class="controlGroup">
+                        <div class="field">
+                            <input type="checkbox" id="plus">
+                            <label for="plus"> + </label>
+                        </div>
+                        <div class="field">
+                            <input type="checkbox" id="multiply">
+                            <label for="multiply"> &times; </label>
+                        </div>
+                        <div class="field">
+                            <input type="checkbox" id="minus">
+                            <label for="minus"> &thinsp;- </label>
+                        </div>
+                        <div class="field">
+                            <input type="checkbox" id="divide">
+                            <label for="divide"> &divide; </label>
+                        </div>
                     </div>
                 </div>
 
-            </div>
+                <div id="numTasks">
+                    <h2>Anzahl Aufgaben</h2>
+                    <div class="field">
+                        <input type="radio" id="numTasks10" name="numTasks" checked>
+                        <label for="numTasks10"> 10</label>
+                    </div>
+                    <!--             <div> -->
+                    <!--                 <input type="radio" id="numTasks20" name="numTasks"><label for="numTasks20"> 20</label> -->
+                    <!--             </div> -->
+                    <!--             <div> -->
+                    <!--                 <input type="radio" id="numTasks30" name="numTasks"><label for="numTasks30"> 30</label> -->
+                    <!--             </div> -->
+                </div>
 
-            <div class="dialog">
-                <!-- class="showing" -->
-                <div class="vcenter">
-                    Deine Zeit: <span id="lastGameTime"></span>
+                <div id="prefs">
+                    <h2>Einstellungen</h2>
+                    <div class="controlGroup">
+                        <div class="field">
+                            <input type="checkbox" id="fullscreen">
+                            <label for="fullscreen"> Vollbild </label>
+                        </div>
+                        <div class="field">
+                            <input type="checkbox" id="auditive">
+                            <label for="auditive"> Auditiver Modus (Aufgabe nur vorlesen) </label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="dialog">
+                    <!-- class="showing" -->
+                    <div class="vcenter">
+                        Deine Zeit: <span id="lastGameTime"></span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <table id="game" class="page">
-        <tr class="task">
-            <td colspan="3"></td>
-        </tr>
-         <tr class="answerWrapper simple">
-            <td class="answer" colspan="3"></td>
-        </tr>    
-        <tr class="answerWrapper auditive">
-            <td class="answer" colspan="2"></td>
-            <td class="playAgainBtn"></td>
-        </tr>        
-        <tr>
-            <td class="numBtn">7</td>
-            <td class="numBtn">8</td>
-            <td class="numBtn">9</td>
-        </tr>
-        <tr>
-            <td class="numBtn">4</td>
-            <td class="numBtn">5</td>
-            <td class="numBtn">6</td>
-        </tr>
-        <tr>
-            <td class="numBtn">1</td>
-            <td class="numBtn">2</td>
-            <td class="numBtn">3</td>
-        </tr>
-        <tr>
-            <td colspan="2" class="numBtn">0</td>
-            <td id="clearBtn">C</td>
-        </tr>
-    </table>
 
+        <table id="game" class="page">
+            <tr class="task">
+                <td colspan="3"></td>
+            </tr>
+            <tr class="answerWrapper simple">
+                <td class="answer" colspan="3"></td>
+            </tr>
+            <tr class="answerWrapper auditive">
+                <td class="answer" colspan="2"></td>
+                <td class="playAgainBtn"></td>
+            </tr>
+            <tr>
+                <td class="numBtn">7</td>
+                <td class="numBtn">8</td>
+                <td class="numBtn">9</td>
+            </tr>
+            <tr>
+                <td class="numBtn">4</td>
+                <td class="numBtn">5</td>
+                <td class="numBtn">6</td>
+            </tr>
+            <tr>
+                <td class="numBtn">1</td>
+                <td class="numBtn">2</td>
+                <td class="numBtn">3</td>
+            </tr>
+            <tr>
+                <td colspan="2" class="numBtn">0</td>
+                <td id="clearBtn">C</td>
+            </tr>
+        </table>
+        
+        <div id="settings" class="page">
+             <header>
+                <h1>Einstellungen</h1>
+            </header>
+            <div class="center">
+                Hier kommen die Einstellungen.
+            </div>
+        </div>
+        
+        <div id="help" class="page">
+            <header>
+                <h1>Einstellungen</h1>
+            </header>
+            <div class="center">
+                Hier gibts bald Hilfe.
+            </div>
+        </div>
+
+    </div>
 
     <script type="text/javascript" src="js/zwanzigeins-app.js"></script>
 </body>

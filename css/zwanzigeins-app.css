@@ -1,4 +1,4 @@
-#menu>button {
+#mentalArithmeticMenu>button {
 	margin-top: 1rem;
 }
 
@@ -23,11 +23,11 @@
 	text-align: center;
 }
 
-#menu table {
+#mentalArithmeticMenu table {
 	font-size: 2rem;
 }
 
-#menu table tr:not (:first-child ) td {
+#mentalArithmeticMenu table tr:not (:first-child ) td {
 	padding-top: 0.5rem;
 }
 
