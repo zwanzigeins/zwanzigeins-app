@@ -28,6 +28,12 @@ body {
     background: #eee;
 }
 
+@media(min-width:768px){
+    body{
+        padding-top: 5%;
+    }
+}
+
 /***** layout-elements *****/
 
 .pages{
@@ -39,11 +45,7 @@ body {
     background: white;
 }
 
-@media(min-width:768px){
-    .pages{
-        margin-top: 5%;
-    }
-}
+
 
 .page{
 	display: flex;
