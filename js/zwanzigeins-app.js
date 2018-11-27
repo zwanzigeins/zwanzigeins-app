@@ -508,7 +508,7 @@ function showPage(id){
 var clearBtn = _('clearBtn');
 
 addPressHandler(clearBtn, function() {
-    _('answer').innerHTML = "";
+    answerElem.innerHTML = "";
     styleGoodAnswer();
 });
 
