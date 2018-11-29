@@ -97,8 +97,13 @@ body {
 }
 
 header{
+    position: relative;
     background-color: var(--header-bg-color);
     color: var(--header-font-color);
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /***** end layout-elements *****/
@@ -115,6 +120,21 @@ header h1{
     white-space: nowrap;
     outline: 0 !important;
     min-height: 1.1em;
+}
+
+header button{
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 3rem;
+    margin: 0;
+    border: 0;
+    background: center center no-repeat;
+}
+
+header button.back{
+    background-image: url(../img/ic_arrow_back_24px-fff.svg);
 }
 
 h1 {

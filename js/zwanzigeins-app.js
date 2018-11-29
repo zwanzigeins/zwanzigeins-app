@@ -531,4 +531,11 @@ window.onhashchange = function(e){
     showPage(navToken);
 };
 
+var backBtns = document.querySelectorAll('.back');
+for(var i = 0; i < backBtns.length; i++){
+    backBtns[i].onclick = function(e){
+        history.back();
+    };
+}
+
 
