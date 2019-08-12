@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/lglowania/zwanzigeins-app/issues"
   },
-  "homepage": "https://github.com/lglowania/zwanzigeins-app#readme"
+  "homepage": "https://github.com/lglowania/zwanzigeins-app#readme",
+  "dependencies": {
+    "local-web-server": "^3.0.7"
+  }
 }
