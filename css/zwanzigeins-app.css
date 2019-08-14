@@ -27,7 +27,7 @@
 	font-size: 2rem;
 }
 
-#mentalArithmeticMenu table tr:not (:first-child ) td {
+#mentalArithmeticMenu table tr:not(:first-child) td {
 	padding-top: 0.5rem;
 }
 

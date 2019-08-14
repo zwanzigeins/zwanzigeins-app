@@ -1,6 +1,10 @@
+import Sound from './Sound.js';
+
 function _(id) {
     return document.getElementById(id);
 }
+
+let sound = new Sound();
 
 var pagesElem = document.querySelector('.pages');
 var mainMenuElem = _('main-menu');
@@ -46,124 +50,6 @@ function addPressHandler(elem, handler) {
 
     }, true);
 }
-
-var Sound = (function(){
-    
-    function Sound(){
-        
-        function playNumber(numStr, finishedHandler) {
-            playWord(numStr, finishedHandler);
-        }
-        
-        function playWord(word, finishedHandler) {
-            var msg = new SpeechSynthesisUtterance(word);
-            msg.rate = 1.1;
-            msg.onend = finishedHandler;
-            window.speechSynthesis.speak(msg);
-        }
-        
-        function letterizeZwanzigEinsNumber(num){
-            var word = '';
-            var numLength = num.length;
-            
-            function getArityWord(arity){
-                switch(arity){               
-                case 4:
-                    return 'tausend';
-                case 3:
-                    return 'hundert';
-                }
-            }
-            
-            function getDigitWord(arity, digitName, twoArityName){
-                var res;
-                if(arity == 2){
-                    res = twoArityName;
-                }
-                else{
-                    res = digitName;
-                    if(arity > 2){
-                        res += getArityWord(arity);
-                    }
-                }
-                return res;
-            }
-            
-            for(var i = 0; i < numLength; i++){
-                var digit = parseInt(num.charAt(i));
-                
-                var arity = numLength - i;
-                switch(digit){
-                case 1:
-                    if(arity > 2){
-                        word += getArityWord(arity);
-                    }
-                    else if(arity == 2){
-                        word += 'zehn';
-                    }
-                    else{
-                        word += 'eins';
-                    }
-                    break;
-                case 2:
-                    word += getDigitWord(arity, 'zwei', 'zwanzig');
-                    break;
-                case 3:
-                    word += getDigitWord(arity, 'drei', 'dreißig');
-                    break;
-                case 4:
-                    word += getDigitWord(arity, 'vier', 'vierzig');
-                    break;
-                case 5:
-                    word += getDigitWord(arity, 'fünf', 'fünfzig');
-                    break;
-                case 6:
-                    word += getDigitWord(arity, 'sechs', 'sechzig');
-                    break;
-                case 7:
-                    word += getDigitWord(arity, 'sieben', 'siebzig');
-                    break;
-                case 8:
-                    word += getDigitWord(arity, 'acht', 'achtzig');
-                    break;
-                case 9:
-                    word += getDigitWord(arity, 'neun', 'neunzig');
-                    break;
-                }
-                word += ' ';
-                    
-            }
-            
-            return word;
-        }
-        
-        
-        
-        this.playTask = function(num1, operator, num2){
-            
-            lastNum1 = num1;
-            lastOperator = operator;
-            lastNum2 = num2;
-            
-            num1 = num1.toString();
-            var num1Word = letterizeZwanzigEinsNumber(num1);
-            num2 = num2.toString();
-            var num2Word = letterizeZwanzigEinsNumber(num2);
-
-            var word = num1Word + " " + operator + " " + num2Word;
-            playWord(word);
-            
-        } 
-        
-        this.playAgain = function(){
-            this.playTask(lastNum1, lastOperator, lastNum2);
-            
-        }
-        
-    }
-    
-    return new Sound();
-}());
 
 var rightResult;
 var rightResultStr;
@@ -265,7 +151,7 @@ for (var i = 0; i < numBtns.length; i++) {
 var curTaskParts = [];
 
 addPressHandler(playAgainBtn, function(){
-    Sound.playAgain()
+    sound.playAgain()
 });
 
 function startGame(){
@@ -356,7 +242,7 @@ function putNewTask() {
     case "plus":
         rightResult = num1 + num2;
         taskElem.innerHTML = num1 + ' + ' + num2;
-        Sound.playTask(num1, operator, num2);
+        sound.playTask(num1, operator, num2);
         break;
     
     case "minus":
@@ -370,7 +256,7 @@ function putNewTask() {
             subtrahent = num1;
         }
         
-        Sound.playTask(minuend, operator, subtrahent);
+        sound.playTask(minuend, operator, subtrahent);
         
         rightResult = minuend - subtrahent;
         taskElem.innerHTML = minuend + ' - ' + subtrahent;
@@ -379,7 +265,7 @@ function putNewTask() {
     
     case "multiply":
         operator = "mal";
-        Sound.playTask(num1, operator, num2);
+        sound.playTask(num1, operator, num2);
         rightResult = num1 * num2;
         taskElem.innerHTML = num1 + ' &times; ' + num2;
         break;
@@ -395,7 +281,7 @@ function putNewTask() {
             dividend = num2;
             divisor = num1;
         }
-        Sound.playTask(dividend, operator, divisor);
+        sound.playTask(dividend, operator, divisor);
         rightResult = dividend / divisor;
         taskElem.innerHTML = dividend + ' &divide; ' + divisor;
         break;
