@@ -8,7 +8,7 @@ let sound = new Sound();
 
 var pagesElem = document.querySelector('.pages');
 var mainMenuElem = _('main-menu');
-var gameElem = _('game');
+var gameElem = _('mental-arithmetic-game');
 var taskElem = gameElem.querySelector('.task > td');
 var playAgainBtn = gameElem.querySelector('.playAgainBtn');
 var answerElem = gameElem.querySelector('.answer');
@@ -190,14 +190,14 @@ function startGame(){
     }
     
     var queryTerm = 
-        '#game:not(.auditive) .answerWrapper.simple .answer,' + 
-        '#game.auditive .answerWrapper.auditive .answer';
+        '#mental-arithmetic-game:not(.auditive) .answerWrapper.simple .answer,' + 
+        '#mental-arithmetic-game.auditive .answerWrapper.auditive .answer';
     answerElem = gameElem.querySelector(queryTerm);
     
-    if(location.hash != '#game'){
+    if(location.hash != '#mental-arithmetic-game'){
         var hashChangeListener = window.onhashchange;
         window.onhashchange = null;
-        location.hash = 'game';
+        location.hash = 'mental-arithmetic-game';
 
         setTimeout(function(e){
             window.onhashchange = hashChangeListener;
@@ -385,7 +385,7 @@ function showPage(id){
     }
     pagesElem.insertBefore(pageElem, pagesElem.firstChild);
     
-    if(id == 'game'){
+    if(id == 'mental-arithmetic-game'){
         startGame();
     }
 }
@@ -402,7 +402,7 @@ addPressHandler(clearBtn, function() {
 var btnStart = _('btnStart');
 addPressHandler(btnStart, function(evt){
     evt.preventDefault();
-    showPage('game');
+    showPage('mental-arithmetic-game');
 });
 
 bindOptions();

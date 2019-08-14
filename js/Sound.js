@@ -110,7 +110,7 @@ export default class Sound{
         
     } 
     
-    playAgain = function(){
+    playAgain(){
         this.playTask(this.lastNum1, this.lastOperator, this.lastNum2);        
     }
 

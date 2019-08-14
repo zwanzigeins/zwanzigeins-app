@@ -35,44 +35,47 @@
 	text-align: left;
 }
 
-#game {
+#mental-arithmetic-game {
 	display: table;
 	font-size: 2.5rem;
 	text-align: center;
 	border-collapse: collapse;   	
 }
 
-#game .task, #game .answer {
+#mental-arithmetic-game .task, #mental-arithmetic-game .answer {
 	height: 6rem;
-	line-height: 6rem;
 	background: white;
 }
 
-#game .task {
-	border-bottom: 1px solid #aaa;
+#mental-arithmetic-game td{
+	border-bottom: 1px solid #ccc;
 }
 
-#game.auditive .task {
+#mental-arithmetic-game tr:last-child td{
+	border-bottom: 0;
+}
+
+#mental-arithmetic-game.auditive .task {
 	display: none;
 }
 
-#game .answerWrapper{
+#mental-arithmetic-game .answerWrapper{
     display: none;
 }
 
-#game.auditive .answerWrapper.auditive{
+#mental-arithmetic-game.auditive .answerWrapper.auditive{
 	display: table-row;
 }
 
-#game:not(.auditive) .answerWrapper.simple{
+#mental-arithmetic-game:not(.auditive) .answerWrapper.simple{
     display: table-row;
 }
 
-#game.auditive .answer {
+#mental-arithmetic-game.auditive .answer {
     border-right: 0;	
 }
 
-#game.auditive .playAgainBtn {
+#mental-arithmetic-game.auditive .playAgainBtn {
 	display: none;
 	width: 33.333333%;
 	height: 9rem;
@@ -81,28 +84,28 @@
 	border-left: 0;
 }
 
-#game.auditive .playAgainBtn {
+#mental-arithmetic-game.auditive .playAgainBtn {
 	display: table-cell;
 }
 
-#game .playIcon {
+#mental-arithmetic-game .playIcon {
 	background: url(//cdn.justedit.com/icomoon/play3.svg);
 }
 
-#game td, #game.auditive #playAgainBtn{
+#mental-arithmetic-game td, #mental-arithmetic-game.auditive #playAgainBtn{
 	width: 33.33333%;
 	vertical-align: middle;
 	text-align: center;
 	background-color: #f4f5f5;	
 	background-image: linear-gradient(to bottom, #f4f5f5, #dfdddd);
-	border-right: 1px solid #aaa;
+	border-right: 1px solid #ccc;
 }
 
-#game td:last-child {
+#mental-arithmetic-game td:last-child {
 	border-right: 0;
 }
 
-#game td.touching, #playAgainBtn.touching {
+#mental-arithmetic-game td.touching, #playAgainBtn.touching {
 	background-color: #d9dddd;
 	background-image: linear-gradient(to bottom, #d9dddd, #c6c3c3);	
 }
