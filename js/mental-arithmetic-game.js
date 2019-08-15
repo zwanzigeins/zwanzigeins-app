@@ -129,6 +129,27 @@ export default class MentalArithmeticGame{
 	    bindCheckboxElem("divide");
 	    bindCheckboxElem("fullscreen");
 	    bindCheckboxElem("auditive");
+	    
+	    
+	    let queryParams = Utils.getQueryParams();
+	    for(let optionKey in this.options){
+	    	
+	    	let overriddenVal = queryParams[optionKey];
+	    	if(overriddenVal){
+	    		var optionVal = this.options[optionKey];
+	    		if(Number.isInteger(optionVal)){
+	    			overriddenVal = parseInt(overriddenVal);
+	    		}
+	    		else if(typeof variable == 'boolean'){
+	    			overridenVal = new Boolean(overridenVal)
+	    		}
+	    		else{
+	    			continue;
+	    		}
+	    		console.log('using overriden option "' + optionKey + '", value: ' + overriddenVal);
+	    		this.options[optionKey] = overriddenVal;
+	    	}
+	    }
 	      
 	}
 
@@ -150,18 +171,16 @@ export default class MentalArithmeticGame{
 	        }
 	    }
 
-	    this.answerElem.innerHTML = "";
-	    this.putNewTask();
-
 	    this.wrongAnswerOccured = false;
 	    this.gameStartTimeStamp = new Date();
 	    this.tasksPut = 0;
 
+	    this.answerElem.innerHTML = "";
+	    this.putNewTask();
+	   
 	    window.onkeydown = e => {
-	        console.log(e.keyCode);
 	        if(e.keyCode >= 96 && e.keyCode <= 105){ //numpad-tasten von 0 bis 9
 	            this.processNumberInput(e.keyCode - 96);
-
 	        }
 	    }
 	    
@@ -328,7 +347,7 @@ export default class MentalArithmeticGame{
 	    var ellapsedDate = new Date(ellapsed);
 	    
 	    window.history.back();
-	    document.querySelector("#menu .dialog").classList.add("showing");
+	    document.querySelector("#mentalArithmeticMenu .dialog").classList.add("showing");
 	    var minutes = ellapsedDate.getMinutes();
 	    var seconds = ellapsedDate.getSeconds();
 	    if(seconds < 10){
@@ -337,7 +356,7 @@ export default class MentalArithmeticGame{
 	    document.getElementById('lastGameTime').innerHTML = minutes + ":" + seconds;
 	        
 	    setTimeout(function(){
-	        document.querySelector("#menu .dialog").classList.remove("showing");
+	        document.querySelector("#mentalArithmeticMenu .dialog").classList.remove("showing");
 	    }, 2000);
 
 	}
