@@ -36,9 +36,43 @@
                 <h1>Hören und Schreiben</h1>
             </header>
             <div class='center'>
-            	<p>Hier soll ein 'Spiel-Modus' entstehen, bei dem eine gesprochene Zahl korrekt eingegeben werden muss.</p> 
+            	<p>Hier soll ein 'Spiel-Modus' entstehen, bei dem eine gesprochene Zahl korrekt eingegeben werden muss.</p>
+            	
+            	<a href="#listenAndWriteGame">Los</a>
             </div>
         </div>
+        
+        <table id="listenAndWriteGame" class="page numberGame">
+            <tr class="task">
+                <td colspan="3"></td>
+            </tr>
+            <tr class="answerWrapper simple">
+                <td class="answer" colspan="3"></td>
+            </tr>
+            <tr class="answerWrapper auditive">
+                <td class="answer" colspan="2"></td>
+                <td class="playAgainBtn"></td>
+            </tr>
+            <tr>
+                <td class="numBtn">7</td>
+                <td class="numBtn">8</td>
+                <td class="numBtn">9</td>
+            </tr>
+            <tr>
+                <td class="numBtn">4</td>
+                <td class="numBtn">5</td>
+                <td class="numBtn">6</td>
+            </tr>
+            <tr>
+                <td class="numBtn">1</td>
+                <td class="numBtn">2</td>
+                <td class="numBtn">3</td>
+            </tr>
+            <tr>
+                <td colspan="2" class="numBtn">0</td>
+                <td id="clearBtn">C</td>
+            </tr>
+        </table>
         
         <div id="mentalArithmeticMenu" class="page">
             <header>
@@ -154,7 +188,7 @@
             </div>
         </div>
 
-        <table id="mentalArithmeticGame" class="page">
+        <table id="mentalArithmeticGame" class="page numberGame">
             <tr class="task">
                 <td colspan="3"></td>
             </tr>

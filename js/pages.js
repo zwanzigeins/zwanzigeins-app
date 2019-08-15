@@ -40,5 +40,16 @@ export default class Pages{
 		
 		return '';
 	}
+	
+	getCurrentPageElement(){
+		let id = getCurrentId();
+		let page = document.getElementById('id');
+		if(page){
+			return page;
+		}
+		else{
+			return document.getElementById('mainMenu'); 
+		}
+	}
 
 }
