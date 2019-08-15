@@ -13,7 +13,7 @@
 <body>
 
     <div class="pages">
-        <div id="main-menu" class="page">
+        <div id="mainMenu" class="page">
             <header>
                 <h1>Zwanzigeins-App</h1>
             </header>
@@ -21,8 +21,8 @@
             
                 <p>Willkommen bei <b>der App</b> zur Erforschung der unverdrehten, stellenwertgerechten Zahlensprechweise.</p>
                 <h2>Hauptmenü</h2>
-                <a href="#listen-and-write">Hören &amp; Schreiben</a>
-                <a href="#mental-arithmetic-menu">Kopfrechen-Trainer</a>
+                <a href="#listenAndWrite">Hören &amp; Schreiben</a>
+                <a href="#mentalArithmeticMenu">Kopfrechen-Trainer</a>
                 <a href="#settings">Einstellungen</a> 
                 <a href="#help">Hilfe</a>
                 <a href="https://zwanzigeins.jetzt">Zur Zwanzigeins-Website</a>
@@ -30,17 +30,23 @@
 
         </div>
         
-        <div id="listen-and-write" class="page">
-                //TODO
+        <div id="listenAndWrite" class="page">
+        	<header>
+                <button class="back"></button>
+                <h1>Hören und Schreiben</h1>
+            </header>
+            <div class='center'>
+            	<p>Hier soll ein 'Spiel-Modus' entstehen, bei dem eine gesprochene Zahl korrekt eingegeben werden muss.</p> 
+            </div>
         </div>
         
-        <div id="mental-arithmetic-menu" class="page">
+        <div id="mentalArithmeticMenu" class="page">
             <header>
                 <button class="back"></button>
                 <h1>Kopfrechen-Trainer</h1>
             </header>
             <div class="center">
-                <a id="btnStart" href="#game">Start</a>
+                <a id="btnStart" href="#mentalArithmeticGame">Start</a>
                 <div>
                     <h2>Stelligkeiten</h2>
                     <table class="fromTo">
@@ -146,7 +152,7 @@
             </div>
         </div>
 
-        <table id="mental-arithmetic-game" class="page">
+        <table id="mentalArithmeticGame" class="page">
             <tr class="task">
                 <td colspan="3"></td>
             </tr>

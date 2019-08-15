@@ -233,7 +233,7 @@ input[type="checkbox"] + label:before{
 }
 
 input[type="checkbox"]:checked + label:before {
-	background: url(../img/checkmark.svg) center center no-repeat;
+	background: url(../img/ic_check_24px.svg) center center no-repeat;
 	background-size: 90% 90%;
 }
 
