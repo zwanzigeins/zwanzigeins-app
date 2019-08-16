@@ -5,15 +5,7 @@ import Utils from './utils.js';
 export default class MentalArithmeticGame extends NumberGame{
 	
 	constructor(sound, pages){
-		super(sound, pages, 'mentalArithmeticGame');
-		
-		let menuElem = document.getElementById('mentalArithmeticMenu');		
-		let gameElem = document.getElementById('mentalArithmeticGame');
-		this.gameElem = gameElem;
-					
-		this.taskElem = gameElem.querySelector('.task > td');
-		this.playAgainBtn = gameElem.querySelector('.playAgainBtn');
-		this.answerElem = gameElem.querySelector('.answer');
+		super(sound, pages, 'mentalArithmeticMenu', 'mentalArithmeticGame');
 		
 		this.options = {
 		    from1 : 1,
@@ -36,40 +28,9 @@ export default class MentalArithmeticGame extends NumberGame{
 		var wrongAnswerTimeStamp;
 		
 		var tasksPut = 0;
-		var gameStartTimeStamp;
-		
-		var numBtns = this.gameElem.getElementsByClassName('numBtn');
-		for (var i = 0; i < numBtns.length; i++) {
-		    Utils.addPressHandler(numBtns[i], e =>{
-		    	 var number = parseInt(e.currentTarget.innerHTML);
-				 this.processNumberInput(number);
-		    });
-		}
-		
-		var clearBtn = document.getElementById('clearBtn');
-
-		Utils.addPressHandler(clearBtn, e => {
-		    this.answerElem.innerHTML = "";
-		    this.styleGoodAnswer();
-		});
-
-		var btnStart = document.getElementById('btnStart');
-		Utils.addPressHandler(btnStart, e => {
-		    e.preventDefault();
-		    pages.show('mentalArithmeticGame');
-		    this.startGame();
-		});
+		var gameStartTimeStamp;		
 
 		this.bindOptions();
-		
-		let currentPageId = pages.getCurrentId();
-
-		// speech synthesis is only allowed on user-interaction, 
-		// so always go back to mentalArithmeticMenu if
-		// page-reload was triggered on mentalArithmeticGame
-		if(currentPageId == 'mentalArithmeticGame'){
-			history.back();
-		}
 		
 	}
 	
@@ -129,27 +90,7 @@ export default class MentalArithmeticGame extends NumberGame{
 	    bindCheckboxElem("fullscreen");
 	    bindCheckboxElem("auditive");
 	    
-	    
-	    let queryParams = Utils.getQueryParams();
-	    for(let optionKey in this.options){
-	    	
-	    	let overriddenVal = queryParams[optionKey];
-	    	if(overriddenVal){
-	    		var optionVal = this.options[optionKey];
-	    		if(Number.isInteger(optionVal)){
-	    			overriddenVal = parseInt(overriddenVal);
-	    		}
-	    		else if(typeof variable == 'boolean'){
-	    			overridenVal = new Boolean(overridenVal)
-	    		}
-	    		else{
-	    			continue;
-	    		}
-	    		console.log('using overriden option "' + optionKey + '", value: ' + overriddenVal);
-	    		this.options[optionKey] = overriddenVal;
-	    	}
-	    }
-	      
+	    super.applyParamOverrides();
 	}
 
 	saveOptions(){
@@ -214,16 +155,12 @@ export default class MentalArithmeticGame extends NumberGame{
 	    }
 	    
 	    //würfele eine Zahl, die der Anzahl der gewählten Operatoren entspricht
-	    var randomIndex = this.getRandomNumber(0, operators.length - 1);
+	    let randomIndex = this.getRandomNumber(0, operators.length - 1);
 	    
-	    var operator = operators[randomIndex];
-	    console.log("random operator: " + operator);
+	    let operator = operators[randomIndex];
 	    
-	    var num1 = this.getRandomNumber(options['from1'], options['to1']);
-	    var num2 = this.getRandomNumber(options['from2'], options['to2']);
-	    console.log("random numbers: " + num1 + ", " + num2);
-	    
-	   
+	    let num1 = this.getRandomNumber(options['from1'], options['to1']);
+	    let num2 = this.getRandomNumber(options['from2'], options['to2']);	   	  
 	    
 	    switch(operator){
 	    
@@ -234,7 +171,7 @@ export default class MentalArithmeticGame extends NumberGame{
 	        break;
 	    
 	    case "minus":
-	        var minuend, subtrahent;
+	        let minuend, subtrahent;
 	        if(num1 > num2){
 	            minuend = num1;
 	            subtrahent = num2;
@@ -253,14 +190,14 @@ export default class MentalArithmeticGame extends NumberGame{
 	    
 	    case "multiply":
 	        operator = "mal";
-	        sound.playTask(num1, operator, num2);
-	        rightResult = num1 * num2;
-	        taskElem.innerHTML = num1 + ' &times; ' + num2;
+	        this.sound.playTask(num1, operator, num2);
+	        this.rightResult = num1 * num2;
+	        this.taskElem.innerHTML = num1 + ' &times; ' + num2;
 	        break;
 	    
 	    case "divide":
 	        operator = "durch";
-	        var dividend, divisor;
+	        let dividend, divisor;
 	        if(num1 > num2){
 	            dividend = num1;
 	            divisor = num2;
@@ -269,11 +206,10 @@ export default class MentalArithmeticGame extends NumberGame{
 	            dividend = num2;
 	            divisor = num1;
 	        }
-	        sound.playTask(dividend, operator, divisor);
-	        rightResult = dividend / divisor;
-	        taskElem.innerHTML = dividend + ' &divide; ' + divisor;
-	        break;
-	    
+	        this.sound.playTask(dividend, operator, divisor);
+	        this.rightResult = dividend / divisor;
+	        this.taskElem.innerHTML = dividend + ' &divide; ' + divisor;
+	        break;	    
 	    }
 	    
 	    this.rightResultStr = new String(this.rightResult);

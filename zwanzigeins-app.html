@@ -38,17 +38,23 @@
             <div class='center'>
             	<p>Hier soll ein 'Spiel-Modus' entstehen, bei dem eine gesprochene Zahl korrekt eingegeben werden muss.</p>
             	
-            	<a href="#listenAndWriteGame">Los</a>
+            	<a class='btnStart' href="#listenAndWriteGame">Los</a>
             </div>
+            
+             <div class="dialog">
+                 <!-- class="showing" -->
+                 <div class="vcenter">
+                 	<div>
+                     	Deine Zeit<br><span id="lastGameTime"></span>min
+                     </div>
+                 </div>
+             </div>
         </div>
         
-        <table id="listenAndWriteGame" class="page numberGame">
+        <table id="listenAndWriteGame" class="page numberGame auditive">
             <tr class="task">
                 <td colspan="3"></td>
-            </tr>
-            <tr class="answerWrapper simple">
-                <td class="answer" colspan="3"></td>
-            </tr>
+            </tr>          
             <tr class="answerWrapper auditive">
                 <td class="answer" colspan="2"></td>
                 <td class="playAgainBtn"></td>
@@ -70,7 +76,7 @@
             </tr>
             <tr>
                 <td colspan="2" class="numBtn">0</td>
-                <td id="clearBtn">C</td>
+                <td class="clearBtn">C</td>
             </tr>
         </table>
         
@@ -80,7 +86,7 @@
                 <h1>Kopfrechen-Trainer</h1>
             </header>
             <div class="center">
-                <a id="btnStart" href="#mentalArithmeticGame">Start</a>
+                <a class="btnStart" href="#mentalArithmeticGame">Start</a>
                 <div>
                     <h2>Stelligkeiten</h2>
                     <table class="fromTo">
@@ -216,7 +222,7 @@
             </tr>
             <tr>
                 <td colspan="2" class="numBtn">0</td>
-                <td id="clearBtn">C</td>
+                <td class="clearBtn">C</td>
             </tr>
         </table>
         

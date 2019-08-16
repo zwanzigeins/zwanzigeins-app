@@ -42,8 +42,8 @@ export default class Pages{
 	}
 	
 	getCurrentPageElement(){
-		let id = getCurrentId();
-		let page = document.getElementById('id');
+		let id = this.getCurrentId();
+		let page = document.getElementById(id);
 		if(page){
 			return page;
 		}

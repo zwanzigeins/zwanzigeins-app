@@ -3,11 +3,51 @@ import Utils from './utils.js';
 
 export default class NumberGame{
 	
-	constructor(sound, pages, gameElemId){
+	constructor(sound, pages, menuPageId, gamePageId){
 		this.sound = sound;
 		this.pages = pages;
-		this.gameElem = document.getElementById(gameElemId);
 		
+		this.menuElem = document.getElementById(menuPageId);
+		this.gameElem = document.getElementById(gamePageId);
+		
+		this.taskElem = this.gameElem.querySelector('.task > td');
+		this.playAgainBtn = this.gameElem.querySelector('.playAgainBtn');
+		
+		Utils.addPressHandler(this.playAgainBtn, e => {
+			this.sound.playAgain();
+		});
+		
+		this.answerElem = this.gameElem.querySelector('.answer');
+		
+		var numBtns = this.gameElem.getElementsByClassName('numBtn');
+		for (var i = 0; i < numBtns.length; i++) {
+		    Utils.addPressHandler(numBtns[i], e =>{
+		    	 var number = parseInt(e.currentTarget.innerHTML);
+				 this.processNumberInput(number);
+		    });
+		}
+		
+		var clearBtn = this.gameElem.querySelector('.clearBtn');
+
+		Utils.addPressHandler(clearBtn, e => {
+		    this.answerElem.innerHTML = "";
+		    this.styleGoodAnswer();
+		});
+		
+		var btnStart = this.menuElem.querySelector('.btnStart');
+		Utils.addPressHandler(btnStart, e => {
+		    e.preventDefault();
+		    pages.show(gamePageId);
+		    this.startGame();
+		});
+		
+		// speech synthesis is only allowed on user-interaction, 
+		// so always go back to mentalArithmeticMenu if
+		// page-reload was triggered on mentalArithmeticGame
+		let currentPageId = pages.getCurrentId();
+		if(currentPageId == gamePageId){
+			history.back();
+		}
 		
 	}
 	
@@ -67,20 +107,45 @@ export default class NumberGame{
 	    
 	    window.history.back();
 	    
-	    let pageElem = this.pages.getCurrentPageElement();
+		setTimeout(() =>{
+			 let pageElem = this.pages.getCurrentPageElement();
 	    
-	    pageElem.querySelector(".dialog").classList.add("showing");
-	    var minutes = ellapsedDate.getMinutes();
-	    var seconds = ellapsedDate.getSeconds();
-	    if(seconds < 10){
-	        seconds = '0' + seconds;
-	    }
-	    document.getElementById('lastGameTime').innerHTML = minutes + ":" + seconds;
-	        
-	    setTimeout(function(){
-	        pageElem.querySelector(".dialog").classList.remove("showing");
-	    }, 2000);
+			pageElem.querySelector(".dialog").classList.add("showing");
+			var minutes = ellapsedDate.getMinutes();
+			var seconds = ellapsedDate.getSeconds();
+			if(seconds < 10){
+				seconds = '0' + seconds;
+			}
+			document.getElementById('lastGameTime').innerHTML = minutes + ":" + seconds;
 
+			setTimeout(function(){
+				pageElem.querySelector(".dialog").classList.remove("showing");
+			}, 2000);
+		}, 10);
+
+	   
+	}
+	
+	applyParamOverrides(){
+		let queryParams = Utils.getQueryParams();
+	    for(let optionKey in this.options){
+	    	
+	    	let overriddenVal = queryParams[optionKey];
+	    	if(overriddenVal){
+	    		var optionVal = this.options[optionKey];
+	    		if(Number.isInteger(optionVal)){
+	    			overriddenVal = parseInt(overriddenVal);
+	    		}
+	    		else if(typeof variable == 'boolean'){
+	    			overridenVal = new Boolean(overridenVal)
+	    		}
+	    		else{
+	    			continue;
+	    		}
+	    		console.log('using overriden option "' + optionKey + '", value: ' + overriddenVal);
+	    		this.options[optionKey] = overriddenVal;
+	    	}
+	    }
 	}
 	
 	

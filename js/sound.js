@@ -1,16 +1,16 @@
 export default class Sound{
 
     constructor(){
-        this.lastNum1 = null;
-        this.lastNum2 = null;
-        this.lastOperator = null;
+        this.lastPlayed = null;
     }
     
-    playNumber(numStr, finishedHandler) {
-        playWord(numStr, finishedHandler);
+    playInteger(integer, finishedHandler) {
+    	let word = this.letterizeZwanzigEinsNumber(integer.toString());
+        this.playWord(word, finishedHandler);
     }
     
     playWord(word, finishedHandler) {
+    	this.lastPlayed = word;
         var msg = new SpeechSynthesisUtterance(word);
         msg.rate = 1.1;
         msg.onend = finishedHandler;
@@ -92,26 +92,21 @@ export default class Sound{
         return word;
     }
     
-    
-    
     playTask(num1, operator, num2){
         
-        this.lastNum1 = num1;
-        this.lastOperator = operator;
-        this.lastNum2 = num2;
-        
         num1 = num1.toString();
-        var num1Word = this.letterizeZwanzigEinsNumber(num1);
+        let num1Word = this.letterizeZwanzigEinsNumber(num1);
         num2 = num2.toString();
-        var num2Word = this.letterizeZwanzigEinsNumber(num2);
+        let num2Word = this.letterizeZwanzigEinsNumber(num2);
 
         var word = num1Word + " " + operator + " " + num2Word;
         this.playWord(word);
-        
     } 
     
     playAgain(){
-        this.playTask(this.lastNum1, this.lastOperator, this.lastNum2);        
+    	if(this.lastPlayed){
+    		this.playWord(this.lastPlayed);        
+    	}
     }
 
 }
