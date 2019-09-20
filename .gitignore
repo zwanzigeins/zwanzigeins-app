@@ -80,3 +80,4 @@ typings/
 /.project
 /.settings/
 /deploy-param.txt
+/build/

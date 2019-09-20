@@ -1,6 +1,6 @@
 {
   "name": "zwanzigeins-app",
-  "version": "1.0.0",
+  "version": "0.1",
   "description": "Kopfrechen-Trainer für die unverdrehte Zahlensprechweise.",
   "main": "src/zwanzigeins-app.js",
   "scripts": {
@@ -18,5 +18,13 @@
   "homepage": "https://github.com/lglowania/zwanzigeins-app#readme",
   "dependencies": {
     "local-web-server": "^3.0.7"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-better-rollup": "^4.0.1",
+    "gulp-rev": "^9.0.0",
+    "rollup": "^1.21.4",
+    "rollup-plugin-uglify-es": "0.0.1",
+    "shelljs": "^0.8.3"
   }
 }
