@@ -61,6 +61,12 @@ gulp.task('revise-cachaeble', ready => {
 	ready();
 });
 
+gulp.task('copy-img', () =>{
+	
+	return gulp.src('img/**/*')
+		.pipe(gulp.dest(distPath + '/img'));
+});
+
 gulp.task('build-html', ready => {
 
 	let manifestJson = fs.readFileSync(stagePath + '/rev-manifest.json');
@@ -108,4 +114,4 @@ gulp.task('clean', ready => {
 	ready();
 });
 
-gulp.task('default', gulp.series('clean', 'build-js', 'build-css', 'revise', 'revise-cachaeble', 'build-html'), () => {} );
+gulp.task('default', gulp.series('clean', 'build-js', 'build-css', 'revise', 'revise-cachaeble', 'build-html', 'copy-img'), () => {} );
