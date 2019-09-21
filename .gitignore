@@ -77,7 +77,8 @@ typings/
 
 #DynamoDB Local files 
 .dynamodb/ 
+
 /.project
 /.settings/
-/deploy-param.txt
 /build/
+/deploy-config.json
