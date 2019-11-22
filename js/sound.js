@@ -1,3 +1,5 @@
+import GlobalSettings from './global-settings.js';
+
 export default class Sound{
 
     constructor(){
@@ -12,7 +14,11 @@ export default class Sound{
     playWord(word, finishedHandler) {
     	this.lastPlayed = word;
         var msg = new SpeechSynthesisUtterance(word);
-        msg.rate = 1.1;
+        
+        let speechRateString = GlobalSettings.INSTANCE.speechRate;
+        let speechRate = parseFloat(speechRateString);
+        
+        msg.rate = speechRate;
         msg.onend = finishedHandler;
         window.speechSynthesis.speak(msg);
     }

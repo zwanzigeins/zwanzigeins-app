@@ -28,11 +28,6 @@ body {
     background: #eee;
 }
 
-@media(min-width:768px){
-    body{
-        padding-top: 5%;
-    }
-}
 
 /***** layout-elements *****/
 
@@ -45,7 +40,13 @@ body {
     background: white;
 }
 
-
+@media(min-width:768px){
+	
+	body{
+		display: flex;
+		align-items: center;
+	}  
+}
 
 .page{
 	display: flex;

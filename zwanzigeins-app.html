@@ -95,7 +95,7 @@
                             <td><label>von</label></td>
                             <td>
                                 <div class="field">
-                                    <input type="number" id="from1">
+                                    <input type="number" id="from1" name="from1">
                                 </div>
                             </td>
                         </tr>
@@ -103,7 +103,7 @@
                             <td><label>bis</label></td>
                             <td>
                                 <div class="field">
-                                    <input type="number" id="to1">
+                                    <input type="number" id="to1" name="to1">
                                 </div>
                             </td>
                         </tr>
@@ -115,7 +115,7 @@
                             <td><label>von</label></td>
                             <td>
                                 <div class="field">
-                                    <input type="number" id="from2">
+                                    <input type="number" id="from2" name="from2">
                                 </div>
                             </td>
 
@@ -124,7 +124,7 @@
                             <td><label>bis</label></td>
                             <td>
                                 <div class="field">
-                                    <input type="number" id="to2">
+                                    <input type="number" id="to2" name="to2">
                                 </div>
                             </td>
                         </tr>
@@ -136,19 +136,19 @@
                     <h2>Rechenarten</h2>
                     <div class="controlGroup">
                         <div class="field">
-                            <input type="checkbox" id="plus">
+                            <input type="checkbox" id="plus" name="plus">
                             <label for="plus"> + </label>
                         </div>
                         <div class="field">
-                            <input type="checkbox" id="multiply">
+                            <input type="checkbox" id="multiply" name="multiply">
                             <label for="multiply"> &times; </label>
                         </div>
                         <div class="field">
-                            <input type="checkbox" id="minus">
+                            <input type="checkbox" id="minus" name="minus">
                             <label for="minus"> &thinsp;- </label>
                         </div>
                         <div class="field">
-                            <input type="checkbox" id="divide">
+                            <input type="checkbox" id="divide" name="divide">
                             <label for="divide"> &divide; </label>
                         </div>
                     </div>
@@ -157,7 +157,7 @@
                 <div id="numTasks">
                     <h2>Anzahl Aufgaben</h2>
                     <div class="field">
-                        <input type="radio" id="numTasks10" name="numTasks" checked>
+                        <input type="radio" id="numTasks10" name="numTasks" value="10" checked>
                         <label for="numTasks10"> 10</label>
                     </div>
                     <!--             <div> -->
@@ -172,11 +172,11 @@
                     <h2>Einstellungen</h2>
                     <div class="controlGroup">
                         <div class="field">
-                            <input type="checkbox" id="fullscreen">
+                            <input type="checkbox" id="fullscreen" name="fullscreen">
                             <label for="fullscreen"> Vollbild </label>
                         </div>
                         <div class="field">
-                            <input type="checkbox" id="auditive">
+                            <input type="checkbox" id="auditive" name="auditive">
                             <label for="auditive"> Auditiver Modus (Aufgabe nur vorlesen) </label>
                         </div>
                     </div>
@@ -232,7 +232,37 @@
                 <h1>Einstellungen</h1>
             </header>
             <div class="center">
-                Hier kommen die Einstellungen.
+                 <h2>Sprechgeschwindigkeit</h2>
+                 <div class="controlGroup">
+                     <div class="field">
+                         <input type="radio" name="speechRate" id="rate70" value="0.7">
+                         <label for="rate70"> 70%</label>
+                     </div>
+                     <div class="field">
+                         <input type="radio" name="speechRate" id="rate80" value="0.8">
+                         <label for="rate80"> 80%</label>
+                     </div>
+                     <div class="field">
+                         <input type="radio" name="speechRate" id="rate90" value="0.9">
+                         <label for="rate90"> 90%</label>
+                     </div>
+                     <div class="field">
+                         <input type="radio" name="speechRate" id="rate100" value="1">
+                         <label for="rate100"> 100%</label>
+                     </div>
+                     <div class="field">
+                         <input type="radio" name="speechRate" id="rate110" value="1.1">
+                         <label for="rate110"> 110%</label>
+                     </div>
+                      <div class="field">
+                         <input type="radio" name="speechRate" id="rate120" value="1.2">
+                         <label for="rate120"> 120%</label>
+                     </div>
+                      <div class="field">
+                         <input type="radio" name="speechRate" id="rate130" value="1.3">
+                         <label for="rate130"> 130%</label>
+                     </div>
+                 </div>
             </div>
         </div>
         

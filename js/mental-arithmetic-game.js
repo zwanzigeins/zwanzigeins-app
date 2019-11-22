@@ -1,13 +1,12 @@
-import NumberGame from './number-game.js'
-import Pages from './pages.js';
-import Utils from './utils.js';
+import NumberGame from './number-game.js';
+import Options from './options.js';
 
 export default class MentalArithmeticGame extends NumberGame{
 	
-	constructor(sound, pages){
+	constructor(sound, pages){		
 		super(sound, pages, 'mentalArithmeticMenu', 'mentalArithmeticGame');
 		
-		this.options = {
+		let defaultOptions = {
 		    from1 : 1,
 		    to1 : 100,
 		    from2 : 1,
@@ -21,81 +20,17 @@ export default class MentalArithmeticGame extends NumberGame{
 		    auditive : false
 		};
 		
-		var rightResult;
-		var rightResultStr;
-
-		var wrongAnswerOccured;
-		var wrongAnswerTimeStamp;
+		this.options = new Options('mentalArithmeticMenu', defaultOptions);
 		
-		var tasksPut = 0;
-		var gameStartTimeStamp;		
+		// declare empty variables for documentation
+		this.rightResult;
+		this.rightResultStr;
 
-		this.bindOptions();
+		this.wrongAnswerOccured;
+		this.wrongAnswerTimeStamp;
 		
-	}
-	
-	loadOptions(){
-	    var optionsJson = localStorage.getItem("options");
-	    if(optionsJson){
-	        var savedOptions = JSON.parse(optionsJson);
-	        
-	        //transfer newly introduced options, that were not saved 
-	        for(var propertyKey in options){
-	            if(typeof savedOptions[propertyKey] == 'undefined'){
-	                savedOptions[propertyKey] = options[propertyKey];
-	            }
-	        }
-	        this.options = savedOptions;
-	    }
-	}
-	
-	bindOptions(){
-	    
-	    try{
-	        loadOptions();
-	    }
-	    catch(e){
-	        
-	    }
-	    
-	    let bindInputElem = id => {
-	        var inputElem = document.getElementById(id);
-	        inputElem.value = this.options[id];
-	        inputElem.oninput = e => {
-	            var id = e.target.getAttribute("id");
-	            this.options[id] = e.target.value;
-	            this.saveOptions();
-	        };
-	    }
-	        
-	    bindInputElem("from1");
-	    bindInputElem("to1");
-	    bindInputElem("from2");
-	    bindInputElem("to2");
-	    
-	    let bindCheckboxElem = id =>{
-	        var checkboxElem = document.getElementById(id);
-	        checkboxElem.checked = this.options[id];
-	        checkboxElem.onchange = e => {
-	            var id = e.target.getAttribute("id");
-	            this.options[id] = e.target.checked;
-	            this.saveOptions();
-	        }
-	    }
-	    
-	    bindCheckboxElem("plus");
-	    bindCheckboxElem("multiply");
-	    bindCheckboxElem("minus");
-	    bindCheckboxElem("divide");
-	    bindCheckboxElem("fullscreen");
-	    bindCheckboxElem("auditive");
-	    
-	    super.applyParamOverrides();
-	}
-
-	saveOptions(){
-	    var optionsJson = JSON.stringify(this.options);
-	    localStorage.setItem("options", optionsJson);
+		this.tasksPut = 0;
+		this.gameStartTimeStamp;
 	}
 	
 	startGame(){

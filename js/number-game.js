@@ -1,4 +1,3 @@
-import Pages from './pages.js';
 import Utils from './utils.js';
 
 export default class NumberGame{
@@ -122,32 +121,8 @@ export default class NumberGame{
 				pageElem.querySelector(".dialog").classList.remove("showing");
 			}, 2000);
 		}, 10);
-
 	   
 	}
-	
-	applyParamOverrides(){
-		let queryParams = Utils.getQueryParams();
-	    for(let optionKey in this.options){
-	    	
-	    	let overriddenVal = queryParams[optionKey];
-	    	if(overriddenVal){
-	    		var optionVal = this.options[optionKey];
-	    		if(Number.isInteger(optionVal)){
-	    			overriddenVal = parseInt(overriddenVal);
-	    		}
-	    		else if(typeof variable == 'boolean'){
-	    			overridenVal = new Boolean(overridenVal)
-	    		}
-	    		else{
-	    			continue;
-	    		}
-	    		console.log('using overriden option "' + optionKey + '", value: ' + overriddenVal);
-	    		this.options[optionKey] = overriddenVal;
-	    	}
-	    }
-	}
-	
 	
 	styleWrongAnswer(){
 	    this.answerElem.classList.add('error');
