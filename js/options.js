@@ -11,11 +11,15 @@ export default class Options{
 			this[propertyKey] = defaultOptions[propertyKey];
 	    }
 		
-		let pageElem = document.getElementById(pageId);
-		
 		this.loadOptions();
 		
-		this.bindInputElements(pageElem, defaultOptions);
+		let pageElem = document.getElementById(pageId);
+		if(pageElem){
+			this.bindInputElements(pageElem, defaultOptions);
+		}
+		else{
+			console.log('no page-element found for "' + pageId + "', assuming test-mode.");
+		}
 		
 		this.applyParamOverrides();
 	}
