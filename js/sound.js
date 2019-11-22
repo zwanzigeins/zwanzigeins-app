@@ -5,10 +5,10 @@ export default class Sound{
     constructor(){
         this.lastPlayed = null;
     }
-    
-    playInteger(integer, finishedHandler) {
-    	
-    	let speechMode = GlobalSettings.INSTANCE.twistedSpeechMode;
+
+
+    setLetterizer(){
+        let speechMode = GlobalSettings.INSTANCE.twistedSpeechMode;
     	switch(speechMode){
     	
     	case 'zwanzigeins':
@@ -22,6 +22,11 @@ export default class Sound{
     	default:
     		this.letterizer = this.letterizeZehnEinsNumber;
     	}
+    }
+    
+    playInteger(integer, finishedHandler) {
+    	
+    	this.setLetterizer();
     	    	
     	let word = this.letterizer(integer);
         this.playWord(word, finishedHandler);
@@ -183,18 +188,14 @@ export default class Sound{
         case 3:
             return 'hundert';
         }
-    }
-    
-    
-    
-    
+    }    
     
     playTask(num1, operator, num2){
-        
-        num1 = num1.toString();
-        let num1Word = this.letterizeZwanzigEinsNumber(num1);
-        num2 = num2.toString();
-        let num2Word = this.letterizeZwanzigEinsNumber(num2);
+
+        this.setLetterizer();
+    	    	        
+        let num1Word = this.letterizer(num1);
+        let num2Word = this.letterizer(num2);
 
         var word = num1Word + " " + operator + " " + num2Word;
         this.playWord(word);
