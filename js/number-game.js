@@ -3,6 +3,7 @@ import Utils from './utils.js';
 export default class NumberGame{
 	
 	constructor(sound, pages, menuPageId, gamePageId){
+		
 		this.sound = sound;
 		this.pages = pages;
 		

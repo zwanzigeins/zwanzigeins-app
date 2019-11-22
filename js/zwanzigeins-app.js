@@ -11,3 +11,13 @@ let pages = new Pages();
 
 new MentalArithmeticGame(sound, pages);
 new ListenAndWriteGame(sound, pages);
+
+// try to initialize sound early to prevent 
+// a delayed, half, first utterance 
+let soundWarmedUp = false;
+document.addEventListener('hashchange', () =>{
+	if(!soundWarmedUp){
+		soundWarmedUp = true;
+		sound.playWord(' ');
+	}
+});
