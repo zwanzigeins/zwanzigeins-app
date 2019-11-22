@@ -1,6 +1,4 @@
 import NumberGame from './number-game.js'
-import Pages from './pages.js';
-import Utils from './utils.js';
 
 export default class ListenAndWriteGame extends NumberGame{
 	
@@ -29,9 +27,7 @@ export default class ListenAndWriteGame extends NumberGame{
 	}
 	
 	startGame(){
-		
-		super.applyParamOverrides();
-		
+				
 		window.location.hash = 'listenAndWriteGame';
 		
 		this.wrongAnswerOccured = false;
@@ -39,8 +35,7 @@ export default class ListenAndWriteGame extends NumberGame{
 	    this.tasksPut = 0;
 
 	    this.answerElem.innerHTML = "";
-	    this.putNewTask();
-		
+	    this.putNewTask();		
 	}
 	
 }
