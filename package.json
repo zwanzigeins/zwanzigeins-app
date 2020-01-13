@@ -1,6 +1,6 @@
 {
   "name": "zwanzigeins-app",
-  "version": "0.1",
+  "version": "0.1.0",
   "description": "Kopfrechen-Trainer für die unverdrehte Zahlensprechweise.",
   "main": "src/zwanzigeins-app.js",
   "scripts": {
