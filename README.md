@@ -21,7 +21,7 @@ You need to install these programs into your operating system:
 
 * Git (latest)
 * NodeJS (version 8 or later)
-* NPM (node package managaer, version 4 or later)
+* NPM (node package manager, version 4 or later)
 
 Use a search-engine for details on installation.
 
@@ -42,5 +42,5 @@ npm init
 npx ws
 ```
 
-Now point your browser to <http://localhost:8000/zwanzigeins-app.html>. You should see the 
+Point your browser to <http://localhost:8000/zwanzigeins-app.html>. You should see the 
 Zwanzigeins-App in development mode. Any changes to source files should become directly visible on page-reload.
