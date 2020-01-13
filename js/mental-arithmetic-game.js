@@ -132,17 +132,24 @@ export default class MentalArithmeticGame extends NumberGame{
 	    
 	    case "divide":
 	        operator = "durch";
-	        let dividend, divisor;
-	        if(num1 > num2){
-	            dividend = num1;
-	            divisor = num2;
+	        
+	        
+	        let parts = this.getIntegralDivisionParts(num1, num2);
+	        let dividend = parts[0];
+	        let divisor = parts[1];
+	        
+	        while(divisor == dividend || divisor == 1){
+	        	// division by same number or by 1 is pointless so try again
+	        	num1 = this.getRandomNumber(options['from1'], options['to1']);
+	     	    num2 = this.getRandomNumber(options['from2'], options['to2']);
+	     	    
+	     	    parts = this.getIntegralDivisionParts(num1, num2);
+		        dividend = parts[0];
+		        divisor = parts[1];
 	        }
-	        else{
-	            dividend = num2;
-	            divisor = num1;
-	        }
+	        
+	        this.rightResult = parts[2];
 	        this.sound.playTask(dividend, operator, divisor);
-	        this.rightResult = dividend / divisor;
 	        this.taskElem.innerHTML = dividend + ' &divide; ' + divisor;
 	        break;	    
 	    }
@@ -150,6 +157,54 @@ export default class MentalArithmeticGame extends NumberGame{
 	    this.rightResultStr = new String(this.rightResult);
 	    this.styleGoodAnswer();
 	    this.tasksPut++;
+	}
+	
+	getIntegralDivisionParts(randomNum1, randomNum2){
+		
+		let dividend, divisor;
+        if(randomNum1 > randomNum2){
+            dividend = randomNum1;
+            divisor = randomNum2;
+        }
+        else{
+            dividend = randomNum2;
+            divisor = randomNum1;
+        }
+        
+        let result;
+        let integralDivisionFound = false;
+        
+        // decrement divisor until it's an integral task
+        for(let divisorCandidate = divisor; divisorCandidate > 1; divisorCandidate--){
+        	result = dividend / divisorCandidate;
+        	if(this.isIntegral(result)){
+        		integralDivisionFound = true;
+        		divisor = divisorCandidate;
+        		break;
+        	}
+        }
+        
+        if(!integralDivisionFound){
+        	for(; divisor <= dividend; divisor++){
+	        	result = dividend / divisor;
+	        	if(this.isIntegral(result)){
+	        		break;
+	        	}
+	        }
+        }
+        
+        return [dividend, divisor, result];
+	}
+	
+	isIntegral(divisionResult) {
+		
+		let parts = divisionResult.toString().split('.');
+		if(parts.length == 1){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 
 }
