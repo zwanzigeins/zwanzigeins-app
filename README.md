@@ -38,7 +38,7 @@ Now clone this repository, install the required *NodeJS*-dependencies and start 
 ```
 git clone https://github.com/zwanzigeins/zwanzigeins-app.git
 cd zwanzigeins-app
-npm init
+npm install
 npx ws
 ```
 
