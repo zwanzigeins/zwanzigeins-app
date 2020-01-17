@@ -112,9 +112,8 @@ header{
 
 
 header h1{
-    padding: 15px;
     text-align: center;
-    margin: 0 30%;
+    flex: 1;
     padding: .7em 0;
     text-overflow: ellipsis;
     overflow: hidden;
