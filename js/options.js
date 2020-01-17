@@ -13,9 +13,9 @@ export default class Options{
 		
 		this.loadOptions();
 		
-		let pageElem = document.getElementById(pageId);
-		if(pageElem){
-			this.bindInputElements(pageElem, defaultOptions);
+		this.pageElem = document.getElementById(pageId);
+		if(this.pageElem){
+			this.bindInputElements(this.pageElem, defaultOptions);
 		}
 		else{
 			console.log('no page-element found for "' + pageId + "', assuming test-mode.");

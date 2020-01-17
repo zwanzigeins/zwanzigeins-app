@@ -6,7 +6,7 @@ export default class MentalArithmeticGame extends NumberGame{
 	constructor(sound, pages){		
 		super(sound, pages, 'mentalArithmeticMenu', 'mentalArithmeticGame');
 		
-		let defaultOptions = {
+		this.defaultOptions = {
 		    from1 : 1,
 		    to1 : 100,
 		    from2 : 1,
@@ -20,7 +20,10 @@ export default class MentalArithmeticGame extends NumberGame{
 		    auditive : false
 		};
 		
-		this.options = new Options('mentalArithmeticMenu', defaultOptions);
+		this.options = new Options('mentalArithmeticMenu', this.defaultOptions);
+		let pageElem = this.options.pageElem;
+		this.ensureFromSmallerThanTo(pageElem, 'from1', 'to1');
+		this.ensureFromSmallerThanTo(pageElem, 'from2', 'to2');
 		
 		// declare empty variables for documentation
 		this.rightResult;
@@ -31,6 +34,67 @@ export default class MentalArithmeticGame extends NumberGame{
 		
 		this.tasksPut = 0;
 		this.gameStartTimeStamp;
+	}
+	
+	ensureFromSmallerThanTo(optionsPageElem, fromInputName, toInputName){
+		
+		let fromInputSelector = '[name="' + fromInputName + '"]';
+		let toInputSelector = '[name="' + toInputName + '"]';
+		
+		let fromInputElem = optionsPageElem.querySelector(fromInputSelector);
+		let toInputElem = optionsPageElem.querySelector(toInputSelector);
+		
+		function setMinOnTo(){
+			
+			let val = fromInputElem.value;
+			let intVal = parseInt(val);
+			let toMin = intVal + 1;
+			toInputElem.min = toMin;
+		}
+		setMinOnTo();
+		
+		function setMaxOnFrom(){
+			
+			let val = toInputElem.value;
+			let intVal = parseInt(val);
+			let fromMax = intVal - 1;
+			fromInputElem.max = fromMax;
+		}
+		setMaxOnFrom();
+		
+		fromInputElem.addEventListener('input', setMinOnTo);
+		toInputElem.addEventListener('input', setMaxOnFrom);
+		
+		let onBlur = e => {
+			
+			let elem = e.target;
+			
+			if(!elem.value || isNaN(elem.value)){
+				let defaultVal = this.defaultOptions[elem.name];
+				elem.value = defaultVal;
+			}
+			
+			let intVal = parseInt(elem.value);
+			if(elem.min){
+				let intMin = elem.min;
+				if(intVal < intMin){
+					elem.value = elem.min;
+					let evt = new Event('input');
+					elem.dispatchEvent(evt);
+				}
+			}
+			if(elem.max){
+				let intMax = elem.max;
+				if(intVal > intMax){
+					elem.value = elem.max;
+					let evt = new Event('input');
+					elem.dispatchEvent(evt);
+				}
+			}
+		};
+		
+		fromInputElem.addEventListener('blur', onBlur);
+		toInputElem.addEventListener('blur', onBlur);
 	}
 	
 	startGame(){
