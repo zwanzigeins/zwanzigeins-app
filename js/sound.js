@@ -10,15 +10,18 @@ export default class Sound{
     setLetterizer(){
         let speechMode = GlobalSettings.INSTANCE.twistedSpeechMode;
     	switch(speechMode){
-    	
     	case 'zwanzigeins':
     		this.letterizer = this.letterizeZwanzigEinsNumber;
     		break;
-    	
     	case 'traditionellVerdreht':
     		this.letterizer = this.letterizeVerdreht;
-    		break;
-    	
+            break;
+        case 'zwanzigeinsEndnull':
+            this.letterizer = this.letterizeZwanzigEinsNumberEndnull;
+            break;
+        case 'zehneinsEndnull':
+            this.letterizer = this.letterizeZehnEinsNumberEndnull;
+            break;
     	default:
     		this.letterizer = this.letterizeZehnEinsNumber;
     	}
@@ -98,6 +101,8 @@ export default class Sound{
         
         return word;
     }
+
+    
     
     letterizeDigitZehnEins(arity, digitName, twoArityName){
         var res;
@@ -175,6 +180,136 @@ export default class Sound{
         
         return word;
     }
+
+
+    letterizeZwanzigEinsNumberEndnull(num){
+    	
+    	num = num.toString();
+    	
+        var word = '';
+        var numLength = num.length;
+        
+        for(var i = 0; i < numLength; i++){
+            var digit = parseInt(num.charAt(i));
+            
+            var arity = numLength - i;
+            
+            if(arity == 2 && digit == 1){
+            	
+            	word += num.substring(i);
+            	return word;
+            }
+            
+            switch(digit){
+            case 0:
+                if (arity == 1){//only letterize zero when arity == 1
+                    word += 'null'
+                }
+                break;
+            case 1:
+                if(arity > 2){
+                    word += this.getArityWord(arity);
+                }
+                else if(arity == 2){
+                    word += 'zehn';
+                }
+                else{
+                    word += 'eins';
+                }
+                break;
+            case 2:
+                word += this.letterizeDigitZehnEins(arity, 'zwei', 'zwanzig', digit);
+                break;
+            case 3:
+                word += this.letterizeDigitZehnEins(arity, 'drei', 'dreißig', digit);
+                break;
+            case 4:
+                word += this.letterizeDigitZehnEins(arity, 'vier', 'vierzig', digit);
+                break;
+            case 5:
+                word += this.letterizeDigitZehnEins(arity, 'fünf', 'fünfzig', digit);
+                break;
+            case 6:
+                word += this.letterizeDigitZehnEins(arity, 'sechs', 'sechzig', digit);
+                break;
+            case 7:
+                word += this.letterizeDigitZehnEins(arity, 'sieben', 'siebzig', digit);
+                break;
+            case 8:
+                word += this.letterizeDigitZehnEins(arity, 'acht', 'achtzig', digit);
+                break;
+            case 9:
+                word += this.letterizeDigitZehnEins(arity, 'neun', 'neunzig', digit);
+                break;
+            }
+            word += ' ';
+                
+        }
+        
+        return word;
+    }
+
+    letterizeZehnEinsNumberEndnull(num){
+    	
+    	num = num.toString();
+    	
+        var word = '';
+        var numLength = num.length;
+        
+        for(var i = 0; i < numLength; i++){
+            var digit = parseInt(num.charAt(i));
+            
+            var arity = numLength - i;
+            switch(digit){
+            case 0:
+                if (arity == 1){//only letterize zero when arity == 1
+                    word += 'null'
+                }
+                break;
+            case 1:
+                if(arity > 2){
+                    word += this.getArityWord(arity);
+                }
+                else if(arity == 2){
+                    word += 'zehn';
+                }
+                else{
+                    word += 'eins';
+                }
+                break;
+            case 2:
+                word += this.letterizeDigitZehnEins(arity, 'zwei', 'zwanzig');
+                break;
+            case 3:
+                word += this.letterizeDigitZehnEins(arity, 'drei', 'dreißig');
+                break;
+            case 4:
+                word += this.letterizeDigitZehnEins(arity, 'vier', 'vierzig');
+                break;
+            case 5:
+                word += this.letterizeDigitZehnEins(arity, 'fünf', 'fünfzig');
+                break;
+            case 6:
+                word += this.letterizeDigitZehnEins(arity, 'sechs', 'sechzig');
+                break;
+            case 7:
+                word += this.letterizeDigitZehnEins(arity, 'sieben', 'siebzig');
+                break;
+            case 8:
+                word += this.letterizeDigitZehnEins(arity, 'acht', 'achtzig');
+                break;
+            case 9:
+                word += this.letterizeDigitZehnEins(arity, 'neun', 'neunzig');
+                break;
+            }
+            word += ' ';
+                
+        }
+        
+        return word;
+    }
+
+    	
     
     
     letterizeVerdreht(num){
