@@ -8,16 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lglowania/zwanzigeins-app.git"
+    "url": "git+https://github.com/zwanzigeins-app/zwanzigeins-app.git"
   },
   "author": "Lukas Glowania",
   "license": "GPL-3.0-or-later",
   "bugs": {
-    "url": "https://github.com/lglowania/zwanzigeins-app/issues"
+    "url": "https://github.com/zwanzigeins-app/zwanzigeins-app/issues"
   },
-  "homepage": "https://github.com/lglowania/zwanzigeins-app#readme",
-  "dependencies": {
-  },
+  "homepage": "https://github.com/zwanzigeins-app/zwanzigeins-app#readme", 
   "devDependencies": {
     "local-web-server": "^3.0.7",
     "gulp": "^4.0.2",
