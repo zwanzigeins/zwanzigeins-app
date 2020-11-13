@@ -15,17 +15,17 @@
   "bugs": {
     "url": "https://github.com/zwanzigeins-app/zwanzigeins-app/issues"
   },
-  "homepage": "https://github.com/zwanzigeins-app/zwanzigeins-app#readme", 
+  "homepage": "https://github.com/zwanzigeins-app/zwanzigeins-app#readme",
   "devDependencies": {
-    "local-web-server": "^3.0.7",
     "gulp": "^4.0.2",
     "gulp-better-rollup": "^4.0.1",
     "gulp-rev": "^9.0.0",
     "gulp-ssh": "^0.7.0",
     "gulp-uglifycss": "^1.1.0",
-    "jasmine": "^3.5.0",
-    "rollup": "^1.29.0",
+    "jasmine": "^3.6.3",
+    "local-web-server": "^3.0.7",
+    "rollup": "^1.32.1",
     "rollup-plugin-uglify-es": "0.0.1",
-    "shelljs": "^0.8.3"
+    "shelljs": "^0.8.4"
   }
 }
