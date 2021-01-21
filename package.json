@@ -22,7 +22,7 @@
     "gulp-rev": "^9.0.0",
     "gulp-ssh": "^0.7.0",
     "gulp-uglifycss": "^1.1.0",
-    "jasmine": "^3.6.3",
+    "jasmine": "^3.6.4",
     "local-web-server": "^3.0.7",
     "rollup": "^1.32.1",
     "rollup-plugin-uglify-es": "0.0.1",
