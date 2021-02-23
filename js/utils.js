@@ -12,7 +12,7 @@ export default class Utils{
 	        }, 100);
 	    }
 
-	    elem.addEventListener('touchstart', function(evt) {
+	    elem.addEventListener('touchdown', function(evt) {
 	        processEvent(elem, evt);
 	        evt.preventDefault();
 	        evt.stopPropagation();
@@ -20,7 +20,8 @@ export default class Utils{
 
 	    }, true);
 
-	    elem.addEventListener('mousedown', function(evt) {
+		// IOS needs a click-handler to play sound
+	    elem.addEventListener('click', function(evt) {
 	        if (!elem.touchFired) {
 	            processEvent(elem, evt);
 	            elem.touchFired = false;

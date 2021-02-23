@@ -1,0 +1,26 @@
+html{
+	padding-bottom: 200px;
+}
+
+.debugBar{
+    position: fixed;
+    width: 100%;
+   
+    left: 0;
+    bottom: 0;
+    z-index: 10000;
+    border-top: 1px solid black;
+    background: white;
+    color: black;
+}
+
+.debugBar .loggingTab{
+    height: 200px;
+    width: 100%;
+    overflow-y: auto; 
+    font-size: 14px;
+}
+
+.logMessage.error{
+	color: red;
+}

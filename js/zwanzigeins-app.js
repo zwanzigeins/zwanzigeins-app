@@ -15,9 +15,27 @@ new ListenAndWriteGame(sound, pages);
 // try to initialize sound early to prevent 
 // a delayed, half, first utterance 
 let soundWarmedUp = false;
+
+// intended to improve warmup
+speechSynthesis.getVoices();
+
 document.addEventListener('hashchange', () =>{
+	
 	if(!soundWarmedUp){
+	
+		speechSynthesis.getVoices();
 		soundWarmedUp = true;
 		sound.playWord(' ');
 	}
 });
+
+// 
+let urlParams = new URLSearchParams(window.location.search);
+let debugParam = urlParams.get('debug');
+
+if(debugParam != null){
+	
+	let scriptElem = document.createElement('script');
+	scriptElem.src = 'js/debug-tools.js';
+	document.body.appendChild(scriptElem);
+}

@@ -61,10 +61,18 @@ gulp.task('revise-cachaeble', ready => {
 	ready();
 });
 
-gulp.task('copy-img', () =>{
+gulp.task('copy-img', () => {
 	
 	return gulp.src('img/**/*')
 		.pipe(gulp.dest(distPath + '/img'));
+});
+
+gulp.task('copy-debug-resources', ready => {
+	
+	shell.cp('js/debug-tools.js', distPath + '/js');
+	shell.cp('css/debug-tools.css', distPath + '/css');
+	
+	ready();
 });
 
 gulp.task('build-html', ready => {
@@ -114,4 +122,4 @@ gulp.task('clean', ready => {
 	ready();
 });
 
-gulp.task('default', gulp.series('clean', 'build-js', 'build-css', 'revise', 'revise-cachaeble', 'build-html', 'copy-img'), () => {} );
+gulp.task('default', gulp.series('clean', 'build-js', 'build-css', 'revise', 'revise-cachaeble', 'build-html', 'copy-img', 'copy-debug-resources'), () => {} );
