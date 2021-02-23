@@ -20,8 +20,7 @@ export default class Utils{
 
 	    }, true);
 
-		// IOS needs a click-handler to play sound
-	    elem.addEventListener('click', function(evt) {
+	    elem.addEventListener('mousedown', function(evt) {
 	        if (!elem.touchFired) {
 	            processEvent(elem, evt);
 	            elem.touchFired = false;

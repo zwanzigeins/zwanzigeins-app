@@ -35,7 +35,9 @@ export default class NumberGame{
 		});
 		
 		var btnStart = this.menuElem.querySelector('.btnStart');
-		Utils.addPressHandler(btnStart, e => {
+		
+		// IOS needs a click-handler to play sound
+		btnStart.addEventListener('click', e => {
 		    e.preventDefault();
 		    pages.show(gamePageId);
 		    this.startGame();
