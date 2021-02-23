@@ -104,6 +104,7 @@
 	background-color: #f4f5f5;	
 	background-image: linear-gradient(to bottom, #f4f5f5, #dfdddd);
 	border-right: 1px solid #ccc;
+	user-select: none;
 }
 
 .numberGame td:last-child {
