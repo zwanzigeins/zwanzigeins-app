@@ -44,6 +44,7 @@ export default class Sound{
         
         msg.rate = speechRate;
         msg.onend = finishedHandler;
+        msg.lang = 'de-DE';
         window.speechSynthesis.speak(msg);
     }
     
@@ -125,11 +126,10 @@ export default class Sound{
     	
         var word = '';
         var numLength = num.length;
+        var arity = numLength - i;
         
         for(var i = 0; i < numLength; i++){
             var digit = parseInt(num.charAt(i));
-            
-            var arity = numLength - i;
             
             if(arity == 2 && digit == 1){
             	
