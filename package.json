@@ -19,10 +19,10 @@
   "devDependencies": {
     "gulp": "^4.0.2",
     "gulp-better-rollup": "^4.0.1",
-    "gulp-rev": "^9.0.0",
+    "gulp-rev-all": "^3.0.0",
     "gulp-ssh": "^0.7.0",
     "gulp-uglifycss": "^1.1.0",
-    "jasmine": "^3.6.4",
+    "jasmine": "^3.7.0",
     "local-web-server": "^3.0.7",
     "rollup": "^1.32.1",
     "rollup-plugin-uglify-es": "0.0.1",

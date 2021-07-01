@@ -29,7 +29,6 @@ document.addEventListener('hashchange', () =>{
 	}
 });
 
-// 
 let urlParams = new URLSearchParams(window.location.search);
 let debugParam = urlParams.get('debug');
 
@@ -39,3 +38,15 @@ if(debugParam != null){
 	scriptElem.src = 'js/debug-tools.js';
 	document.body.appendChild(scriptElem);
 }
+
+let swUri = "service-worker.js";
+            
+window.navigator.serviceWorker.getRegistration().then(registration => {
+       
+    if(registration == null) {
+        window.navigator.serviceWorker.register(swUri);
+    }
+    else {
+        registration.update();
+    }
+});

@@ -1,13 +1,13 @@
 const
   	gulp = require('gulp'),
   	rollup = require('gulp-better-rollup'),
-  	rev = require('gulp-rev'),
   	uglify = require('rollup-plugin-uglify-es'),
   	uglifycss = require('gulp-uglifycss'),
   	GulpSSH = require('gulp-ssh'),
   	shell = require('shelljs'),
   	fs = require('fs'),
-  	os = require('os')
+  	os = require('os'),
+	revAll = require('gulp-rev-all')
   	;
 
 const 
@@ -24,47 +24,31 @@ gulp.task('build-js', () => {
 
 gulp.task('build-css', () => {
 
-	return gulp.src('css/*')
+	return gulp.src(['css/*', '!css/debug-tools.css'])
 		.pipe(uglifycss())
 		.pipe(gulp.dest('build/stage/css'));
 });
 
-gulp.task('revise', () => {
-		
-	return gulp.src([stagePath + '/**/*.+(js|css)'])
-    	.pipe(rev())
-    	.pipe(gulp.dest(distPath))
-    	.pipe(rev.manifest())
-    	.pipe(gulp.dest(stagePath));
-});
-
-gulp.task('revise-cachaeble', ready => {
-	
-	let manifestPath = stagePath + '/rev-manifest.json';
-	
-	let manifestJson = fs.readFileSync(manifestPath);
-	let manifest = JSON.parse(manifestJson);
-	
-	for(let srcItem in manifest){
-		let resourcePath = manifest[srcItem];
-		let lastHyphenIdx = resourcePath.lastIndexOf('-');
-		let startPart = resourcePath.substring(0, lastHyphenIdx);
-		let endPart = resourcePath.substring(lastHyphenIdx + 1);
-		let cacheableResourcePath = startPart + '.cache.' + endPart;
-		shell.mv(distPath + "/" + resourcePath, distPath + "/" + cacheableResourcePath);
-		manifest[srcItem] = cacheableResourcePath;
-	}
-	
-	manifestJson = JSON.stringify(manifest, null, 4);
-	fs.writeFileSync(manifestPath, manifestJson, 'utf8');
-	
-	ready();
-});
-
-gulp.task('copy-img', () => {
+gulp.task('copy-images-to-stage', () => {
 	
 	return gulp.src('img/**/*')
-		.pipe(gulp.dest(distPath + '/img'));
+		.pipe(gulp.dest(stagePath + '/img'));
+});
+
+gulp.task('copy-other-to-stage', () => {
+	
+	return gulp.src('web-manifest.json')
+		.pipe(gulp.dest(stagePath));
+});
+
+gulp.task('rev-all', () => {
+	
+	return gulp.src(stagePath + '/**/*')
+		.pipe(revAll.revision({ includeFilesInManifest: ['.css', '.js', '.png', '.svg', '.html'] }))
+		.pipe(gulp.dest(distPath))
+		.pipe(revAll.manifestFile())
+		.pipe(gulp.dest(stagePath))
+		;
 });
 
 gulp.task('copy-debug-resources', ready => {
@@ -77,22 +61,56 @@ gulp.task('copy-debug-resources', ready => {
 
 gulp.task('build-html', ready => {
 
-	let manifestJson = fs.readFileSync(stagePath + '/rev-manifest.json');
-	let manifest = JSON.parse(manifestJson); 
 	let html = fs.readFileSync('zwanzigeins-app.html', 'utf8');
-	
-	for(let srcItem in manifest){
-		html = html.replace(srcItem, manifest[srcItem]);
-	}
 	
 	html = html.replace(' type="module"', '');
 	
-	fs.writeFileSync(distPath + '/index.html', html, 'utf8');
+	shell.mkdir('-p', stagePath);
+	
+	fs.writeFileSync(stagePath + '/index.html', html, 'utf8');
+	
+	ready();
+});
+
+gulp.task('build-service-worker', ready => {
+	
+	let manifestPath = stagePath + '/rev-manifest.json';
+	
+	let manifestJson = fs.readFileSync(manifestPath);
+	let manifest = JSON.parse(manifestJson);
+	
+	let cacheManifest = { urls: [], endpoints: [] };
+	
+	for(let srcItem in manifest){
+		
+		let resourcePath = manifest[srcItem];
+		
+		if(srcItem == 'index.html'){
+			
+			shell.mv(distPath + '/' + resourcePath, distPath + '/index.html');
+			
+			let checksum = resourcePath.substr('index.'.length, 8);
+			let endpoint = {url: '/', checksum: checksum};
+			cacheManifest.endpoints.push(endpoint);
+		}	
+		else{
+			cacheManifest.urls.push(resourcePath);
+		}	
+	}
+	
+	let cacheManifestJson = JSON.stringify(cacheManifest, null, 4);
+	
+	let serviceWorkerContent = fs.readFileSync('service-worker.js');
+	
+	let result = serviceWorkerContent + '\ncacheManifest = ' + cacheManifestJson
+	
+	fs.writeFileSync(distPath + '/service-worker.js', result, 'utf8');
 	
 	ready();
 });
 
 gulp.task('deploy', ready => {
+	
 	let configJson = fs.readFileSync('deploy-config.json');
 	let config = JSON.parse(configJson);
 	
@@ -118,8 +136,20 @@ gulp.task('deploy', ready => {
 });
 
 gulp.task('clean', ready => {
+	
 	shell.rm('-rf', 'build/*');
 	ready();
 });
 
-gulp.task('default', gulp.series('clean', 'build-js', 'build-css', 'revise', 'revise-cachaeble', 'build-html', 'copy-img', 'copy-debug-resources'), () => {} );
+gulp.task('default', gulp.series(
+	'clean',
+	'copy-images-to-stage',
+	'copy-other-to-stage',
+	'build-js',
+	'build-css',
+	'build-html',
+	'rev-all',
+	'build-service-worker',
+	'copy-debug-resources',
+	), () => {}
+);
