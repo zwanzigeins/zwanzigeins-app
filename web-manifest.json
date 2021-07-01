@@ -6,7 +6,7 @@
 	"description": "Zum Erproben der unverdrehten Zahlensprechweise.",
 	"lang": "de-DE",
 	"orientation": "portrait-primary",
-	"start_url": "./",
+	"start_url": "/app/index.html",
 	"theme_color": "#222",
 	
 	"icons": [

@@ -5,11 +5,35 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    id="svg921"
    version="1.1"
    viewBox="0 0 12.7 12.7"
    height="48"
-   width="48">
+   width="48"
+   sodipodi:docname="logo.svg"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)">
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="2156"
+     inkscape:window-height="1273"
+     id="namedview9"
+     showgrid="false"
+     inkscape:zoom="9.8333333"
+     inkscape:cx="28.571949"
+     inkscape:cy="5.2151369"
+     inkscape:window-x="905"
+     inkscape:window-y="433"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg921" />
   <defs
      id="defs915" />
   <metadata
@@ -20,10 +44,19 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
+  <rect
+     style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:7.9375;stroke-miterlimit:4;stroke-dasharray:none"
+     id="rect819"
+     width="12.7"
+     height="12.7"
+     x="-0.053813558"
+     y="-0.026906786"
+     rx="1.3229166"
+     ry="1.3229166" />
   <g
      transform="translate(-9.0319127,-5.2727516)"
      id="layer1">
