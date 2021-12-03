@@ -1,4 +1,18 @@
-#mentalArithmeticMenu>button {
+:root{
+	--button-gradient-top-color: #f4f5f5;
+	--button-gradient-bottom-color: #dfdddd;
+	--button-gradient-top-active-color: #d9dddd;
+	--button-gradient-bottom-color-active: #c6c3c3;
+}
+
+html.dark-theme{
+	--button-gradient-top-color: var(--button-bg-color);
+	--button-gradient-bottom-color: var(--button-bg-color);
+	--button-gradient-top-active-color: var(--button-bg-active-color);
+	--button-gradient-bottom-active-color: var(--button-bg-active-color);
+}
+
+#mentalArithmeticMenu > button {
 	margin-top: 1rem;
 }
 
@@ -44,11 +58,11 @@
 
 .numberGame .task, .numberGame .answer {
 	height: 6rem;
-	background: white;
+	background: var(--input-bg-color);
 }
 
 .numberGame td{
-	border-bottom: 1px solid #ccc;
+	border-bottom: 1px solid var(--default-border-color);
 }
 
 .numberGame tr:last-child td{
@@ -84,26 +98,27 @@
 	display: none;
 	width: 33.333333%;
 	height: 9rem;
-	background: url(../img/ic_play_arrow_24px.svg) center center no-repeat, linear-gradient(to bottom, #f4f5f5, #dfdddd);
+/* 	background: linear-gradient(to bottom, #f4f5f5, #dfdddd); */
 	background-size: 48px;
 	border-left: 0;
+}
+
+.numberGame.auditive .playAgainBtn:before{
+	background-image: url(../img/ic_play_arrow_24px.svg);
+	background-size: 1em;
 }
 
 .numberGame.auditive .playAgainBtn {
 	display: table-cell;
 }
 
-.numberGame .playIcon {
-	background: url(//cdn.justedit.com/icomoon/play3.svg);
-}
-
 .numberGame td, .numberGame.auditive #playAgainBtn{
 	width: 33.33333%;
 	vertical-align: middle;
 	text-align: center;
-	background-color: #f4f5f5;	
-	background-image: linear-gradient(to bottom, #f4f5f5, #dfdddd);
-	border-right: 1px solid #ccc;
+	background-color: var(--button-bg-color);	
+	background-image: linear-gradient(to bottom, var(--button-gradient-top-color), var(--button-gradient-bottom-color));
+	border-right: 1px solid var(--default-border-color);
 	user-select: none;
 }
 
@@ -112,6 +127,7 @@
 }
 
 .numberGame td.touching, #playAgainBtn.touching {
-	background-color: #d9dddd;
-	background-image: linear-gradient(to bottom, #d9dddd, #c6c3c3);	
+	background-color: var(--button-bg-active-color);
+	background-image: linear-gradient(to bottom, var(--button-gradient-top-active-color), var(--button-gradient-bottom-active-color));
 }
+

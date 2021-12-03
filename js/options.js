@@ -67,8 +67,7 @@ export default class Options{
 					this[propertyKey] = e.target.value;
 					this.saveOptions();
 				}
-			}
-			
+			}			
 		}
 	}
 	
