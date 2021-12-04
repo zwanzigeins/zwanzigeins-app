@@ -1,9 +1,10 @@
 import Sound from '../js/sound.js';
-import GlobalSettings from '../js/global-settings.js'
+import GlobalSettings from '../js/global-settings.js';
+import Utils from '../js/utils.js';
 
 let sound = new Sound();
 GlobalSettings.INSTANCE = new GlobalSettings();
-GlobalSettings.INSTANCE.speechRate = "1.5";
+GlobalSettings.INSTANCE.speechRate = '1.5';
 
 
 
@@ -36,8 +37,16 @@ buttonVerdreht.onclick = () =>{
 	playSequence(21);
 }
 
-var letterized = sound.letterizeZehnEinsNumber("15");
+var letterized = sound.letterizeZehnEinsNumber('15');
 console.log('letterized zehneins: ' + letterized);
 
-var letterizedZwanzigeins = sound.letterizeZwanzigEinsNumber("15");
+var letterizedZwanzigeins = sound.letterizeZwanzigEinsNumber('15');
 console.log('letterized zehneins: ' + letterizedZwanzigeins);
+
+let numberified;
+
+//numberified = Utils.numberifySpeechResult('20.1');
+//console.log(numberified);
+
+numberified = Utils.numberifySpeechResult('170/2');
+console.log(numberified);

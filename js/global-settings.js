@@ -12,13 +12,16 @@ export default class GlobalSettings extends Options{
 		this.applyTheme();
 		
 		let mainMenuElem = document.getElementById('settings');
-		let themeRadioElems = mainMenuElem.querySelectorAll('input[name="theme"]');
-		for(let radioElem of themeRadioElems){
-			radioElem.addEventListener('change', () => {
-				
-				this.applyTheme();				
-			});		
+		if(mainMenuElem){
+			let themeRadioElems = mainMenuElem.querySelectorAll('input[name="theme"]');
+			for(let radioElem of themeRadioElems){
+				radioElem.addEventListener('change', () => {
+					
+					this.applyTheme();				
+				});		
+			}
 		}
+		// else testmode
 	}
 	
 	applyTheme(){

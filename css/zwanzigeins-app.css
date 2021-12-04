@@ -56,7 +56,8 @@ html.dark-theme{
 	border-collapse: collapse;   	
 }
 
-.numberGame .task, .numberGame .answer {
+.numberGame .task,
+.answer {
 	height: 6rem;
 	background: var(--input-bg-color);
 }
@@ -131,3 +132,9 @@ html.dark-theme{
 	background-image: linear-gradient(to bottom, var(--button-gradient-top-active-color), var(--button-gradient-bottom-active-color));
 }
 
+#numberDictationGame .answer{
+	font-size: 2.5rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
