@@ -17,7 +17,7 @@ export default class ListenAndWriteGame extends NumberGame{
 		// IOS needs a click-handler to play sound
 		btnStart.addEventListener('click', e => {
 		    e.preventDefault();
-		    pages.show(gamePageId);
+		    pages.show('listenAndWriteGame');
 		    this.startGame();
 		});
 	}

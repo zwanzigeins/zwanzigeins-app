@@ -5,9 +5,6 @@ export default class MentalArithmeticGameLevel extends NumberGame {
 	constructor(sound, pages, levelOptions){
 		
 		super(sound, pages, 'mentalArithmeticMenu', 'mentalArithmeticGame');
-		
-		levelOptions.numTasks = 10;
-		
 		this.options = levelOptions;	
 	}
 	

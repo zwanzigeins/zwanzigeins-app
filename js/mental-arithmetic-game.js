@@ -12,7 +12,6 @@ export default class MentalArithmeticGame {
 		};
 
 		this.options = new Options('mentalArithmeticMenu', this.defaultOptions);
-		let pageElem = this.options.pageElem;
 		
 		let startAnchorElems = document.querySelectorAll('[id$="choose-level"] .btnStart');
 		
@@ -23,6 +22,13 @@ export default class MentalArithmeticGame {
 				let elem = evt.target
 				let levelName = elem.dataset.level;
 				let levelOptions = this.getPredefinedLevelOptions(levelName);
+				
+				if(this.options.auditive){
+					levelOptions['auditive'] = true;
+				}
+				
+				levelOptions['numTasks'] = this.options.numTasks;
+				
 				let level = new MentalArithmeticGameLevel(sound, pages, levelOptions);
 				level.startGame();
 			}		
