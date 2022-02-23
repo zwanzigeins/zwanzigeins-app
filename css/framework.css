@@ -1,5 +1,5 @@
 :root{
-    --header-bg-color: #333;
+    --header-bg-color: #282828;
     --header-font-color: white;
     --selected-bg-color: #1482cc;
     --error-color: #d32f2f;
@@ -19,13 +19,13 @@
 }
 
 html.dark-theme{
-	--default-panel-bg-color: #444;
+	--default-panel-bg-color: #333;
 	--default-font-color: #fff;
-	--default-border-color: #444;
+	--default-border-color: #484848;
 	
 	--body-bg-color: #262626;
 	
-	--button-bg-color: #555;
+	--button-bg-color: #444;
 	--button-bg-active-color: #333;
 	
 	--button-text-shadow-color: rgba(0, 0, 0, 0.7);

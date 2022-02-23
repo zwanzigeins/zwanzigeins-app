@@ -6,8 +6,8 @@
 }
 
 html.dark-theme{
-	--button-gradient-top-color: var(--button-bg-color);
-	--button-gradient-bottom-color: var(--button-bg-color);
+	--button-gradient-top-color: var(--default-panel-bg-color);
+	--button-gradient-bottom-color: var(--default-panel-bg-color);
 	--button-gradient-top-active-color: var(--button-bg-active-color);
 	--button-gradient-bottom-active-color: var(--button-bg-active-color);
 }

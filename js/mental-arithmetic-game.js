@@ -1,273 +1,369 @@
-import NumberGame from './number-game.js';
 import Options from './options.js';
+import MentalArithmeticGameLevel from './mental-arithmetic-game-level.js';
 
-export default class MentalArithmeticGame extends NumberGame{
-	
-	constructor(sound, pages){		
-		super(sound, pages, 'mentalArithmeticMenu', 'mentalArithmeticGame');
-		
+export default class MentalArithmeticGame {
+
+	constructor(sound, pages) {
+
 		this.defaultOptions = {
-		    from1 : 1,
-		    to1 : 100,
-		    from2 : 1,
-		    to2 : 100,
-		    plus : true,
-		    minus : false,
-		    multiply : false,
-		    divide : false,
-		    numTasks : 10,
-		    fullscreen : false,
-		    auditive : false
+			numTasks: 10,
+			fullscreen: false,
+			auditive: false
 		};
-		
+
 		this.options = new Options('mentalArithmeticMenu', this.defaultOptions);
 		let pageElem = this.options.pageElem;
-		this.ensureFromSmallerThanTo(pageElem, 'from1', 'to1');
-		this.ensureFromSmallerThanTo(pageElem, 'from2', 'to2');
 		
+		let startAnchorElems = document.querySelectorAll('[id$="choose-level"] .btnStart');
+		
+		for(let elem of startAnchorElems){
+			
+			elem.onclick = evt => {
+				
+				let elem = evt.target
+				let levelName = elem.dataset.level;
+				let levelOptions = this.getPredefinedLevelOptions(levelName);
+				let level = new MentalArithmeticGameLevel(sound, pages, levelOptions);
+				level.startGame();
+			}		
+		}
+
+		// TODO restore
+		//		this.ensureFromSmallerThanTo(pageElem, 'from1', 'to1');
+		//		this.ensureFromSmallerThanTo(pageElem, 'from2', 'to2');
+
 		// declare empty variables for documentation
 		this.rightResult;
 		this.rightResultStr;
 
 		this.wrongAnswerOccured;
 		this.wrongAnswerTimeStamp;
-		
+
 		this.tasksPut = 0;
 		this.gameStartTimeStamp;
 	}
-	
-	ensureFromSmallerThanTo(optionsPageElem, fromInputName, toInputName){
-		
+
+	ensureFromSmallerThanTo(optionsPageElem, fromInputName, toInputName) {
+
 		let fromInputSelector = '[name="' + fromInputName + '"]';
 		let toInputSelector = '[name="' + toInputName + '"]';
-		
+
 		let fromInputElem = optionsPageElem.querySelector(fromInputSelector);
 		let toInputElem = optionsPageElem.querySelector(toInputSelector);
-		
-		function setMinOnTo(){
-			
+
+		function setMinOnTo() {
+
 			let val = fromInputElem.value;
 			let intVal = parseInt(val);
 			let toMin = intVal + 1;
 			toInputElem.min = toMin;
 		}
 		setMinOnTo();
-		
-		function setMaxOnFrom(){
-			
+
+		function setMaxOnFrom() {
+
 			let val = toInputElem.value;
 			let intVal = parseInt(val);
 			let fromMax = intVal - 1;
 			fromInputElem.max = fromMax;
 		}
 		setMaxOnFrom();
-		
+
 		fromInputElem.addEventListener('input', setMinOnTo);
 		toInputElem.addEventListener('input', setMaxOnFrom);
-		
+
 		let onBlur = e => {
-			
+
 			let elem = e.target;
-			
-			if(!elem.value || isNaN(elem.value)){
+
+			if (!elem.value || isNaN(elem.value)) {
 				let defaultVal = this.defaultOptions[elem.name];
 				elem.value = defaultVal;
 			}
-			
+
 			let intVal = parseInt(elem.value);
-			if(elem.min){
+			if (elem.min) {
 				let intMin = elem.min;
-				if(intVal < intMin){
+				if (intVal < intMin) {
 					elem.value = elem.min;
 					let evt = new Event('input');
 					elem.dispatchEvent(evt);
 				}
 			}
-			if(elem.max){
+			if (elem.max) {
 				let intMax = elem.max;
-				if(intVal > intMax){
+				if (intVal > intMax) {
 					elem.value = elem.max;
 					let evt = new Event('input');
 					elem.dispatchEvent(evt);
 				}
 			}
 		};
-		
+
 		fromInputElem.addEventListener('blur', onBlur);
 		toInputElem.addEventListener('blur', onBlur);
 	}
-	
-	startGame(){
-	    
-		window.location.hash = 'mentalArithmeticGame';
-		
-	    if(this.options.fullscreen){
-	        if(document.documentElement.webkitRequestFullscreen){
-	            document.documentElement.webkitRequestFullscreen();
-	        }
-	        else if(document.documentElement.requestFullscreen){
-	            document.documentElement.requestFullscreen();
-	        }
-	    }
 
-	    this.wrongAnswerOccured = false;
-	    this.gameStartTimeStamp = new Date();
-	    this.tasksPut = 0;
+	getPredefinedLevelOptions(levelName) {
 
-	    this.answerElem.innerHTML = "";
-	    this.putNewTask();
-	   
-	    window.onkeydown = e => {
-	        if(e.keyCode >= 96 && e.keyCode <= 105){ //numpad-tasten von 0 bis 9
-	            this.processNumberInput(e.keyCode - 96);
-	        }
-	    }
-	    
-	    if(this.options['auditive']){
-	        this.gameElem.classList.add('auditive');
-	    }
-	    else{
-	        this.gameElem.classList.remove('auditive');
-	    }
-	    
-	    var queryTerm = 
-	        '#mentalArithmeticGame:not(.auditive) .answerWrapper.simple .answer,' + 
-	        '#mentalArithmeticGame.auditive .answerWrapper.auditive .answer';
-	    this.answerElem = this.gameElem.querySelector(queryTerm);	    	  
-	}
-	
-	putNewTask() {
-        
-	    var operators = [];
-	    let options = this.options;
-	    if(options['plus']){
-	        operators.push("plus");
-	    }
-	    if(options['minus']){
-	        operators.push("minus");
-	    }
-	    if(options['multiply']){
-	        operators.push("multiply");
-	    }
-	    if(options['divide']){
-	        operators.push("divide");
-	    }
-	    
-	    //würfele eine Zahl, die der Anzahl der gewählten Operatoren entspricht
-	    let randomIndex = this.getRandomNumber(0, operators.length - 1);
-	    
-	    let operator = operators[randomIndex];
-	    
-	    let num1 = this.getRandomNumber(options['from1'], options['to1']);
-	    let num2 = this.getRandomNumber(options['from2'], options['to2']);	   	  
-	    
-	    switch(operator){
-	    
-	    case "plus":
-	        this.rightResult = num1 + num2;
-	        this.taskElem.innerHTML = num1 + ' + ' + num2;
-	        this.sound.playTask(num1, operator, num2);
-	        break;
-	    
-	    case "minus":
-	        let minuend, subtrahent;
-	        if(num1 > num2){
-	            minuend = num1;
-	            subtrahent = num2;
-	        }
-	        else{
-	            minuend = num2;
-	            subtrahent = num1;
-	        }
-	        
-	        this.sound.playTask(minuend, operator, subtrahent);
-	        
-	        this.rightResult = minuend - subtrahent;
-	        this.taskElem.innerHTML = minuend + ' - ' + subtrahent;
-	        
-	        break;
-	    
-	    case "multiply":
-	        operator = "mal";
-	        this.sound.playTask(num1, operator, num2);
-	        this.rightResult = num1 * num2;
-	        this.taskElem.innerHTML = num1 + ' &times; ' + num2;
-	        break;
-	    
-	    case "divide":
-	        operator = "durch";
-	        
-	        
-	        let parts = this.getIntegralDivisionParts(num1, num2);
-	        let dividend = parts[0];
-	        let divisor = parts[1];
-	        
-	        while(divisor == dividend || divisor == 1){
-	        	// division by same number or by 1 is pointless so try again
-	        	num1 = this.getRandomNumber(options['from1'], options['to1']);
-	     	    num2 = this.getRandomNumber(options['from2'], options['to2']);
-	     	    
-	     	    parts = this.getIntegralDivisionParts(num1, num2);
-		        dividend = parts[0];
-		        divisor = parts[1];
-	        }
-	        
-	        this.rightResult = parts[2];
-	        this.sound.playTask(dividend, operator, divisor);
-	        this.taskElem.innerHTML = dividend + ' &divide; ' + divisor;
-	        break;	    
-	    }
-	    
-	    this.rightResultStr = new String(this.rightResult);
-	    this.styleGoodAnswer();
-	    this.tasksPut++;
-	}
-	
-	getIntegralDivisionParts(randomNum1, randomNum2){
+		let levelOptions = {};
 		
-		let dividend, divisor;
-        if(randomNum1 > randomNum2){
-            dividend = randomNum1;
-            divisor = randomNum2;
-        }
-        else{
-            dividend = randomNum2;
-            divisor = randomNum1;
-        }
-        
-        let result;
-        let integralDivisionFound = false;
-        
-        // decrement divisor until it's an integral task
-        for(let divisorCandidate = divisor; divisorCandidate > 1; divisorCandidate--){
-        	result = dividend / divisorCandidate;
-        	if(this.isIntegral(result)){
-        		integralDivisionFound = true;
-        		divisor = divisorCandidate;
-        		break;
-        	}
-        }
-        
-        if(!integralDivisionFound){
-        	for(; divisor <= dividend; divisor++){
-	        	result = dividend / divisor;
-	        	if(this.isIntegral(result)){
-	        		break;
-	        	}
-	        }
-        }
-        
-        return [dividend, divisor, result];
-	}
-	
-	isIntegral(divisionResult) {
-		
-		let parts = divisionResult.toString().split('.');
-		if(parts.length == 1){
-			return true;
+		switch (levelName) {
+
+			case 'addition-easy':
+
+				this.appendAdditionEasy(levelOptions);
+				break;
+
+			case 'addition-medium':
+
+				this.appendAdditionMedium(levelOptions);
+				break;
+				
+			case 'addition-hard':
+
+				this.appendAdditionHard(levelOptions);
+				break;
+				
+			case 'subtraction-easy':
+
+				this.appendSubtractionEasy(levelOptions);
+				break;
+
+			case 'subtraction-medium':
+
+				this.appendSubtractionMedium(levelOptions);
+				break;
+				
+			case 'subtraction-hard':
+
+				this.appendSubtractionHard(levelOptions);				
+				break;
+				
+			case 'addition-subtraction-easy':
+			
+				this.appendAdditionEasy(levelOptions);
+				this.appendSubtractionEasy(levelOptions);
+				break;
+				
+			case 'addition-subtraction-medium':
+			
+				this.appendAdditionMedium(levelOptions);
+				this.appendSubtractionMedium(levelOptions);
+				break;
+				
+			case 'addition-subtraction-hard':
+			
+				this.appendAdditionHard(levelOptions);
+				this.appendSubtractionHard(levelOptions);
+				break;
+				
+			case 'multiplication-easy':
+				
+				this.appendMultiplicatonEasy(levelOptions);
+				break;
+				
+			case 'multiplication-medium':
+				
+				this.appendMultiplicatonMedium(levelOptions);
+				break;
+				
+			case 'multiplication-hard':
+				
+				this.appendMultiplicatonHard(levelOptions);
+				break;
+				
+			case 'division-easy':
+				
+				this.appendDivisionEasy(levelOptions);
+				break;
+				
+			case 'division-medium':
+				
+				this.appendDivisionMedium(levelOptions);
+				break;
+				
+			case 'division-hard':
+				
+				this.appendDivisionHard(levelOptions);
+				break;
+				
+			case 'multiplication-division-easy':
+				
+				this.appendMultiplicatonEasy(levelOptions);
+				this.appendDivisionEasy(levelOptions);
+				break;
+				
+			case 'multiplication-division-medium':
+				
+				this.appendMultiplicatonMedium(levelOptions);
+				this.appendDivisionMedium(levelOptions);
+				break;
+				
+			case 'multiplication-division-hard':
+				
+				this.appendMultiplicatonHard(levelOptions);
+				this.appendDivisionHard(levelOptions);
+				break;
+				
+			case 'mixed-easy':
+			
+				this.appendAdditionEasy(levelOptions);
+				this.appendSubtractionEasy(levelOptions);
+				this.appendMultiplicatonEasy(levelOptions);
+				this.appendDivisionEasy(levelOptions);
+				break;
+				
+			case 'mixed-medium':
+			
+				this.appendAdditionMedium(levelOptions);
+				this.appendSubtractionMedium(levelOptions);
+				this.appendMultiplicatonMedium(levelOptions);
+				this.appendDivisionMedium(levelOptions);
+				break;
+				
+			case 'mixed-hard':
+			
+				this.appendAdditionHard(levelOptions);
+				this.appendSubtractionHard(levelOptions);
+				this.appendMultiplicatonHard(levelOptions);
+				this.appendDivisionHard(levelOptions);
+				break;
+				
 		}
-		else{
-			return false;
+
+		levelOptions['levelName'] = levelName;
+		for(let propertyKey in levelOptions){
+
+			switch(propertyKey){
+				case 'plus':
+				case 'minus':
+				case 'multiply':
+				case 'divide':
+				levelOptions[propertyKey].enabled = true;
+			}		
+		}
+
+		return levelOptions;
+	}
+	
+	appendAdditionEasy(levelOptions){
+		
+		levelOptions.plus = {
+			from1: 2,
+			to1: 20,
+			from2: 2,
+			to2: 20
+		}
+	}
+	
+	appendAdditionMedium(levelOptions){
+		
+		levelOptions.plus = {
+			from1: 11,
+			to1: 100,
+			from2: 11,
+			to2: 100
+		}
+	}
+	
+	appendAdditionHard(levelOptions){
+		
+		levelOptions.plus = {
+			from1: 11,
+			to1: 500,
+			from2: 11,
+			to2: 500
+		}
+	}
+	
+	appendSubtractionEasy(levelOptions){
+		
+		levelOptions.minus = {
+			from1: 2,
+			to1: 20,
+			from2: 2,
+			to2: 20
+		}
+	}
+	
+	appendSubtractionMedium(levelOptions){
+		
+		levelOptions.minus = {
+			from1: 11,
+			to1: 100,
+			from2: 11,
+			to2: 100
+		}
+	}
+	
+	appendSubtractionHard(levelOptions){
+		
+		levelOptions.minus = {
+			from1: 11,
+			to1: 500,
+			from2: 11,
+			to2: 500
+		}
+	}
+	
+	appendMultiplicatonEasy(levelOptions){
+		
+		levelOptions.multiply = {
+			from1: 2,
+			to1: 5,
+			from2: 2,
+			to2: 5
+		}
+	}
+	
+	appendMultiplicatonMedium(levelOptions){
+		
+		levelOptions.multiply = {
+			from1: 2,
+			to1: 9,
+			from2: 2,
+			to2: 9
+		}
+	}
+	
+	appendMultiplicatonHard(levelOptions){
+		
+		levelOptions.multiply = {
+			from1: 5,
+			to1: 20,
+			from2: 5,
+			to2: 20
+		}
+	}
+	
+	appendDivisionEasy(levelOptions){
+		
+		levelOptions.divide = {
+			from1: 10,
+			to1: 30,
+			from2: 2,
+			to2: 5
+		}
+	}
+	
+	appendDivisionMedium(levelOptions){
+		
+		levelOptions.divide = {
+			from1: 10,
+			to1: 100,
+			from2: 2,
+			to2: 9
+		}
+	}
+	
+	appendDivisionHard(levelOptions){
+		
+		levelOptions.divide = {
+			from1: 100,
+			to1: 1000,
+			from2: 2,
+			to2: 20
 		}
 	}
 

@@ -10,10 +10,14 @@ export default class NumberGame{
 		this.menuElem = document.getElementById(menuPageId);
 		this.gameElem = document.getElementById(gamePageId);
 		
+		// remove alle event-listeners
+		this.gameElem.innerHTML = this.gameElem.innerHTML;
+		
 		this.taskElem = this.gameElem.querySelector('.task > td');
 		this.playAgainBtn = this.gameElem.querySelector('.playAgainBtn');
 		
-		Utils.addPressHandler(this.playAgainBtn, e => {
+		Utils.addPressHandler(this.playAgainBtn, () => {
+			
 			this.sound.playAgain();
 		});
 		
@@ -30,27 +34,10 @@ export default class NumberGame{
 		var clearBtn = this.gameElem.querySelector('.clearBtn');
 
 		Utils.addPressHandler(clearBtn, e => {
+			
 		    this.answerElem.innerHTML = "";
 		    this.styleGoodAnswer();
 		});
-		
-		var btnStart = this.menuElem.querySelector('.btnStart');
-		
-		// IOS needs a click-handler to play sound
-		btnStart.addEventListener('click', e => {
-		    e.preventDefault();
-		    pages.show(gamePageId);
-		    this.startGame();
-		});
-		
-		// speech synthesis is only allowed on user-interaction, 
-		// so always go back to mentalArithmeticMenu if
-		// page-reload was triggered on mentalArithmeticGame
-		let currentPageId = pages.getCurrentId();
-		if(currentPageId == gamePageId){
-			history.back();
-		}
-		
 	}
 	
 	/**
@@ -120,11 +107,10 @@ export default class NumberGame{
 			}
 			document.getElementById('lastGameTime').innerHTML = minutes + ":" + seconds;
 
-			setTimeout(function(){
+			setTimeout(() => {
 				pageElem.querySelector(".dialog").classList.remove("showing");
 			}, 2000);
-		}, 10);
-	   
+		}, 10);	   
 	}
 	
 	styleWrongAnswer(){

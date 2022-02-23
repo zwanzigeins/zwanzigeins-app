@@ -11,6 +11,15 @@ export default class ListenAndWriteGame extends NumberGame{
 		    numTasks : 10,
 		    fullscreen : false
 		};
+		
+		var btnStart = this.menuElem.querySelector('.btnStart');
+		
+		// IOS needs a click-handler to play sound
+		btnStart.addEventListener('click', e => {
+		    e.preventDefault();
+		    pages.show(gamePageId);
+		    this.startGame();
+		});
 	}
 	
 	putNewTask() {

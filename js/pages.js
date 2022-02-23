@@ -1,54 +1,68 @@
-export default class Pages{
-	
-	constructor(){
-		
+export default class Pages {
+
+	constructor() {
+
 		this.pagesElem = document.querySelector('body > .pages');
-		
-		if(window.location.hash){
-		    var navToken = location.hash.substring(1);
-		    this.show(navToken);
+
+		if (window.location.hash) {
+
+			var navToken = location.hash.substring(1);
+			// speech synthesis is only allowed on user-interaction, 
+			// so always go back to mentalArithmeticMenu if
+			// page-reload was triggered on mentalArithmeticGame
+			let currentPageId = this.getCurrentId();
+			let pageElem = document.getElementById(currentPageId);
+			if (pageElem.dataset.preventInitialDisplay != undefined && currentPageId == pageElem.id) {
+				history.back();
+			}
+			else {
+				this.show(navToken);
+			}
 		}
 
-		window.onhashchange = e =>{
-		    var navToken = location.hash.substring(1);
-		    this.show(navToken);
+		window.onhashchange = () => {
+			var navToken = location.hash.substring(1);
+			this.show(navToken);
 		};
 
 		var backBtns = document.querySelectorAll('.back');
-		for(var i = 0; i < backBtns.length; i++){
-		    backBtns[i].onclick = function(e){
-		        history.back();
-		    };
+		for (var i = 0; i < backBtns.length; i++) {
+			backBtns[i].onclick = function(e) {
+				history.back();
+			};
 		}
 	}
-	
-	show(id){
-		  
-	    var pageElem = document.getElementById(id);
-	    if(!pageElem){
-	        pageElem = document.getElementById('mainMenu');
-	    }
-	    this.pagesElem.insertBefore(pageElem, this.pagesElem.firstChild);
-	}
-	
-	getCurrentId(){
-		let hash = window.location.hash;
+
+	show(id) {
+
+		var pageElem = document.getElementById(id);
+		if (!pageElem) {
+			pageElem = document.getElementById('mainMenu');
+		}
 		
-		if(hash){
+		this.pagesElem.insertBefore(pageElem, this.pagesElem.firstChild);		
+	}
+
+	getCurrentId() {
+		
+		let hash = window.location.hash;
+
+		if (hash) {
 			return hash.substring(1);
 		}
-		
-		return '';
+
+		return 'mainMenu';
 	}
-	
-	getCurrentPageElement(){
+
+	getCurrentPageElement() {
+		
 		let id = this.getCurrentId();
 		let page = document.getElementById(id);
-		if(page){
+		if (page) {
 			return page;
 		}
-		else{
-			return document.getElementById('mainMenu'); 
+		else {
+			return document.getElementById('mainMenu');
 		}
 	}
 

@@ -52,7 +52,7 @@
              </div>
         </div>
         
-        <table id="listenAndWriteGame" class="page numberGame auditive">
+        <table id="listenAndWriteGame" class="page numberGame auditive" data-prevent-initial-display>
             <tr class="task">
                 <td colspan="3"></td>
             </tr>          
@@ -87,74 +87,15 @@
                 <h1>Kopfrechen-Trainer</h1>
             </header>
             <div class="center">
-                <a class="btnStart" href="#mentalArithmeticGame">Start</a>
-                <div>
-                    <h2>Stelligkeiten</h2>
-                    <table class="fromTo">
-                        <tr>
-                            <td rowspan="2"><h3>Zahl&nbsp;1&nbsp;</h3></td>
-                            <td><label>von</label></td>
-                            <td>
-                                <div class="field">
-                                    <input type="number" id="from1" name="from1" min="0">
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label>bis</label></td>
-                            <td>
-                                <div class="field">
-                                    <input type="number" id="to1" name="to1">
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-
-                    <table class="fromTo secondNumArity">
-                        <tr>
-                            <td rowspan="2"><h3>Zahl&nbsp;2&nbsp;</h3></td>
-                            <td><label>von</label></td>
-                            <td>
-                                <div class="field">
-                                    <input type="number" id="from2" name="from2" min="0">
-                                </div>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td><label>bis</label></td>
-                            <td>
-                                <div class="field">
-                                    <input type="number" id="to2" name="to2">
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-
-                </div>
-
-                <div id="arities">
-                    <h2>Rechenarten</h2>
-                    <div class="controlGroup">
-                        <div class="field">
-                            <input type="checkbox" id="plus" name="plus">
-                            <label for="plus"> + </label>
-                        </div>
-                        <div class="field">
-                            <input type="checkbox" id="multiply" name="multiply">
-                            <label for="multiply"> &times; </label>
-                        </div>
-                        <div class="field">
-                            <input type="checkbox" id="minus" name="minus">
-                            <label for="minus"> &thinsp;- </label>
-                        </div>
-                        <div class="field">
-                            <input type="checkbox" id="divide" name="divide">
-                            <label for="divide"> &divide; </label>
-                        </div>
-                    </div>
-                </div>
-
+                               
+                <a href="#addition-choose-level">Addition</a>
+                <a href="#subtraction-choose-level">Subtraktion</a>
+                <a href="#addition-subtraction-choose-level">Addition / Subtraktion</a>
+                <a href="#multiplication-choose-level">Multiplikation</a>
+                <a href="#division-choose-level">Division</a>
+                <a href="#multiplikation-division-choose-level">Multiplikation / Division</a>
+                <a href="#mixed-choose-level">Gemischt</a>
+                
                 <div id="numTasks">
                     <h2>Anzahl Aufgaben</h2>
                     <div class="field">
@@ -194,8 +135,162 @@
                 </div>
             </div>
         </div>
+        
+        <div id="addition-choose-level" class="page">
+            <header>
+                <button class="back"></button>
+                <h1>Addition: Level wählen</h1>
+            </header>
+            <div class="center">
+				<a class="btnStart" data-level="addition-easy" href="#mentalArithmeticGame">Einfach</a>
+                <a class="btnStart" data-level="addition-medium" href="#mentalArithmeticGame">Mittel</a>
+                <a class="btnStart" data-level="addition-hard" href="#mentalArithmeticGame">Schwer</a>		            
+            </div>
+        </div>
+        
+        <div id="subtraction-choose-level" class="page">
+            <header>
+                <button class="back"></button>
+                <h1>Subtraktion: Level wählen</h1>
+            </header>
+            <div class="center">
+				<a class="btnStart" data-level="subtraction-easy" href="#mentalArithmeticGame">Einfach</a>
+                <a class="btnStart" data-level="subtraction-medium" href="#mentalArithmeticGame">Mittel</a>
+                <a class="btnStart" data-level="subtraction-hard" href="#mentalArithmeticGame">Schwer</a>		            
+            </div>
+        </div>
+        
+        <div id="addition-subtraction-choose-level" class="page">
+            <header>
+                <button class="back"></button>
+                <h1>Addition / Subtraktion: Level wählen</h1>
+            </header>
+            <div class="center">
+				<a class="btnStart" data-level="addition-subtraction-easy" href="#mentalArithmeticGame">Einfach</a>
+                <a class="btnStart" data-level="addition-subtraction-medium" href="#mentalArithmeticGame">Mittel</a>
+                <a class="btnStart" data-level="addition-subtraction-hard" href="#mentalArithmeticGame">Schwer</a>		            
+            </div>
+        </div>
+        
+        <div id="multiplication-choose-level" class="page">
+            <header>
+                <button class="back"></button>
+                <h1>Multiplikation: Level wählen</h1>
+            </header>
+            <div class="center">
+				<a class="btnStart" data-level="multiplication-easy" href="#mentalArithmeticGame">Einfach</a>
+                <a class="btnStart" data-level="multiplication-medium" href="#mentalArithmeticGame">Mittel</a>
+                <a class="btnStart" data-level="multiplication-hard" href="#mentalArithmeticGame">Schwer</a>		            
+            </div>
+        </div>
+        
+        <div id="division-choose-level" class="page">
+            <header>
+                <button class="back"></button>
+                <h1>Division: Level wählen</h1>
+            </header>
+            <div class="center">
+				<a class="btnStart" data-level="division-easy" href="#mentalArithmeticGame">Einfach</a>
+                <a class="btnStart" data-level="division-medium" href="#mentalArithmeticGame">Mittel</a>
+                <a class="btnStart" data-level="division-hard" href="#mentalArithmeticGame">Schwer</a>		            
+            </div>
+        </div>
+        
+        <div id="multiplication-division-choose-level" class="page">
+            <header>
+                <button class="back"></button>
+                <h1>Multiplikation / Division: Level wählen</h1>
+            </header>
+            <div class="center">
+				<a class="btnStart" data-level="multiplication-division-easy" href="#mentalArithmeticGame">Einfach</a>
+                <a class="btnStart" data-level="multiplication-division-medium" href="#mentalArithmeticGame">Mittel</a>
+                <a class="btnStart" data-level="multiplication-division-hard" href="#mentalArithmeticGame">Schwer</a>		            
+            </div>
+        </div>
+        
+        <div id="mixed-choose-level" class="page">
+            <header>
+                <button class="back"></button>
+                <h1>Gemischt: Level wählen</h1>
+            </header>
+            <div class="center">
+				<a class="btnStart" data-level="mixed-easy" href="#mentalArithmeticGame">Einfach</a>
+                <a class="btnStart" data-level="mixed-medium" href="#mentalArithmeticGame">Mittel</a>
+                <a class="btnStart" data-level="mixed-hard" href="#mentalArithmeticGame">Schwer</a>		            
+            </div>
+        </div>
+        
+        <div id="mentalArithmeticLevel" class="page">
+        	
+        	<div>
+	            <h2>Stelligkeiten</h2>
+	            <table class="fromTo">
+	                <tr>
+	                    <td rowspan="2"><h3>Zahl&nbsp;1&nbsp;</h3></td>
+	                    <td><label>von</label></td>
+	                    <td>
+	                        <div class="field">
+	                            <input type="number" id="from1" name="from1" min="0">
+	                        </div>
+	                    </td>
+	                </tr>
+	                <tr>
+	                    <td><label>bis</label></td>
+	                    <td>
+	                        <div class="field">
+	                            <input type="number" id="to1" name="to1">
+	                        </div>
+	                    </td>
+	                </tr>
+	            </table>
+	
+	            <table class="fromTo secondNumArity">
+	                <tr>
+	                    <td rowspan="2"><h3>Zahl&nbsp;2&nbsp;</h3></td>
+	                    <td><label>von</label></td>
+	                    <td>
+	                        <div class="field">
+	                            <input type="number" id="from2" name="from2" min="0">
+	                        </div>
+	                    </td>
+	
+	                </tr>
+	                <tr>
+	                    <td><label>bis</label></td>
+	                    <td>
+	                        <div class="field">
+	                            <input type="number" id="to2" name="to2">
+	                        </div>
+	                    </td>
+	                </tr>
+	            </table>
+	
+	        </div>
+	
+	        <div id="arities">
+	            <h2>Rechenarten</h2>
+	            <div class="controlGroup">
+	                <div class="field">
+	                    <input type="checkbox" id="plus" name="plus">
+	                    <label for="plus"> + </label>
+	                </div>
+	                <div class="field">
+	                    <input type="checkbox" id="multiply" name="multiply">
+	                    <label for="multiply"> &times; </label>
+	                </div>
+	                <div class="field">
+	                    <input type="checkbox" id="minus" name="minus">
+	                    <label for="minus"> &thinsp;- </label>
+	                </div>
+	                <div class="field">
+	                    <input type="checkbox" id="divide" name="divide">
+	                    <label for="divide"> &divide; </label>
+	                </div>
+	            </div>
+	        </div>
+        </div>
 
-        <table id="mentalArithmeticGame" class="page numberGame">
+        <table id="mentalArithmeticGame" class="page numberGame" data-prevent-initial-display>
             <tr class="task">
                 <td colspan="3"></td>
             </tr>

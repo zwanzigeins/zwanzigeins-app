@@ -11,7 +11,7 @@ let sound = new Sound();
 let pages = new Pages();
 
 new ListenAndWriteGame(sound, pages);
-new MentalArithmeticGame(sound, pages);
+MentalArithmeticGame.INSTANCE = new MentalArithmeticGame(sound, pages);
 new NumberDictationGame(pages);
 
 // try to initialize sound early to prevent 
