@@ -54,7 +54,9 @@ html.dark-theme{
 	display: table;
 	font-size: 2.5rem;
 	text-align: center;
-	border-collapse: collapse;   	
+	border-collapse: collapse;
+	/* iphone needs height: full-height - header-height */
+	height: calc(100% - 3rem);
 }
 
 .numberGame .task,
