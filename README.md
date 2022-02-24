@@ -7,6 +7,8 @@ wählen wir **deutsch** als Sprache für das Projekt-Management und *Issues*.
 
 In Quellcodes und anderen Entwickler-Dokumenten verwenden wir hingegen **englisch**.
 
+Die App wird unter [https://zwanzigeins.jetzt/app](https://zwanzigeins.jetzt/app/) bereitgestellt.
+
 ## Project Introduction
 
 This project is a static web-application based on JavaScript in version ES6. The

@@ -10,8 +10,22 @@ export default class NumberGame{
 		this.menuElem = document.getElementById(menuPageId);
 		this.gameElem = document.getElementById(gamePageId);
 		
+		// hint: the page-dom is 'reused', so clear previous residues
+		
 		// remove alle event-listeners
 		this.gameElem.innerHTML = this.gameElem.innerHTML;
+		
+		let answerElemSelector;
+		
+		if(this.gameElem.classList.contains('auditive')){
+			answerElemSelector = '.auditive > .answer';
+		}
+		else{
+			answerElemSelector = ':not(.auditive) > .answer';
+		}
+		
+		this.answerElem = this.gameElem.querySelector(answerElemSelector);
+		this.answerElem.innerHTML = '';		
 		
 		this.taskElem = this.gameElem.querySelector('.task > td');
 		this.playAgainBtn = this.gameElem.querySelector('.playAgainBtn');
@@ -20,8 +34,6 @@ export default class NumberGame{
 			
 			this.sound.playAgain();
 		});
-		
-		this.answerElem = this.gameElem.querySelector('.answer');
 		
 		var numBtns = this.gameElem.getElementsByClassName('numBtn');
 		for (var i = 0; i < numBtns.length; i++) {
@@ -33,9 +45,9 @@ export default class NumberGame{
 		
 		var clearBtn = this.gameElem.querySelector('.clearBtn');
 
-		Utils.addPressHandler(clearBtn, e => {
+		Utils.addPressHandler(clearBtn, () => {
 			
-		    this.answerElem.innerHTML = "";
+		    this.answerElem.innerHTML = '';
 		    this.styleGoodAnswer();
 		});
 	}
@@ -91,26 +103,24 @@ export default class NumberGame{
 
 	finishGame(){
 	    
-	    var ellapsed = new Date().getTime() - this.gameStartTimeStamp.getTime();
-	    var ellapsedDate = new Date(ellapsed);
+	    let ellapsed = new Date().getTime() - this.gameStartTimeStamp.getTime();
+	    let ellapsedDate = new Date(ellapsed);
 	    
-	    window.history.back();
+	    let overlayDialog = document.querySelector(".overlayDialog")
 	    
-		setTimeout(() =>{
-			 let pageElem = this.pages.getCurrentPageElement();
-	    
-			pageElem.querySelector(".dialog").classList.add("showing");
-			var minutes = ellapsedDate.getMinutes();
-			var seconds = ellapsedDate.getSeconds();
-			if(seconds < 10){
-				seconds = '0' + seconds;
-			}
-			document.getElementById('lastGameTime').innerHTML = minutes + ":" + seconds;
+	    overlayDialog.classList.add("showing");
+		let minutes = ellapsedDate.getMinutes();
+		let seconds = ellapsedDate.getSeconds();
+		if(seconds < 10){
+			seconds = '0' + seconds;
+		}
+		document.getElementById('lastGameTime').innerHTML = minutes + ":" + seconds;
 
-			setTimeout(() => {
-				pageElem.querySelector(".dialog").classList.remove("showing");
-			}, 2000);
-		}, 10);	   
+		setTimeout(() => {
+			overlayDialog.classList.remove("showing");
+		}, 2000);
+		
+		window.history.back();
 	}
 	
 	styleWrongAnswer(){

@@ -13,6 +13,7 @@
 <body>
 
     <div class="pages">
+    
         <div id="mainMenu" class="page">
             <header>
                 <h1>Zwanzigeins-App</h1>
@@ -41,15 +42,6 @@
             	
             	<a class='btnStart' href="#listenAndWriteGame">Los</a>
             </div>
-            
-             <div class="dialog">
-                 <!-- class="showing" -->
-                 <div class="vcenter">
-                 	<div>
-                     	Deine Zeit<br><span id="lastGameTime"></span>min
-                     </div>
-                 </div>
-             </div>
         </div>
         
         <table id="listenAndWriteGame" class="page numberGame auditive" data-prevent-initial-display>
@@ -122,17 +114,8 @@
                             <label for="auditive"> Auditiver Modus (Aufgabe nur vorlesen) </label>
                         </div>
                     </div>
-
                 </div>
 
-                <div class="dialog">
-                    <!-- class="showing" -->
-                    <div class="vcenter">
-                    	<div>
-                        	Deine Zeit<br><span id="lastGameTime"></span>min
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
         
@@ -422,9 +405,18 @@
                 Hier gibts bald Hilfe.
             </div>
         </div>
+        
+        <div class="dialog overlayDialog page">
+		    <!-- class="showing" -->
+		    <div class="vcenter">
+		    	<div>
+		        	Deine Zeit<br><span id="lastGameTime"></span> min
+		        </div>
+		    </div>
+    	</div>
 
     </div>
-
+    
     <script src="js/zwanzigeins-app.js" type="module"></script>
 </body>
 </html>
