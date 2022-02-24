@@ -1,3 +1,5 @@
+import Utils from "./utils.js";
+
 export default class Pages {
 
 	constructor() {
@@ -25,11 +27,13 @@ export default class Pages {
 			this.show(navToken);
 		};
 
-		var backBtns = document.querySelectorAll('.back');
-		for (var i = 0; i < backBtns.length; i++) {
-			backBtns[i].onclick = function(e) {
+		let backBtns = document.querySelectorAll('.back');
+		for (let backBtn of backBtns) {
+			
+			Utils.addPressHandler(backBtn, () => {
+				
 				history.back();
-			};
+			});
 		}
 	}
 

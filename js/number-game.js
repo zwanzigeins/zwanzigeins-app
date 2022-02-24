@@ -10,11 +10,6 @@ export default class NumberGame{
 		this.menuElem = document.getElementById(menuPageId);
 		this.gameElem = document.getElementById(gamePageId);
 		
-		// hint: the page-dom is 'reused', so clear previous residues
-		
-		// remove alle event-listeners
-		this.gameElem.innerHTML = this.gameElem.innerHTML;
-		
 		let answerElemSelector;
 		
 		if(this.gameElem.classList.contains('auditive')){
@@ -30,22 +25,25 @@ export default class NumberGame{
 		this.taskElem = this.gameElem.querySelector('.task > td');
 		this.playAgainBtn = this.gameElem.querySelector('.playAgainBtn');
 		
-		Utils.addPressHandler(this.playAgainBtn, () => {
+		// hint: the page-dom is 'reused' amongs levels, so use 'setPressHandler' to
+		// overwrite potential previous listener-registrations
+		
+		Utils.setPressHandler(this.playAgainBtn, () => {
 			
 			this.sound.playAgain();
 		});
 		
-		var numBtns = this.gameElem.getElementsByClassName('numBtn');
-		for (var i = 0; i < numBtns.length; i++) {
-		    Utils.addPressHandler(numBtns[i], e =>{
-		    	 var number = parseInt(e.currentTarget.innerHTML);
+		let numBtns = this.gameElem.getElementsByClassName('numBtn');
+		for (let i = 0; i < numBtns.length; i++) {
+		    Utils.setPressHandler(numBtns[i], e =>{
+		    	 let number = parseInt(e.currentTarget.innerHTML);
 				 this.processNumberInput(number);
 		    });
 		}
 		
-		var clearBtn = this.gameElem.querySelector('.clearBtn');
+		let clearBtn = this.gameElem.querySelector('.clearBtn');
 
-		Utils.addPressHandler(clearBtn, () => {
+		Utils.setPressHandler(clearBtn, () => {
 			
 		    this.answerElem.innerHTML = '';
 		    this.styleGoodAnswer();
@@ -61,8 +59,8 @@ export default class NumberGame{
 	        //wenn die eingegebene Antwort bereits falsch war
 	        //und mehr als 500ms seitdem vergangen sind, lösche 
 	        //bisherige Eingabe um automatisch neue, richtige Antwort zu ermöglichen
-	        var now = new Date();
-	        var elapsedMs = now.getTime() - this.wrongAnswerTimeStamp.getTime();
+	        let now = new Date();
+	        let elapsedMs = now.getTime() - this.wrongAnswerTimeStamp.getTime();
 	    
 	        if(elapsedMs > 500){
 	            this.answerElem.innerHTML = "";
@@ -71,7 +69,7 @@ export default class NumberGame{
 	        }
 	        
 	    }
-	    var rightResultStr = this.rightResult.toString();
+	    let rightResultStr = this.rightResult.toString();
 	    
 	    this.answerElem.innerHTML = this.answerElem.innerHTML + number;
 
@@ -85,8 +83,8 @@ export default class NumberGame{
 	        }        
 	    } 
 	    else {
-	    	var givenAnswer = this.answerElem.innerHTML;
-	        var rightResultBeginning = rightResultStr.substr(0, givenAnswer.length);
+	    	let givenAnswer = this.answerElem.innerHTML;
+	        let rightResultBeginning = rightResultStr.substr(0, givenAnswer.length);
 	        if (rightResultBeginning != givenAnswer) {
 	            this.styleWrongAnswer();
 	            this.wrongAnswerOccured = true;
@@ -96,9 +94,10 @@ export default class NumberGame{
 	}
 
 	getRandomNumber(from, to) {
-	    var min = parseInt(from);
-	    var max = parseInt(to);
-	     return Math.floor(Math.random() * (max - min + 1)) + min;
+		
+	    let min = parseInt(from);
+	    let max = parseInt(to);
+	    return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
 
 	finishGame(){
@@ -124,10 +123,12 @@ export default class NumberGame{
 	}
 	
 	styleWrongAnswer(){
+		
 	    this.answerElem.classList.add('error');
 	}
 
 	styleGoodAnswer(){
+		
 	    this.answerElem.classList.remove('error');
 	}
 }

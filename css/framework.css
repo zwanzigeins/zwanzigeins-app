@@ -59,8 +59,7 @@ body {
     margin: auto;
     width: 100%;
     height: 100%;
-    max-width: 600px;
-    max-height: 800px;
+    
     background: var(--default-panel-bg-color);
     box-shadow: 
     	1px 1px 0 var(--default-border-color),
@@ -74,6 +73,14 @@ body {
 		display: flex;
 		align-items: center;
 	}  
+}
+
+@media(min-width: 1000px){
+	
+	.pages{
+		max-width: 600px;
+    	max-height: 800px;
+	}
 }
 
 .page{
@@ -207,7 +214,8 @@ a, button {
     border: 1px solid var(--default-border-color);
     color: var(--default-font-color);
     text-shadow: var(--button-text-shadow-color) 0px 1px 0px;
-    background: var(--button-bg-color); 
+    background: var(--button-bg-color);
+    -webkit-tap-highlight-color:rgba(0,0,0,0);
 }
 
 a{
@@ -315,4 +323,8 @@ input[type="radio"]:checked + label:before {
     justify-content: center;
     width: 100%;
     height: 100%;
+}
+
+html:not(.iphone) .iphone-only{
+	display: none;
 }

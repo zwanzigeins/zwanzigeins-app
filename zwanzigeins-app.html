@@ -5,6 +5,11 @@
 <meta name="viewport"
     content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
 <title>Zwanzigeins-App</title>
+<script>
+	if(navigator.userAgent.indexOf(" iPhone ") != -1){
+		document.documentElement.classList.add('iphone');
+	}
+</script>
 <link href="web-manifest.json" rel="manifest" />
 <link rel="stylesheet" type="text/css" href="css/normalize.css">
 <link rel="stylesheet" type="text/css" href="css/framework.css">
@@ -44,34 +49,40 @@
             </div>
         </div>
         
-        <table id="listenAndWriteGame" class="page numberGame auditive" data-prevent-initial-display>
-            <tr class="task">
-                <td colspan="3"></td>
-            </tr>          
-            <tr class="answerWrapper auditive">
-                <td class="answer" colspan="2"></td>
-                <td class="playAgainBtn icon"></td>
-            </tr>
-            <tr>
-                <td class="numBtn">7</td>
-                <td class="numBtn">8</td>
-                <td class="numBtn">9</td>
-            </tr>
-            <tr>
-                <td class="numBtn">4</td>
-                <td class="numBtn">5</td>
-                <td class="numBtn">6</td>
-            </tr>
-            <tr>
-                <td class="numBtn">1</td>
-                <td class="numBtn">2</td>
-                <td class="numBtn">3</td>
-            </tr>
-            <tr>
-                <td colspan="2" class="numBtn">0</td>
-                <td class="clearBtn">C</td>
-            </tr>
-        </table>
+        <div id="listenAndWriteGame" class="page numberGame auditive" data-prevent-initial-display>
+	        <header class="iphone-only">
+                <button class="back"></button>
+                <h1></h1>
+            </header>
+	        <table>
+	            <tr class="task">
+	                <td colspan="3"></td>
+	            </tr>          
+	            <tr class="answerWrapper auditive">
+	                <td class="answer" colspan="2"></td>
+	                <td class="playAgainBtn icon"></td>
+	            </tr>
+	            <tr>
+	                <td class="numBtn">7</td>
+	                <td class="numBtn">8</td>
+	                <td class="numBtn">9</td>
+	            </tr>
+	            <tr>
+	                <td class="numBtn">4</td>
+	                <td class="numBtn">5</td>
+	                <td class="numBtn">6</td>
+	            </tr>
+	            <tr>
+	                <td class="numBtn">1</td>
+	                <td class="numBtn">2</td>
+	                <td class="numBtn">3</td>
+	            </tr>
+	            <tr>
+	                <td colspan="2" class="numBtn">0</td>
+	                <td class="clearBtn">C</td>
+	            </tr>
+	        </table>
+        </div>
         
         <div id="mentalArithmeticMenu" class="page">
             <header>
@@ -204,7 +215,10 @@
         </div>
         
         <div id="mentalArithmeticLevel" class="page">
-        	
+        	<header>
+                <button class="back"></button>
+                <h1></h1>
+            </header>
         	<div>
 	            <h2>Stelligkeiten</h2>
 	            <table class="fromTo">
@@ -272,38 +286,44 @@
 	            </div>
 	        </div>
         </div>
-
-        <table id="mentalArithmeticGame" class="page numberGame" data-prevent-initial-display>
-            <tr class="task">
-                <td colspan="3"></td>
-            </tr>
-            <tr class="answerWrapper simple">
-                <td class="answer" colspan="3"></td>
-            </tr>
-            <tr class="answerWrapper auditive">
-                <td class="answer" colspan="2"></td>
-                <td class="playAgainBtn icon"></td>
-            </tr>
-            <tr>
-                <td class="numBtn">7</td>
-                <td class="numBtn">8</td>
-                <td class="numBtn">9</td>
-            </tr>
-            <tr>
-                <td class="numBtn">4</td>
-                <td class="numBtn">5</td>
-                <td class="numBtn">6</td>
-            </tr>
-            <tr>
-                <td class="numBtn">1</td>
-                <td class="numBtn">2</td>
-                <td class="numBtn">3</td>
-            </tr>
-            <tr>
-                <td colspan="2" class="numBtn">0</td>
-                <td class="clearBtn">C</td>
-            </tr>
-        </table>
+		
+		<div id="mentalArithmeticGame" class="page numberGame" data-prevent-initial-display>
+			<header class="iphone-only">
+                <button class="back"></button>
+                <h1></h1>
+            </header>
+	        <table>
+	            <tr class="task">
+	                <td colspan="3"></td>
+	            </tr>
+	            <tr class="answerWrapper simple">
+	                <td class="answer" colspan="3"></td>
+	            </tr>
+	            <tr class="answerWrapper auditive">
+	                <td class="answer" colspan="2"></td>
+	                <td class="playAgainBtn icon"></td>
+	            </tr>
+	            <tr>
+	                <td class="numBtn">7</td>
+	                <td class="numBtn">8</td>
+	                <td class="numBtn">9</td>
+	            </tr>
+	            <tr>
+	                <td class="numBtn">4</td>
+	                <td class="numBtn">5</td>
+	                <td class="numBtn">6</td>
+	            </tr>
+	            <tr>
+	                <td class="numBtn">1</td>
+	                <td class="numBtn">2</td>
+	                <td class="numBtn">3</td>
+	            </tr>
+	            <tr>
+	                <td colspan="2" class="numBtn">0</td>
+	                <td class="clearBtn">C</td>
+	            </tr>
+	        </table>
+	    </div>
         
         <div id="numberDictationGame" class="page">
         	<header>
