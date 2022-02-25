@@ -25,6 +25,7 @@ export default class Options{
 	}
 	
 	loadOptions(){
+		
 		Utils.loadOptions(this.pageId + '-options', this); 
 	}
 	
@@ -39,6 +40,7 @@ export default class Options{
 			let curVal = this[name];
 			
 			switch(inputElem.type){
+				
 			case 'checkbox':
 				inputElem.checked = curVal;
 				inputElem.onchange = e => {
@@ -72,11 +74,13 @@ export default class Options{
 	}
 	
 	saveOptions(){
+		
 	    var optionsJson = JSON.stringify(this);
 	    localStorage.setItem(this.pageId + '-options', optionsJson);
 	}
 	
 	applyParamOverrides(){
+		
 		let queryParams = Utils.getQueryParams();
 	    for(let optionKey in this){
 	    	
@@ -97,5 +101,5 @@ export default class Options{
 	    	}
 	    }
 	}
-	
+		
 }

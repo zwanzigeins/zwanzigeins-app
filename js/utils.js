@@ -12,7 +12,8 @@ export default class Utils{
 	        }, 100);
 	    }
 
-	    elem.addEventListener('touchdown', function(evt) {
+	    elem.addEventListener('touchdown', evt => {
+		
 	        processEvent(elem, evt);
 	        evt.preventDefault();
 	        evt.stopPropagation();
@@ -20,7 +21,8 @@ export default class Utils{
 
 	    }, true);
 
-	    elem.addEventListener('mousedown', function(evt) {
+	    elem.addEventListener('mousedown', evt => {
+		
 	        if (!elem.touchFired) {
 	            processEvent(elem, evt);
 	            elem.touchFired = false;
@@ -60,12 +62,13 @@ export default class Utils{
 	
 	static getQueryParams(){
 		
-		let queryDict = {}
+		let queryDict = {};
 		location.search.substr(1).split("&").forEach(
 			item => {
 				queryDict[item.split("=")[0]] = item.split("=")[1]
 			}
 		)
+		
 		return queryDict;
 	}
 	

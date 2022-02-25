@@ -6,7 +6,8 @@ export default class MentalArithmeticGame {
 	constructor(sound, pages) {
 
 		this.defaultOptions = {
-			numTasks: 10,
+			
+			numTasks: 5,
 			fullscreen: false,
 			auditive: false
 		};
