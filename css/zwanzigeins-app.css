@@ -105,7 +105,7 @@ html.dark-theme{
 	height: 9rem;
 /* 	background: linear-gradient(to bottom, #f4f5f5, #dfdddd); */
 	background-size: 48px;
-	border-left: 0;
+	border-left: 1px solid var(--default-border-color); 
 }
 
 .numberGame.auditive .playAgainBtn:before{
