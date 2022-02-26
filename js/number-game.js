@@ -20,12 +20,12 @@ export default class NumberGame{
 		}
 		
 		this.answerElem = this.gameElem.querySelector(answerElemSelector);
-		this.answerElem.innerHTML = '';		
+		this.answerElem.innerHTML = '';
 		
 		this.taskElem = this.gameElem.querySelector('.task > td');
 		this.playAgainBtn = this.gameElem.querySelector('.playAgainBtn');
 		
-		// hint: the page-dom is 'reused' amongs levels, so use 'setPressHandler' to
+		// hint: the page-dom is 'reused' among levels, so use 'setPressHandler' to
 		// overwrite potential previous listener-registrations
 		
 		Utils.setPressHandler(this.playAgainBtn, () => {
@@ -105,7 +105,7 @@ export default class NumberGame{
 	    let ellapsed = new Date().getTime() - this.gameStartTimeStamp.getTime();
 	    let ellapsedDate = new Date(ellapsed);
 	    
-	    let overlayDialog = document.querySelector(".overlayDialog")
+	    let overlayDialog = document.querySelector(".dialog")
 	    
 	    overlayDialog.classList.add("showing");
 		let minutes = ellapsedDate.getMinutes();

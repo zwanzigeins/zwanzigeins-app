@@ -1,3 +1,4 @@
+import Options from './options.js';
 import NumberGame from './number-game.js'
 
 export default class ListenAndWriteGame extends NumberGame{
@@ -5,12 +6,14 @@ export default class ListenAndWriteGame extends NumberGame{
 	constructor(sound, pages){
 		super(sound, pages, 'listenAndWrite', 'listenAndWriteGame');
 		
-		this.options = {
+		this.defaultOptions = {
 		    from : 1,
 		    to : 100,
-		    numTasks : 10,
+		    numTasks : 5,
 		    fullscreen : false
 		};
+		
+		this.options = new Options('listenAndWrite', this.defaultOptions);
 		
 		var btnStart = this.menuElem.querySelector('.btnStart');
 		
@@ -44,7 +47,13 @@ export default class ListenAndWriteGame extends NumberGame{
 	    this.tasksPut = 0;
 
 	    this.answerElem.innerHTML = "";
-	    this.putNewTask();		
+	    this.putNewTask();
+	    
+	    window.onkeydown = e => {
+	        if(e.keyCode >= 96 && e.keyCode <= 105){ //numpad-tasten von 0 bis 9
+	            this.processNumberInput(e.keyCode - 96);
+	        }
+	    }
 	}
 	
 }

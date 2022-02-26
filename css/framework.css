@@ -124,7 +124,6 @@ header{
 	opacity: 0;
 	z-index: -1;	
 	font-size: 3rem;
-	transition: all 0.5s;
 	
 	position: absolute;
 	width: 100%;
@@ -133,25 +132,14 @@ header{
 	left: 0;
 	margin-top: 0 !important;
 	background: var(--default-panel-bg-color);
+	transform: none;
+	
 	opacity: 0;
 }
 
-.dialog.showing{
-	transition: all 0.7s;	
+.dialog.showing {
 	opacity: 1;
 	z-index: 1000;
-}
-
-.overlayDialog{
-	position: fixed;
-	width: 100%;
-	height: 100%;
-	z-index: 100;
-	transform: none;
-}
-
-.overlayDialog:not(.showing){
-	display: none;
 }
 
 /***** end layout-elements *****/
@@ -246,6 +234,10 @@ a{
     border: 1px solid var(--default-border-color);
 }
 
+.field + .field{
+	border-top: 0;
+}
+
 label {
 	font-size: 1rem;
 	position: relative;
@@ -312,9 +304,6 @@ input[type="radio"]:checked + label:before {
     box-shadow: inset 0 0 0 5px #1482cc;
 }
 
-.controlGroup > .field:not(:first-child){
-    border-top: 0;
-}
 
 /***** aux classes *****/
 .vcenter{
