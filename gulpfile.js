@@ -90,7 +90,7 @@ gulp.task('build-service-worker', ready => {
 			shell.mv(distPath + '/' + resourcePath, distPath + '/index.html');
 			
 			let checksum = resourcePath.substr('index.'.length, 8);
-			let endpoint = {url: '/app/index.html', checksum: checksum};
+			let endpoint = {url: 'index.html', checksum: checksum};
 			cacheManifest.endpoints.push(endpoint);
 		}	
 		else{
