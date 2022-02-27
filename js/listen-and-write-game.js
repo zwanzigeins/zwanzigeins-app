@@ -7,7 +7,7 @@ export default class ListenAndWriteGame extends NumberGame{
 		super(sound, pages, 'listenAndWrite', 'listenAndWriteGame');
 		
 		this.defaultOptions = {
-		    from : 1,
+		    from : 11,
 		    to : 100,
 		    numTasks : 5,
 		    fullscreen : false

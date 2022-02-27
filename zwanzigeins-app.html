@@ -45,10 +45,22 @@
             <div class='center'>
             	<p>Hier soll ein 'Spiel-Modus' entstehen, bei dem eine gesprochene Zahl korrekt eingegeben werden muss.</p>
             	
-            	<a class='btnStart' href="#listenAndWriteGame">Los</a>
+            	<a class='btnStart' href="#listenAndWriteGame">Start</a>
             	
-            	<form id="numTasks">
+            	<form>
+            	
+	            	<h2>Zahlenbereich</h2>
+	            	
+	            	<div class="display-flex">
+	                    <label>von</label>
+	                    <input type="number" id="from" name="from" min="0" value="11">
+	                    <label>bis</label>
+	                    <input type="number" id="to" name="to" value="100">
+		            </div>
+		            
+            	
                     <h2>Anzahl Aufgaben</h2>
+                    
                     <div class="field">
                         <input type="radio" id="listen-and-write-num-tasks-5" name="numTasks" value="5" checked>
                         <label for="listen-and-write-num-tasks-5"> 5</label>
@@ -61,6 +73,7 @@
                         <input type="radio" id="listen-and-write-num-tasks-20" name="numTasks" value="20">
                         <label for="listen-and-write-num-tasks-20"> 20</label>
                     </div>
+                    
                 </form>
             	
             </div>
