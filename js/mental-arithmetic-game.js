@@ -12,7 +12,7 @@ export default class MentalArithmeticGame {
 			auditive: false
 		};
 
-		this.options = new Options('mentalArithmeticMenu', this.defaultOptions);
+		this.options = new Options('mental-arithmetic-menu', this.defaultOptions);
 		
 		let startAnchorElems = document.querySelectorAll('[id$="choose-level"] .btnStart');
 		

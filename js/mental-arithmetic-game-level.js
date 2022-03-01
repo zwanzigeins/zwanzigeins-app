@@ -4,13 +4,13 @@ export default class MentalArithmeticGameLevel extends NumberGame {
 	
 	constructor(sound, pages, levelOptions){
 		
-		super(sound, pages, 'mentalArithmeticMenu', 'mentalArithmeticGame');
+		super(sound, pages, 'mental-arithmetic-menu', 'mental-arithmetic-game');
 		this.options = levelOptions;	
 	}
 	
 	startGame(){
 	    
-		window.location.hash = 'mentalArithmeticGame';
+		window.location.hash = 'mental-arithmetic-game';
 		
 	    if(this.options.fullscreen){
 	        if(document.documentElement.webkitRequestFullscreen){
@@ -42,8 +42,8 @@ export default class MentalArithmeticGameLevel extends NumberGame {
 	    }
 	    
 	    var queryTerm = 
-	        '#mentalArithmeticGame:not(.auditive) .answerWrapper.simple .answer,' + 
-	        '#mentalArithmeticGame.auditive .answerWrapper.auditive .answer';
+	        '#mental-arithmetic-game:not(.auditive) .answerWrapper.simple .answer,' + 
+	        '#mental-arithmetic-game.auditive .answerWrapper.auditive .answer';
 	    this.answerElem = this.gameElem.querySelector(queryTerm);	    	  
 	}
 	

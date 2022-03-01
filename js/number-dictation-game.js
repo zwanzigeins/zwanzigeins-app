@@ -6,7 +6,7 @@ export default class NumberDictationGame {
 		
 		let pagesElem = pages.pagesElem;
 
-		let numberDictationGamePage = pagesElem.querySelector('#numberDictationGame');
+		let numberDictationGamePage = pagesElem.querySelector('#number-dictation-game');
 
 		this.startButton = numberDictationGamePage.querySelector('.start');
 		this.startButton.onclick = evt => {

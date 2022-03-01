@@ -4,7 +4,7 @@ import NumberGame from './number-game.js'
 export default class ListenAndWriteGame extends NumberGame{
 	
 	constructor(sound, pages){
-		super(sound, pages, 'listenAndWrite', 'listenAndWriteGame');
+		super(sound, pages, 'listen-and-write-menu', 'listen-and-write-game');
 		
 		this.defaultOptions = {
 		    from : 11,
@@ -13,14 +13,14 @@ export default class ListenAndWriteGame extends NumberGame{
 		    fullscreen : false
 		};
 		
-		this.options = new Options('listenAndWrite', this.defaultOptions);
+		this.options = new Options('listen-and-write-menu', this.defaultOptions);
 		
 		var btnStart = this.menuElem.querySelector('.btnStart');
 		
 		// IOS needs a click-handler to play sound
 		btnStart.addEventListener('click', e => {
 		    e.preventDefault();
-		    pages.show('listenAndWriteGame');
+		    pages.show('listen-and-write-game');
 		    this.startGame();
 		});
 	}
@@ -40,7 +40,7 @@ export default class ListenAndWriteGame extends NumberGame{
 	
 	startGame(){
 				
-		window.location.hash = 'listenAndWriteGame';
+		window.location.hash = 'listen-and-write-game';
 		
 		this.wrongAnswerOccured = false;
 	    this.gameStartTimeStamp = new Date();

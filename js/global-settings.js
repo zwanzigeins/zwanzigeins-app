@@ -11,9 +11,9 @@ export default class GlobalSettings extends Options{
 		
 		this.applyTheme();
 		
-		let mainMenuElem = document.getElementById('settings');
-		if(mainMenuElem){
-			let themeRadioElems = mainMenuElem.querySelectorAll('input[name="theme"]');
+		let settingsPageElem = document.getElementById('settings');
+		if(settingsPageElem){
+			let themeRadioElems = settingsPageElem.querySelectorAll('input[name="theme"]');
 			for(let radioElem of themeRadioElems){
 				radioElem.addEventListener('change', () => {
 					

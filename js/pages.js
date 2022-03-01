@@ -41,7 +41,7 @@ export default class Pages {
 
 		var pageElem = document.getElementById(id);
 		if (!pageElem) {
-			pageElem = document.getElementById('mainMenu');
+			pageElem = document.getElementById('main-menu');
 		}
 		
 		this.pagesElem.insertBefore(pageElem, this.pagesElem.firstChild);		

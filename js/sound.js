@@ -3,11 +3,12 @@ import GlobalSettings from './global-settings.js';
 export default class Sound{
 
     constructor(){
+	
         this.lastPlayed = null;
     }
 
-
     setLetterizer(){
+	
         let speechMode = GlobalSettings.INSTANCE.twistedSpeechMode;
     	switch(speechMode){
     	case 'zwanzigeins':
@@ -36,6 +37,7 @@ export default class Sound{
     }
     
     playWord(word, finishedHandler) {
+	
     	this.lastPlayed = word;
         var msg = new SpeechSynthesisUtterance(word);
         
@@ -103,9 +105,8 @@ export default class Sound{
         return word;
     }
 
-    
-    
     letterizeDigitZehnEins(arity, digitName, twoArityName){
+	
         var res;
         if(arity == 2){
             res = twoArityName;
@@ -113,13 +114,12 @@ export default class Sound{
         else{
             res = digitName;
             if(arity > 2){
-                res += getArityWord(arity);
+                res += this.getArityWord(arity);
             }
         }
         return res;
     }
-    
-    
+        
     letterizeZwanzigEinsNumber(num){
     	
     	num = num.toString();
@@ -180,7 +180,6 @@ export default class Sound{
         
         return word;
     }
-
 
     letterizeZwanzigEinsNumberEndnull(num){
     	
@@ -309,14 +308,13 @@ export default class Sound{
         return word;
     }
 
-    	
-    
-    
     letterizeVerdreht(num){
+	
     	return num;
     }
     
     getArityWord(arity){
+	
         switch(arity){               
         case 4:
             return 'tausend';
@@ -337,6 +335,7 @@ export default class Sound{
     } 
     
     playAgain(){
+	
     	if(this.lastPlayed){
     		this.playWord(this.lastPlayed);        
     	}
