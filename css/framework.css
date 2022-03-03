@@ -8,6 +8,7 @@
     --default-border-color: #ccc;
     
     --body-bg-color: #eee;
+    --pages-container-border-color: var(--default-border-color);
     
     --button-bg-color: #e0e0e0;
     --button-bg-active-color: #ddd;
@@ -24,6 +25,7 @@ html.dark-theme{
 	--default-border-color: #484848;
 	
 	--body-bg-color: #262626;
+	--pages-container-border-color: transparent;
 	
 	--button-bg-color: #444;
 	--button-bg-active-color: #333;
@@ -65,8 +67,8 @@ body {
     
     background: var(--default-panel-bg-color);
     box-shadow: 
-    	1px 1px 0 var(--default-border-color),
-    	-1px -1px 0 var(--default-border-color)
+    	1px 1px 0 var(--pages-container-border-color),
+    	-1px -1px 0 var(--pages-container-border-color)
     	;
 }
 
@@ -92,10 +94,6 @@ body {
 	}
 }
 	
-
-
-
-
 .page{
 	display: flex;
 	flex-direction: column;
@@ -132,7 +130,7 @@ header{
 header > img{
 	position: absolute;
 	left: 18px;
-	top: 10px;
+	top: 11px;
 	height: calc(3rem - 20px);
 }
 
