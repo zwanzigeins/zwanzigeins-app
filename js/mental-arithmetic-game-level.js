@@ -25,7 +25,6 @@ export default class MentalArithmeticGameLevel extends NumberGame {
 	    this.gameStartTimeStamp = new Date();
 	    this.tasksPut = 0;
 
-	    this.answerElem.innerHTML = "";
 	    this.putNewTask();
 	   
 	    window.onkeydown = e => {
@@ -130,7 +129,7 @@ export default class MentalArithmeticGameLevel extends NumberGame {
 	    }
 	    
 	    this.rightResultStr = new String(this.rightResult);
-	    this.styleGoodAnswer();
+	    this.currentAnswerReset();
 	    this.tasksPut++;
 	}
 	
