@@ -87,6 +87,11 @@ html.dark-theme{
 	color: white;
 }
 
+.numberGame .answer.correct{
+	background: #00b000;
+	color: white;
+}
+
 .numberGame.auditive .answerWrapper.auditive{
 	display: table-row;
 }

@@ -33,7 +33,7 @@ export default class ListenAndWriteGame extends NumberGame{
         this.rightResult = random;
         this.taskElem.innerHTML = random;
 		
-	    this.styleGoodAnswer();
+		this.currentAnswerReset();
 	    this.tasksPut++;
 		
 	}
@@ -46,7 +46,6 @@ export default class ListenAndWriteGame extends NumberGame{
 	    this.gameStartTimeStamp = new Date();
 	    this.tasksPut = 0;
 
-	    this.answerElem.innerHTML = "";
 	    this.putNewTask();
 	    
 	    window.onkeydown = e => {
