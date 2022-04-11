@@ -124,7 +124,7 @@ export default class MentalArithmeticGameLevel extends NumberGame {
 			let divisor = this.getRandomNumber(subOptions['from2'], subOptions['to2']);
 			let result = this.getRandomNumber(
 				Math.ceil(subOptions.from1 / divisor),
-				Math.floor(subOptions.to1 / divisor),
+				Math.floor(subOptions.to1 / divisor)
 			);
 			let dividend = result * divisor;
 
@@ -138,52 +138,5 @@ export default class MentalArithmeticGameLevel extends NumberGame {
 	    this.currentAnswerReset();
 	    this.tasksPut++;
 	}
-	
-	getIntegralDivisionParts(randomNum1, randomNum2){
-		
-		let dividend, divisor;
-        if(randomNum1 > randomNum2){
-            dividend = randomNum1;
-            divisor = randomNum2;
-        }
-        else{
-            dividend = randomNum2;
-            divisor = randomNum1;
-        }
-        
-        let result;
-        let integralDivisionFound = false;
-        
-        // decrement divisor until it's an integral task
-        for(let divisorCandidate = divisor; divisorCandidate > 1; divisorCandidate--){
-        	result = dividend / divisorCandidate;
-        	if(this.isIntegral(result)){
-        		integralDivisionFound = true;
-        		divisor = divisorCandidate;
-        		break;
-        	}
-        }
-        
-        if(!integralDivisionFound){
-        	for(; divisor <= dividend; divisor++){
-	        	result = dividend / divisor;
-	        	if(this.isIntegral(result)){
-	        		break;
-	        	}
-	        }
-        }
-        
-        return [dividend, divisor, result];
-	}
-	
-	isIntegral(divisionResult) {
-		
-		let parts = divisionResult.toString().split('.');
-		if(parts.length == 1){
-			return true;
-		}
-		else{
-			return false;
-		}
-	}
+
 }
