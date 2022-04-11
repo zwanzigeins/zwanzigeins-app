@@ -27,11 +27,12 @@ export default class MentalArithmeticGameLevel extends NumberGame {
 
 	    this.putNewTask();
 	   
-	    window.onkeydown = e => {
-	        if(e.keyCode >= 96 && e.keyCode <= 105){ //numpad-tasten von 0 bis 9
-	            this.processNumberInput(e.keyCode - 96);
-	        }
-	    }
+		window.onkeydown = e => {
+			let digit = parseInt(e.key);
+			if (!isNaN(digit)) {
+				this.processNumberInput(digit);
+			}
+		}
 	    
 	    if(this.options['auditive']){
 	        this.gameElem.classList.add('auditive');
