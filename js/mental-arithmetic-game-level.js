@@ -105,29 +105,34 @@ export default class MentalArithmeticGameLevel extends NumberGame {
 	        this.taskElem.innerHTML = num1 + ' &times; ' + num2;
 	        break;
 	    
-	    case "divide":
-	        operator = "durch";
-	        
-	        
-	        let parts = this.getIntegralDivisionParts(num1, num2);
-	        let dividend = parts[0];
-	        let divisor = parts[1];
-	        
-	        while(divisor == dividend || divisor == 1){
-	        	// division by same number or by 1 is pointless so try again
-	        	num1 = this.getRandomNumber(options['from1'], options['to1']);
-	     	    num2 = this.getRandomNumber(options['from2'], options['to2']);
-	     	    
-	     	    parts = this.getIntegralDivisionParts(num1, num2);
-		        dividend = parts[0];
-		        divisor = parts[1];
-	        }
-	        
-	        this.rightResult = parts[2];
-	        this.sound.playTask(dividend, operator, divisor);
-	        this.taskElem.innerHTML = dividend + ' &divide; ' + divisor;
-	        break;	    
-	    }
+		case "divide":
+			let subOptions = options[operator];
+			operator = "durch";
+			
+			// Vorgehen um Werte ohne Rest zu erhalten:
+			//
+			// geg.: Divisor liegt in einem bestimmten Intervall (z.B. [2;5],
+			// Dividend ebenso (z.B. [10;30])
+			//
+			// - Divisor wird zufällig gezogen (z.B. [2;5] -> 3)
+			// - Ergebnis (= Dividend/Divisor) wird zufällig gezogen, Dividend
+			//   liegt in [10;30], also muss das Ergebnis in [10/3;30/3] bzw.
+			//   [3.3;10] liegen (z.B. 7)
+			// - Dividend ist Ergebnis*Divisor -> 21
+			// - die Aufgabe lautet 21:3
+
+			let divisor = this.getRandomNumber(subOptions['from2'], subOptions['to2']);
+			let result = this.getRandomNumber(
+				Math.ceil(subOptions.from1 / divisor),
+				Math.floor(subOptions.to1 / divisor),
+			);
+			let dividend = result * divisor;
+
+			this.rightResult = result;
+			this.sound.playTask(dividend, operator, divisor);
+			this.taskElem.innerHTML = dividend + ' &divide; ' + divisor;
+			break;
+		}
 	    
 	    this.rightResultStr = new String(this.rightResult);
 	    this.currentAnswerReset();
