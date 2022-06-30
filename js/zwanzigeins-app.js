@@ -21,7 +21,7 @@ let soundWarmedUp = false;
 // intended to improve warmup
 speechSynthesis.getVoices();
 
-document.addEventListener('hashchange', () =>{
+document.addEventListener('hashchange', () => {
 	
 	if(!soundWarmedUp){
 	
@@ -41,7 +41,7 @@ if(debugParam != null){
 	document.body.appendChild(scriptElem);
 }
 
-let swUri = "service-worker.js";
+let swUri = 'service-worker.js';
             
 window.navigator.serviceWorker.getRegistration().then(registration => {
        
@@ -51,4 +51,11 @@ window.navigator.serviceWorker.getRegistration().then(registration => {
     else {
         registration.update();
     }
+});
+
+let giveConsentAnchor = document.querySelector('a#give-consent');
+giveConsentAnchor.addEventListener('click', () => {
+	
+	document.documentElement.classList.remove('consent-required');
+	localStorage.setItem('consent-given', 'true');
 });

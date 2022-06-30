@@ -6,14 +6,19 @@
     content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
 <title>Zwanzigeins-App</title>
 <script>
-	if(navigator.userAgent.indexOf(" iPhone ") != -1){
+	if(navigator.userAgent.indexOf(' iPhone ') != -1){
 		document.documentElement.classList.add('iphone');
+	}
+	
+	var consentGiven = localStorage.getItem('consent-given');
+	if(consentGiven != 'true'){
+		document.documentElement.classList.add('consent-required');
 	}
 </script>
 <link href="web-manifest.json" rel="manifest" />
-<link rel="stylesheet" type="text/css" href="css/normalize.css">
-<link rel="stylesheet" type="text/css" href="css/framework.css">
-<link rel="stylesheet" type="text/css" href="css/zwanzigeins-app.css">
+<link rel="stylesheet" href="css/normalize.css">
+<link rel="stylesheet" href="css/framework.css">
+<link rel="stylesheet" href="css/zwanzigeins-app.css">
 </head>
 <body>
 
@@ -445,6 +450,9 @@
                          <label for="dark"> dunkel</label>
                      </div>
                  </div>
+                 
+                 <h2>Einwilligung widerrufen und gespeicherte Daten löschen</h2>
+                 <button id='delete-all-data'>Alle gespeicherten Daten löschen</button>
             </div>
         </div>
         
@@ -465,6 +473,30 @@
 		        	Deine Zeit<br><span id="lastGameTime"></span> min
 		        </div>
 		    </div>
+    	</div>
+    	
+    	<div id="consent" class="page">
+    	   	<header>
+                <img src="img/logo-icon-with-text.svg">
+            </header>
+    		<div class="center vcenter">
+    			
+    			<div>
+    				<h1>Einwilligung erforderlich</h1>
+	    			<p>
+		    		Diese Anwendung speichert Einstellungen, Spiel-Statistiken und Programm-Ressourcen auf 
+		    		deinem Gerät.
+		    		</p>
+		    		<p>
+		    		Gemäß §25 TTDSG ist hierfür deine Einwilligung erforderlich.
+		    		</p>
+		    		<p>
+		    		Du kannst diese Einwilligung und alle gespeicherten Daten jederzeit im Hauptmenü unter <b>Einstellungen</b> widerrufen bzw. löschen.  
+		    		</p>
+		    		
+		    		<a id="give-consent" href="#main-menu">Ich willige ein.</a>
+	    		</div>
+    		</div>
     	</div>
 
     </div>

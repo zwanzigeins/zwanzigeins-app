@@ -103,6 +103,7 @@ body {
 	transform: translate(-2000%);
 }
 
+html.consent-required #consent,
 .page:first-child{
 	transform: translate(0);
 }
@@ -169,6 +170,7 @@ header h1{
     white-space: nowrap;
     outline: 0 !important;
     min-height: 1.1em;
+    font-size: 1em;
 }
 
 header button{
@@ -184,10 +186,6 @@ header button{
 
 header button.back{
     background-image: url(../img/ic_arrow_back_24px-fff.svg);
-}
-
-h1 {
-	font-size: 1em;    
 }
 
 h2 {
@@ -330,6 +328,14 @@ input[type="radio"]:checked + label:before {
     box-shadow: inset 0 0 0 5px #1482cc;
 }
 
+.page#consent {
+	background: var(--body-bg-color);
+	pointer-events: none;
+}
+
+.page#consent a{
+	pointer-events: all;
+}
 
 /***** aux classes *****/
 .vcenter{
@@ -352,4 +358,3 @@ html:not(.iphone) .iphone-only{
 .flex-1{
 	flex: 1;
 }
-
