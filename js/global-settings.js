@@ -1,96 +1,97 @@
 import Options from './options.js';
 
-export default class GlobalSettings extends Options{
-	
-	constructor(){
-		
+export default class GlobalSettings extends Options {
+
+	constructor() {
+
 		super('settings', {
 			speechRate: "1",
 			twistedSpeechMode: "zehneins",
 			theme: "device"
 		});
-		
+
 		this.applyTheme();
-		
+
 		let settingsPageElem = document.getElementById('settings');
-		if(settingsPageElem){
-			
+		if (settingsPageElem) {
+
 			let themeRadioElems = settingsPageElem.querySelectorAll('input[name="theme"]');
-			for(let radioElem of themeRadioElems){
+			for (let radioElem of themeRadioElems) {
 				radioElem.addEventListener('change', () => {
-					
-					this.applyTheme();				
-				});		
+
+					this.applyTheme();
+				});
 			}
-			
+
 			let deleteAllDataButton = document.getElementById('delete-all-data');
 			deleteAllDataButton.addEventListener('click', evt => {
-				
+
 				this.processDataClearRequest();
 			});
 		}
-		
+
 		// else testmode
 	}
-	
-	applyTheme(){
-		
-		if(this.theme){
-			switch(this.theme){
-			
-			case 'device':
-				this.useDeviceTheme();
-				break;
-					
-			case 'light':
-				document.documentElement.classList.remove('dark-theme');
-				break;
-				
-			case 'dark':
-				document.documentElement.classList.add('dark-theme');
-				break;
+
+	applyTheme() {
+
+		if (this.theme) {
+
+			switch (this.theme) {
+
+				case 'device':
+					this.useDeviceTheme();
+					break;
+
+				case 'light':
+					document.documentElement.classList.remove('dark-theme');
+					break;
+
+				case 'dark':
+					document.documentElement.classList.add('dark-theme');
+					break;
 			}
 		}
-		else{
+		else {
 			this.useDeviceTheme();
 		}
 	}
-	
-	useDeviceTheme(){
-		
+
+	useDeviceTheme() {
+
 		let darkThemeMatch = window.matchMedia('(prefers-color-scheme: dark)');
-		if(darkThemeMatch.matches){
+		if (darkThemeMatch.matches) {
 			document.documentElement.classList.add('dark-theme');
 		}
-		else{
+		else {
 			document.documentElement.classList.remove('dark-theme');
 		}
 	}
-	
-	processDataClearRequest(){
-		
+
+	processDataClearRequest() {
+
 		let confirmed = confirm("Wollen Sie wirklich alle gespeicherten Daten löschen?");
-		
-		if(confirmed){
-			
+
+		if (confirmed) {
+
 			localStorage.clear();
-			
+
 			navigator.serviceWorker.getRegistrations()
 				.then(registrations => {
-				
-					for(let registration of registrations) {
-				 		registration.unregister();
-				 	}
+
+					for (let registration of registrations) {
+						registration.unregister();
+					}
 				})
 				.then(() => {
 					location.reload();
 				})
 				;
-			
-			if(!navigator.serviceWorker){
+
+			if (!navigator.serviceWorker) {
 				location.reload();
 			}
 		}
 	}
-	
+
 }

@@ -29,9 +29,9 @@ export default class Pages {
 
 		let backBtns = document.querySelectorAll('.back');
 		for (let backBtn of backBtns) {
-			
+
 			Utils.addPressHandler(backBtn, () => {
-				
+
 				history.back();
 			});
 		}
@@ -43,12 +43,12 @@ export default class Pages {
 		if (!pageElem) {
 			pageElem = document.getElementById('main-menu');
 		}
-		
-		this.pagesElem.insertBefore(pageElem, this.pagesElem.firstChild);		
+
+		this.pagesElem.insertBefore(pageElem, this.pagesElem.firstChild);
 	}
 
 	getCurrentId() {
-		
+
 		let hash = window.location.hash;
 
 		if (hash) {
@@ -59,7 +59,7 @@ export default class Pages {
 	}
 
 	getCurrentPageElement() {
-		
+
 		let id = this.getCurrentId();
 		let page = document.getElementById(id);
 		if (page) {

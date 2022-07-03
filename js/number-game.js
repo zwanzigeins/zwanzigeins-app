@@ -1,58 +1,59 @@
 import Utils from './utils.js';
 
-export default class NumberGame{
-	
-	constructor(sound, pages, menuPageId, gamePageId){
-		
+export default class NumberGame {
+
+	constructor(sound, pages, menuPageId, gamePageId) {
+
 		this.sound = sound;
 		this.pages = pages;
-		
+
 		this.menuElem = document.getElementById(menuPageId);
 		this.gameElem = document.getElementById(gamePageId);
-		
+
 		let answerElemSelector;
-		
-		if(this.gameElem.classList.contains('auditive')){
+
+		if (this.gameElem.classList.contains('auditive')) {
 			answerElemSelector = '.auditive > .answer';
 		}
-		else{
+		else {
 			answerElemSelector = ':not(.auditive) > .answer';
 		}
-		
+
 		this.answerElem = this.gameElem.querySelector(answerElemSelector);
 		this.currentAnswer = '';
-		
+
 		this.taskElem = this.gameElem.querySelector('.task > td');
 		this.playAgainBtn = this.gameElem.querySelector('.playAgainBtn');
-		
+
 		// hint: the page-dom is 'reused' among levels, so use 'setPressHandler' to
 		// overwrite potential previous listener-registrations
-		
+
 		Utils.setPressHandler(this.playAgainBtn, () => {
-			
+
 			this.sound.playAgain();
 		});
-		
+
 		let numBtns = this.gameElem.getElementsByClassName('numBtn');
 		for (let i = 0; i < numBtns.length; i++) {
-		    Utils.setPressHandler(numBtns[i], e =>{
-		    	 let number = parseInt(e.currentTarget.innerHTML);
-				 this.processNumberInput(number);
-		    });
+			Utils.setPressHandler(numBtns[i], e => {
+				let number = parseInt(e.currentTarget.innerHTML);
+				this.processNumberInput(number);
+			});
 		}
-		
+
 		let clearBtn = this.gameElem.querySelector('.clearBtn');
 
 		Utils.setPressHandler(clearBtn, () => {
-			
-		    this.currentAnswerReset();
+
+			this.currentAnswerReset();
 		});
 	}
-	
+
 	/**
 	 * Aktuelle Antwort (Wert im Eingabefeld)
 	 */
 	get currentAnswer() {
+
 		return this.answerElem.innerHTML;
 	}
 
@@ -60,6 +61,7 @@ export default class NumberGame{
 	 * Setze aktuelle Antwort (Wert im Eingabefeld)
 	 */
 	set currentAnswer(value) {
+
 		this.answerElem.innerHTML = value;
 	}
 
@@ -67,13 +69,15 @@ export default class NumberGame{
 	 * Ist die aktuelle Antwort korrekt?
 	 */
 	isCurrentAnswerCorrect() {
-	    return (this.currentAnswer == this.rightResult.toString());
+
+		return (this.currentAnswer == this.rightResult.toString());
 	}
 
 	/**
 	 * Leere das Feld der aktuellen Antwort und setze etwaige Styles zurück
 	 */
 	currentAnswerReset() {
+
 		this.currentAnswer = "";
 		this.styleReset();
 	}
@@ -89,14 +93,14 @@ export default class NumberGame{
 			return;
 		}
 
-		if (this.wrongAnswerOccured){
+		if (this.wrongAnswerOccured) {
 			//wenn die eingegebene Antwort bereits falsch war
 			//und mehr als 500ms seitdem vergangen sind, lösche 
 			//bisherige Eingabe um automatisch neue, richtige Antwort zu ermöglichen
 			let now = new Date();
 			let elapsedMs = now.getTime() - this.wrongAnswerTimeStamp.getTime();
-		
-			if(elapsedMs > 500){
+
+			if (elapsedMs > 500) {
 				this.currentAnswerReset();
 				this.wrongAnswerOccured = false;
 			}
@@ -111,7 +115,7 @@ export default class NumberGame{
 			// beenden
 			this.styleCorrectAnswer();
 
-   			setTimeout(() => {
+			setTimeout(() => {
 				if (this.tasksPut < this.options.numTasks) {
 					return this.putNewTask();
 				}
@@ -135,23 +139,23 @@ export default class NumberGame{
 	}
 
 	getRandomNumber(from, to) {
-		
-	    let min = parseInt(from);
-	    let max = parseInt(to);
-	    return Math.floor(Math.random() * (max - min + 1)) + min;
+
+		let min = parseInt(from);
+		let max = parseInt(to);
+		return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
 
-	finishGame(){
-	    
-	    let ellapsed = new Date().getTime() - this.gameStartTimeStamp.getTime();
-	    let ellapsedDate = new Date(ellapsed);
-	    
-	    let overlayDialog = document.querySelector(".dialog")
-	    
-	    overlayDialog.classList.add("showing");
+	finishGame() {
+
+		let ellapsed = new Date().getTime() - this.gameStartTimeStamp.getTime();
+		let ellapsedDate = new Date(ellapsed);
+
+		let overlayDialog = document.querySelector(".dialog")
+
+		overlayDialog.classList.add("showing");
 		let minutes = ellapsedDate.getMinutes();
 		let seconds = ellapsedDate.getSeconds();
-		if(seconds < 10){
+		if (seconds < 10) {
 			seconds = '0' + seconds;
 		}
 		document.getElementById('lastGameTime').innerHTML = minutes + ":" + seconds;
@@ -159,19 +163,22 @@ export default class NumberGame{
 		setTimeout(() => {
 			overlayDialog.classList.remove("showing");
 		}, 2000);
-		
+
 		window.history.back();
 	}
 
-	styleWrongAnswer(){
-	    this.answerElem.classList.add('error');
+	styleWrongAnswer() {
+
+		this.answerElem.classList.add('error');
 	}
 
-	styleCorrectAnswer(){
+	styleCorrectAnswer() {
+
 		this.answerElem.classList.add('correct');
 	}
 
-	styleReset(){
-	    this.answerElem.classList.remove('error', 'correct');
+	styleReset() {
+
+		this.answerElem.classList.remove('error', 'correct');
 	}
 }

@@ -11,6 +11,7 @@ var debugTools = (function() {
 
 		var oldLog = console.log;
 		var oldError = console.error;
+
 		console.log = function(message) {
 
 			var logMsg = document.createElement('div');
@@ -30,21 +31,23 @@ var debugTools = (function() {
 			oldError.apply(console, arguments);
 			debugBar.lastElementChild.scrollIntoView();
 		};
-		
+
 		var linkHtml = '<link rel="stylesheet" href="css/debug-tools.css">';
 
 		if (document.readyState == 'complete') {
+
 			document.body.appendChild(debugBar);
 			document.head.insertAdjacentHTML('beforeend', linkHtml);
 		}
 		else {
+
 			window.addEventListener('load', function(e) {
 				document.body.appendChild(debugBar);
 				document.head.insertAdjacentHTML('beforeend', linkHtml);
 			});
 		}
-
 	}
+
 	return new DebugTools();
 
 }());

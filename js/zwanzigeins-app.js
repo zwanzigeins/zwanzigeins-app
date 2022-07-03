@@ -22,9 +22,9 @@ let soundWarmedUp = false;
 speechSynthesis.getVoices();
 
 document.addEventListener('hashchange', () => {
-	
-	if(!soundWarmedUp){
-	
+
+	if (!soundWarmedUp) {
+
 		speechSynthesis.getVoices();
 		soundWarmedUp = true;
 		sound.playWord(' ');
@@ -34,28 +34,28 @@ document.addEventListener('hashchange', () => {
 let urlParams = new URLSearchParams(window.location.search);
 let debugParam = urlParams.get('debug');
 
-if(debugParam != null){
-	
+if (debugParam != null) {
+
 	let scriptElem = document.createElement('script');
 	scriptElem.src = 'js/debug-tools.js';
 	document.body.appendChild(scriptElem);
 }
 
 let swUri = 'service-worker.js';
-            
+
 window.navigator.serviceWorker.getRegistration().then(registration => {
-       
-    if(registration == null) {
-        window.navigator.serviceWorker.register(swUri);
-    }
-    else {
-        registration.update();
-    }
+
+	if (registration == null) {
+		window.navigator.serviceWorker.register(swUri);
+	}
+	else {
+		registration.update();
+	}
 });
 
 let giveConsentAnchor = document.querySelector('a#give-consent');
 giveConsentAnchor.addEventListener('click', () => {
-	
+
 	document.documentElement.classList.remove('consent-required');
 	localStorage.setItem('consent-given', 'true');
 });
