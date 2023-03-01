@@ -113,7 +113,7 @@ html.dark-theme{
 	border-left: 1px solid var(--default-border-color); 
 }
 
-.numberGame.auditive .playAgainBtn:before{
+.numberGame.auditive .playAgainBtn:before {
 	background-image: url(../img/ic_play_arrow_24px.svg);
 	background-size: 1em;
 }
@@ -122,7 +122,7 @@ html.dark-theme{
 	display: table-cell;
 }
 
-.numberGame td, .numberGame.auditive #playAgainBtn{
+.numberGame td, .numberGame.auditive #playAgainBtn {
 	width: 33.33333%;
 	vertical-align: middle;
 	text-align: center;
@@ -141,11 +141,16 @@ html.dark-theme{
 	background-image: linear-gradient(to bottom, var(--button-gradient-top-active-color), var(--button-gradient-bottom-active-color));
 }
 
-#numberDictationGame .answer{
+#numberDictationGame .answer {
 	height: 6rem;
 	font-size: 2.5rem;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	background-color: var(--input-bg-color);
+}
+
+button.share {
+	left: calc(100% - 3rem);
+	background-image: url(../img/ic_share_24px-fff.svg);
 }

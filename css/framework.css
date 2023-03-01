@@ -178,10 +178,14 @@ header button{
     left: 0;
     top: 0;
     height: 100%;
-    width: 3rem;
     margin: 0;
     border: 0;
     background: center center no-repeat;
+    width: fit-content;
+}
+
+header button:empty{
+	width: 3rem;
 }
 
 header button.back{

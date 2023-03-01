@@ -17,9 +17,31 @@ export default class Statistics {
 				this.showStatistics();
 			}
 		});
+
+		let shareButton = statisticsPageElem.querySelector('.share');
+
+		shareButton.addEventListener("click", () => {
+			
+			const shareData = {
+			  title: "Zwanzigeins Statistik",
+			  text: this.createStatsticsHtml()
+			};
+			
+			try {
+				navigator.share(shareData);
+			} catch (err) {
+			}
+		});
 	}
 
 	showStatistics() {
+
+		let html = this.createStatsticsHtml();
+
+		this.centerElem.innerHTML = html;
+	}
+
+	createStatsticsHtml() {
 
 		let html = '';
 
@@ -30,7 +52,7 @@ export default class Statistics {
 			html += row;
 		}
 
-		this.centerElem.innerHTML = html;
+		return html;
 	}
 
 }
