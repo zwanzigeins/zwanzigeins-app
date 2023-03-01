@@ -1,5 +1,6 @@
 import GameScoreStorage from './game-score-storage.js';
 import Utils from './utils.js';
+import Sound from './sound.js';
 
 export default class NumberGame {
 
