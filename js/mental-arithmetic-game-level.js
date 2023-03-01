@@ -1,18 +1,22 @@
 import NumberGame from './number-game.js';
+import Sound from './sound.js';
 
 export default class MentalArithmeticGameLevel extends NumberGame {
 
-	constructor(sound, pages, levelOptions) {
+	constructor(levelName, levelOptions) {
 
-		super(sound, pages, 'mental-arithmetic-menu', 'mental-arithmetic-game');
+		super('mental-arithmetic, ' + levelName, 'mental-arithmetic-menu', 'mental-arithmetic-game');
 		this.options = levelOptions;
 	}
 
 	startGame() {
+		
+		super.startGame();
 
 		window.location.hash = 'mental-arithmetic-game';
 
 		if (this.options.fullscreen) {
+			
 			if (document.documentElement.webkitRequestFullscreen) {
 				document.documentElement.webkitRequestFullscreen();
 			}
@@ -21,13 +25,10 @@ export default class MentalArithmeticGameLevel extends NumberGame {
 			}
 		}
 
-		this.wrongAnswerOccured = false;
-		this.gameStartTimeStamp = new Date();
-		this.tasksPut = 0;
-
 		this.putNewTask();
 
 		window.onkeydown = e => {
+			
 			let digit = parseInt(e.key);
 			if (!isNaN(digit)) {
 				this.processNumberInput(digit);
@@ -44,6 +45,7 @@ export default class MentalArithmeticGameLevel extends NumberGame {
 		var queryTerm =
 			'#mental-arithmetic-game:not(.auditive) .answerWrapper.simple .answer,' +
 			'#mental-arithmetic-game.auditive .answerWrapper.auditive .answer';
+			
 		this.answerElem = this.gameElem.querySelector(queryTerm);
 	}
 
@@ -52,16 +54,16 @@ export default class MentalArithmeticGameLevel extends NumberGame {
 		var operators = [];
 		let options = this.options;
 		if (options['plus'] && options['plus'].enabled) {
-			operators.push("plus");
+			operators.push('plus');
 		}
 		if (options['minus'] && options['minus'].enabled) {
-			operators.push("minus");
+			operators.push('minus');
 		}
 		if (options['multiply'] && options['multiply'].enabled) {
-			operators.push("multiply");
+			operators.push('multiply');
 		}
 		if (options['divide'] && options['divide'].enabled) {
-			operators.push("divide");
+			operators.push('divide');
 		}
 
 		//würfele eine Zahl, die der Anzahl der gewählten Operatoren entspricht
@@ -74,14 +76,14 @@ export default class MentalArithmeticGameLevel extends NumberGame {
 
 		switch (operator) {
 
-			case "plus":
+			case 'plus':
 
 				this.rightResult = num1 + num2;
 				this.taskElem.innerHTML = num1 + ' + ' + num2;
-				this.sound.playTask(num1, operator, num2);
+				Sound.INSTANCE.playTask(num1, operator, num2);
 				break;
 
-			case "minus":
+			case 'minus':
 
 				let minuend, subtrahent;
 				if (num1 > num2) {
@@ -93,22 +95,22 @@ export default class MentalArithmeticGameLevel extends NumberGame {
 					subtrahent = num1;
 				}
 
-				this.sound.playTask(minuend, operator, subtrahent);
+				Sound.INSTANCE.playTask(minuend, operator, subtrahent);
 
 				this.rightResult = minuend - subtrahent;
 				this.taskElem.innerHTML = minuend + ' - ' + subtrahent;
 
 				break;
 
-			case "multiply":
+			case 'multiply':
 
 				operator = "mal";
-				this.sound.playTask(num1, operator, num2);
+				Sound.INSTANCE.playTask(num1, operator, num2);
 				this.rightResult = num1 * num2;
 				this.taskElem.innerHTML = num1 + ' &times; ' + num2;
 				break;
 
-			case "divide":
+			case 'divide':
 
 				let subOptions = options[operator];
 				operator = "durch";
@@ -133,7 +135,7 @@ export default class MentalArithmeticGameLevel extends NumberGame {
 				let dividend = result * divisor;
 
 				this.rightResult = result;
-				this.sound.playTask(dividend, operator, divisor);
+				Sound.INSTANCE.playTask(dividend, operator, divisor);
 				this.taskElem.innerHTML = dividend + ' &divide; ' + divisor;
 				break;
 		}

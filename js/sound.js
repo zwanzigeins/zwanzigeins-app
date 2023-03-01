@@ -7,12 +7,9 @@ export default class Sound {
 
 		this.lastPlayed = null;
 		this.letterizer = new Letterizer();
-		this.letterizerFunction;
 	}
 
 	playInteger(integer, finishedHandler) {
-
-		this.setLetterizer();
 
 		let word = this.getLetterizedNumber(integer);
 		this.playWord(word, finishedHandler);
@@ -33,8 +30,6 @@ export default class Sound {
 	}
 
 	playTask(num1, operator, num2) {
-
-		this.setLetterizer();
 
 		let num1Word = this.getLetterizedNumber(num1);
 		let num2Word = this.getLetterizedNumber(num2);

@@ -1,11 +1,13 @@
 import Options from './options.js';
-import NumberGame from './number-game.js'
+import NumberGame from './number-game.js';
+import Pages from './pages.js';
+import Sound from './sound.js';
 
 export default class ListenAndWriteGame extends NumberGame {
 
-	constructor(sound, pages) {
+	constructor() {
 
-		super(sound, pages, 'listen-and-write-menu', 'listen-and-write-game');
+		super('listen-and-write', 'listen-and-write-menu', 'listen-and-write-game');
 
 		this.defaultOptions = {
 			from: 11,
@@ -22,7 +24,7 @@ export default class ListenAndWriteGame extends NumberGame {
 		btnStart.addEventListener('click', e => {
 
 			e.preventDefault();
-			pages.show('listen-and-write-game');
+			Pages.INSTANCE.show('listen-and-write-game');
 			this.startGame();
 		});
 	}
@@ -31,7 +33,7 @@ export default class ListenAndWriteGame extends NumberGame {
 
 		let random = this.getRandomNumber(this.options.from, this.options.to);
 
-		this.sound.playInteger(random);
+		Sound.INSTANCE.playInteger(random);
 		this.rightResult = random;
 		this.taskElem.innerHTML = random;
 
@@ -41,12 +43,10 @@ export default class ListenAndWriteGame extends NumberGame {
 	}
 
 	startGame() {
+		
+		super.startGame();
 
 		window.location.hash = 'listen-and-write-game';
-
-		this.wrongAnswerOccured = false;
-		this.gameStartTimeStamp = new Date();
-		this.tasksPut = 0;
 
 		this.putNewTask();
 

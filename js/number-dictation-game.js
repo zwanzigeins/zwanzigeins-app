@@ -1,12 +1,11 @@
 import Utils from './utils.js';
+import Pages from './pages.js';
 
 export default class NumberDictationGame {
 
-	constructor(pages) {
+	constructor() {
 
-		let pagesElem = pages.pagesElem;
-
-		let numberDictationGamePage = pagesElem.querySelector('#number-dictation-game');
+		let numberDictationGamePage = document.querySelector('#number-dictation-game');
 
 		this.startButton = numberDictationGamePage.querySelector('.start');
 		this.startButton.onclick = evt => {

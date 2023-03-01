@@ -4,22 +4,26 @@ import NumberDictationGame from './number-dictation-game.js';
 import Pages from './pages.js';
 import Sound from './sound.js';
 import GlobalSettings from './global-settings.js';
+import GameScoreStorage from './game-score-storage.js';
+import Statistics from './statistics.js';
 
 GlobalSettings.INSTANCE = new GlobalSettings();
 
-let sound = new Sound();
-let pages = new Pages();
+Sound.INSTANCE = new Sound();
+Pages.INSTANCE = new Pages();
 
-new ListenAndWriteGame(sound, pages);
-MentalArithmeticGame.INSTANCE = new MentalArithmeticGame(sound, pages);
-new NumberDictationGame(pages);
+new ListenAndWriteGame();
+MentalArithmeticGame.INSTANCE = new MentalArithmeticGame();
+new NumberDictationGame();
+new Statistics();
+
+GameScoreStorage.INSTANCE = new GameScoreStorage();
+
+Pages.INSTANCE.handleInitialNavigation();
 
 // try to initialize sound early to prevent 
 // a delayed, half, first utterance 
 let soundWarmedUp = false;
-
-// intended to improve warmup
-speechSynthesis.getVoices();
 
 document.addEventListener('hashchange', () => {
 
@@ -27,7 +31,7 @@ document.addEventListener('hashchange', () => {
 
 		speechSynthesis.getVoices();
 		soundWarmedUp = true;
-		sound.playWord(' ');
+		Sound.INSTANCE.playWord(' ');
 	}
 });
 

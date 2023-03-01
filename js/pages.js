@@ -6,21 +6,7 @@ export default class Pages {
 
 		this.pagesElem = document.querySelector('body > .pages');
 
-		if (window.location.hash) {
-
-			var navToken = location.hash.substring(1);
-			// speech synthesis is only allowed on user-interaction, 
-			// so always go back to mentalArithmeticMenu if
-			// page-reload was triggered on mentalArithmeticGame
-			let currentPageId = this.getCurrentId();
-			let pageElem = document.getElementById(currentPageId);
-			if (pageElem.dataset.preventInitialDisplay != undefined && currentPageId == pageElem.id) {
-				history.back();
-			}
-			else {
-				this.show(navToken);
-			}
-		}
+		this.beforeOpenedHandlers = [];
 
 		window.onhashchange = () => {
 			var navToken = location.hash.substring(1);
@@ -36,12 +22,36 @@ export default class Pages {
 			});
 		}
 	}
+	
+	handleInitialNavigation(){
+		
+		if (window.location.hash) {
+
+			var navToken = location.hash.substring(1);
+			// speech synthesis is only allowed on user-interaction, 
+			// so always go back to mentalArithmeticMenu if
+			// page-reload was triggered on mentalArithmeticGame
+			let currentPageId = this.getCurrentId();
+			let pageElem = document.getElementById(currentPageId);
+			if (pageElem.dataset.preventInitialDisplay != undefined && currentPageId == pageElem.id) {
+				history.back();
+			}
+			else {
+				this.show(navToken);
+			}
+		}
+	}
 
 	show(id) {
 
 		var pageElem = document.getElementById(id);
 		if (!pageElem) {
 			pageElem = document.getElementById('main-menu');
+		}
+
+		for (let handler of this.beforeOpenedHandlers) {
+
+			handler.call(null, id);
 		}
 
 		this.pagesElem.insertBefore(pageElem, this.pagesElem.firstChild);
@@ -68,6 +78,11 @@ export default class Pages {
 		else {
 			return document.getElementById('mainMenu');
 		}
+	}
+
+	addBeforeOpenedHandler(handler) {
+
+		this.beforeOpenedHandlers.push(handler);
 	}
 
 }

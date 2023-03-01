@@ -1,11 +1,11 @@
+import GameScoreStorage from './game-score-storage.js';
 import Utils from './utils.js';
 
 export default class NumberGame {
 
-	constructor(sound, pages, menuPageId, gamePageId) {
-
-		this.sound = sound;
-		this.pages = pages;
+	constructor(gameName, menuPageId, gamePageId) {
+		
+		this.gameName = gameName;
 
 		this.menuElem = document.getElementById(menuPageId);
 		this.gameElem = document.getElementById(gamePageId);
@@ -30,12 +30,14 @@ export default class NumberGame {
 
 		Utils.setPressHandler(this.playAgainBtn, () => {
 
-			this.sound.playAgain();
+			Sound.INSTANCE.playAgain();
 		});
 
 		let numBtns = this.gameElem.getElementsByClassName('numBtn');
 		for (let i = 0; i < numBtns.length; i++) {
+			
 			Utils.setPressHandler(numBtns[i], e => {
+				
 				let number = parseInt(e.currentTarget.innerHTML);
 				this.processNumberInput(number);
 			});
@@ -47,8 +49,14 @@ export default class NumberGame {
 
 			this.currentAnswerReset();
 		});
+		
+		// declare for documentation
+		this.wrongAnswerOccured = false;
+		this.gameStartTimeStamp = new Date();
+		this.tasksPut = 0;
+		this.numErrors = 0;
 	}
-
+	
 	/**
 	 * Aktuelle Antwort (Wert im Eingabefeld)
 	 */
@@ -144,25 +152,40 @@ export default class NumberGame {
 		let max = parseInt(to);
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
+	
+	startGame() {
+		
+		this.wrongAnswerOccured = false;
+		this.gameStartTimeStamp = new Date();
+		this.tasksPut = 0;
+		this.numErrors = 0;
+	}
 
 	finishGame() {
 
 		let ellapsed = new Date().getTime() - this.gameStartTimeStamp.getTime();
 		let ellapsedDate = new Date(ellapsed);
 
-		let overlayDialog = document.querySelector(".dialog")
+		let overlayDialog = document.querySelector('.dialog');
 
-		overlayDialog.classList.add("showing");
+		overlayDialog.classList.add('showing');
 		let minutes = ellapsedDate.getMinutes();
 		let seconds = ellapsedDate.getSeconds();
 		if (seconds < 10) {
 			seconds = '0' + seconds;
 		}
-		document.getElementById('lastGameTime').innerHTML = minutes + ":" + seconds;
+		
+		let ellapsedTimeString = minutes + ':' + seconds;
+		
+		document.getElementById('lastGameTime').innerHTML = ellapsedTimeString;
+		
+		document.getElementById('numErrors').innerHTML = this.numErrors;
 
 		setTimeout(() => {
-			overlayDialog.classList.remove("showing");
+			overlayDialog.classList.remove('showing');
 		}, 2000);
+		
+		GameScoreStorage.INSTANCE.saveGameScore(this.gameName, ellapsedTimeString, this.numErrors);
 
 		window.history.back();
 	}

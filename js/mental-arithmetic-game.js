@@ -3,7 +3,7 @@ import MentalArithmeticGameLevel from './mental-arithmetic-game-level.js';
 
 export default class MentalArithmeticGame {
 
-	constructor(sound, pages) {
+	constructor() {
 
 		this.defaultOptions = {
 
@@ -30,7 +30,7 @@ export default class MentalArithmeticGame {
 
 				levelOptions['numTasks'] = this.options.numTasks;
 
-				let level = new MentalArithmeticGameLevel(sound, pages, levelOptions);
+				let level = new MentalArithmeticGameLevel(levelName, levelOptions);
 				level.startGame();
 			}
 		}

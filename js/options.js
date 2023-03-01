@@ -95,7 +95,7 @@ export default class Options {
 					overriddenVal = parseInt(overriddenVal);
 				}
 				else if (typeof variable == 'boolean') {
-					overriddenVal = new Boolean(overridenVal)
+					overriddenVal = new Boolean(overriddenVal);
 				}
 				else {
 					continue;
