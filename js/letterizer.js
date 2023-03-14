@@ -8,7 +8,7 @@ export default class Letterizer {
 
 		number = number.toString();
 		
-		var mode = 1;
+		var mode = 'zehneins';
 		var numberArray = this.splitNumber(number);
 		var word = this.letterizeNumber(numberArray, mode);
 
@@ -31,7 +31,7 @@ export default class Letterizer {
 
 		number = number.toString();
 		
-		var mode = 2;
+		var mode = 'zwanzigeins';
 		var numberArray = this.splitNumber(number);
 		var word = this.letterizeNumber(numberArray, mode);
 
@@ -76,12 +76,12 @@ export default class Letterizer {
 			for(var y = 0; y < numberLength; y++) {
 
 				var digit = number.charAt(y);
-				if(mode == 1) {
+				if(mode == 'zehneins') {
 
 					numberWordArray.push(this.getDigitWord(digit, subArity));
 					subArity--; 
 				}
-				else if(mode == 2) {
+				else if(mode == 'zwanzigeins') {
 
 					if(subArity == 2 && digit == '1') {
 
