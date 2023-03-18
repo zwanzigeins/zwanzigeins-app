@@ -7,7 +7,7 @@ describe('letterizer - zehneins', () => {
 	let numberWord = letterizer.letterizeZehnEinsNumber(1111111111);
 		
 	it('1111111111', () => {
-		expect(numberWord).toEqual('eine milliarde hundert zehn eins millionen hundert zehn eins tausend hundert zehn eins');
+		expect(numberWord).toEqual('einemilliarde hundertzehneinsmillionen hundertzehneinstausend hundertzehneins');
 	});	
 });
 
@@ -16,7 +16,7 @@ describe('letterizer - zehneins-endnull', () => {
 	let numberWord = letterizer.letterizeZehnEinsNumberEndnull(1111111110);
 	
 	it('1111111110', () => {
-		expect(numberWord).toEqual('eine milliarde hundert zehn eins millionen hundert zehn eins tausend hundert zehn null');
+		expect(numberWord).toEqual('einemilliarde hundertzehneinsmillionen hundertzehneinstausend hundertzehn null');
 	});	
 });
 

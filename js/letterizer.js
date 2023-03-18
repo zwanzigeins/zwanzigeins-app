@@ -1,16 +1,16 @@
 export default class Letterizer {
 
 	letterizeZehnEinsNumber(number) {
-		
-		if(number > 999999999999){
+
+		if (number > 999999999999) {
 			throw new Exception('unsupported number');
 		}
 
 		number = number.toString();
-		
+
 		var mode = 'zehneins';
-		var numberArray = this.splitNumber(number);
-		var word = this.letterizeNumber(numberArray, mode);
+		var triplesArray = this.splitNumber(number);
+		var word = this.letterizeNumber(triplesArray, mode);
 
 		return word;
 	}
@@ -25,12 +25,12 @@ export default class Letterizer {
 
 	letterizeZwanzigEinsNumber(number) {
 
-		if(number > 999999999999){
+		if (number > 999999999999) {
 			throw new Exception('unsupported number');
 		}
 
 		number = number.toString();
-		
+
 		var mode = 'zwanzigeins';
 		var numberArray = this.splitNumber(number);
 		var word = this.letterizeNumber(numberArray, mode);
@@ -53,85 +53,89 @@ export default class Letterizer {
 		var numberLength = number.length;
 		var lastDigit = number.charAt(numberLength - 1);
 
-		if(lastDigit == '0') {
+		if (lastDigit == '0') {
 			word += ' null';
 		}
 
 		return word;
 	}
 
-	letterizeNumber(numberArray, mode) {
+	letterizeNumber(triplesArray, mode) {
 
-		var numberWord = '';
-		var numberWordArray = [];
-		var numberArrayLength = numberArray.length;
-		var mainArity = numberArrayLength;
+		let numberWordArray = [];
+		let triplesArrayLength = triplesArray.length;
+		let mainArity = triplesArrayLength;
 
-		for(var i = 0; i < numberArrayLength; i++) {
+		for (let i = 0; i < triplesArrayLength; i++) {
 
-			var number = numberArray[i];
-			var numberLength = number.length;
-			var subArity = numberLength;
+			let triple = triplesArray[i];
+			let subArity = triple.length;
 
-			for(var y = 0; y < numberLength; y++) {
+			let tripleWordArray = [];
 
-				var digit = number.charAt(y);
-				if(mode == 'zehneins') {
+			for (let y = 0; y < triple.length; y++) {
 
-					numberWordArray.push(this.getDigitWord(digit, subArity));
-					subArity--; 
+				let digit = triple.charAt(y);
+				if (mode == 'zehneins') {
+
+					tripleWordArray.push(this.getDigitWord(digit, subArity));
+					subArity--;
 				}
-				else if(mode == 'zwanzigeins') {
+				else if (mode == 'zwanzigeins') {
 
-					if(subArity == 2 && digit == '1') {
+					if (subArity == 2 && digit == '1') {
 
-						var lastDigit = number.charAt(numberLength - 1);
-						numberWordArray.push(this.getDigitWordTenner(lastDigit));
+						let lastDigit = triple.charAt(triple.length - 1);
+						tripleWordArray.push(this.getDigitWordTenner(lastDigit));
 						break;
 					}
 					else {
 
-						numberWordArray.push(this.getDigitWord(digit, subArity));
-						subArity--; 
+						tripleWordArray.push(this.getDigitWord(digit, subArity));
+						subArity--;
 					}
 				}
 			}
 
-			numberWordArray.push(this.getMainArityWord(mainArity));
+			let mainArityWord = this.getMainArityWord(mainArity);
+
+			let lastTripleDigitWord = tripleWordArray[tripleWordArray.length - 1];
+
+			if (lastTripleDigitWord == 'eins' && tripleWordArray.length == 1) {
+
+				switch (mainArityWord) {
+
+					case 'tausend':
+						tripleWordArray[tripleWordArray.length - 1] = 'ein';
+						break;
+
+					case 'millionen':
+						tripleWordArray[tripleWordArray.length - 1] = 'eine';
+						mainArityWord = 'million';
+						break;
+						
+					case 'milliarden':
+						tripleWordArray[tripleWordArray.length - 1] = 'eine';
+						mainArityWord = 'milliarde';
+						break;
+				}
+			}
+
+			let tripleWord = tripleWordArray.join('');
+
+			numberWordArray.push(tripleWord + mainArityWord);
 			mainArity--;
 		}
-
-		numberWord = this.getCleanNumberWord(numberWordArray);
-
-		return numberWord;
-	}
-
-	getCleanNumberWord(numberWordArray) {
-
-		var filteredNumberWordArray = numberWordArray.filter(a => a !== '');
-		var firstWord = filteredNumberWordArray[0];
-
-		if(firstWord == 'eins' && filteredNumberWordArray.length > 1) {
-
-			var secondWord = filteredNumberWordArray[1];
-
-			switch(secondWord) {
-				case 'tausend' : filteredNumberWordArray[0] = 'ein'; break;
-				case 'millionen': filteredNumberWordArray[0] = 'eine'; break;
-				case 'milliarden': 	filteredNumberWordArray[0] = 'eine';
-									filteredNumberWordArray[1] = 'milliarde'; 
-									break;
-			}
-		}
-
-		var numberWord = filteredNumberWordArray.join(' ');
+		
+		let numberWord = numberWordArray.join(' ');
 
 		return numberWord;
 	}
+
 
 	getMainArityWord(mainArity) {
 
-		switch(mainArity) {
+		switch (mainArity) {
 			case 2: return 'tausend';
 			case 3: return 'millionen';
 			case 4: return 'milliarden';
@@ -142,43 +146,43 @@ export default class Letterizer {
 
 	getDigitWord(digit, subArity) {
 
-		switch(digit) {
+		switch (digit) {
 			case '1':
-				if(subArity == 1) return 'eins';
-				if(subArity == 2) return 'zehn';
-				if(subArity == 3) return 'hundert';
+				if (subArity == 1) return 'eins';
+				if (subArity == 2) return 'zehn';
+				if (subArity == 3) return 'hundert';
 			case '2':
-				if(subArity == 1) return 'zwei';
-				if(subArity == 2) return 'zwanzig';
-				if(subArity == 3) return 'zwei hundert';
+				if (subArity == 1) return 'zwei';
+				if (subArity == 2) return 'zwanzig';
+				if (subArity == 3) return 'zweihundert';
 			case '3':
-				if(subArity == 1) return 'drei';
-				if(subArity == 2) return 'dreißig';
-				if(subArity == 3) return 'drei hundert';
+				if (subArity == 1) return 'drei';
+				if (subArity == 2) return 'dreißig';
+				if (subArity == 3) return 'dreihundert';
 			case '4':
-				if(subArity == 1) return 'vier';
-				if(subArity == 2) return 'vierzig';
-				if(subArity == 3) return 'vier hundert';
+				if (subArity == 1) return 'vier';
+				if (subArity == 2) return 'vierzig';
+				if (subArity == 3) return 'vierhundert';
 			case '5':
-				if(subArity == 1) return 'fünf';
-				if(subArity == 2) return 'fünfzig';
-				if(subArity == 3) return 'fünf hundert';
+				if (subArity == 1) return 'fünf';
+				if (subArity == 2) return 'fünfzig';
+				if (subArity == 3) return 'fünfhundert';
 			case '6':
-				if(subArity == 1) return 'sechs';
-				if(subArity == 2) return 'sechzig';
-				if(subArity == 3) return 'sechs hundert';
+				if (subArity == 1) return 'sechs';
+				if (subArity == 2) return 'sechzig';
+				if (subArity == 3) return 'sechshundert';
 			case '7':
-				if(subArity == 1) return 'sieben';
-				if(subArity == 2) return 'siebzig';
-				if(subArity == 3) return 'sieben hundert';
+				if (subArity == 1) return 'sieben';
+				if (subArity == 2) return 'siebzig';
+				if (subArity == 3) return 'siebenhundert';
 			case '8':
-				if(subArity == 1) return 'acht';
-				if(subArity == 2) return 'achtzig';
-				if(subArity == 3) return 'acht hundert';
+				if (subArity == 1) return 'acht';
+				if (subArity == 2) return 'achtzig';
+				if (subArity == 3) return 'achthundert';
 			case '9':
-				if(subArity == 1) return 'neun';
-				if(subArity == 2) return 'neunzig';
-				if(subArity == 3) return 'neun hundert';
+				if (subArity == 1) return 'neun';
+				if (subArity == 2) return 'neunzig';
+				if (subArity == 3) return 'neunhundert';
 		}
 
 		return '';
@@ -186,7 +190,7 @@ export default class Letterizer {
 
 	getDigitWordTenner(lastDigit) {
 
-		switch(lastDigit) {
+		switch (lastDigit) {
 			case '0': return 'zehn';
 			case '1': return 'elf';
 			case '2': return 'zwölf';
@@ -210,11 +214,11 @@ export default class Letterizer {
 		var digit = '';
 
 		for (var i = 0; i < numberLength; i++) {
-			
-			digit = number.charAt(numberLength -1 -i) + digit;
-			
-			if(cnt == 3 || i == numberLength - 1) {
-				
+
+			digit = number.charAt(numberLength - 1 - i) + digit;
+
+			if (cnt == 3 || i == numberLength - 1) {
+
 				numberArray.splice(0, 0, digit);
 				cnt = 1;
 				digit = '';
@@ -222,7 +226,7 @@ export default class Letterizer {
 			else {
 				cnt++;
 			}
-		}	
+		}
 
 		return numberArray;
 	}
