@@ -5,7 +5,7 @@ import Sound from './sound.js';
 export default class NumberGame {
 
 	constructor(gameName, menuPageId, gamePageId) {
-		
+
 		this.gameName = gameName;
 
 		this.menuElem = document.getElementById(menuPageId);
@@ -36,9 +36,9 @@ export default class NumberGame {
 
 		let numBtns = this.gameElem.getElementsByClassName('numBtn');
 		for (let i = 0; i < numBtns.length; i++) {
-			
+
 			Utils.setPressHandler(numBtns[i], e => {
-				
+
 				let number = parseInt(e.currentTarget.innerHTML);
 				this.processNumberInput(number);
 			});
@@ -50,14 +50,14 @@ export default class NumberGame {
 
 			this.currentAnswerReset();
 		});
-		
+
 		// declare for documentation
 		this.wrongAnswerOccured = false;
 		this.gameStartTimeStamp = new Date();
 		this.tasksPut = 0;
 		this.numErrors = 0;
 	}
-	
+
 	/**
 	 * Aktuelle Antwort (Wert im Eingabefeld)
 	 */
@@ -141,9 +141,12 @@ export default class NumberGame {
 
 		let rightResultBeginning = rightResultStr.substr(0, this.currentAnswer.length);
 		if (rightResultBeginning != this.currentAnswer) {
+
 			this.styleWrongAnswer();
 			this.wrongAnswerOccured = true;
 			this.wrongAnswerTimeStamp = new Date();
+
+			this.numErrors++;
 		}
 	}
 
@@ -153,9 +156,9 @@ export default class NumberGame {
 		let max = parseInt(to);
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
-	
+
 	startGame() {
-		
+
 		this.wrongAnswerOccured = false;
 		this.gameStartTimeStamp = new Date();
 		this.tasksPut = 0;
@@ -175,17 +178,17 @@ export default class NumberGame {
 		if (seconds < 10) {
 			seconds = '0' + seconds;
 		}
-		
+
 		let ellapsedTimeString = minutes + ':' + seconds;
-		
+
 		document.getElementById('lastGameTime').innerHTML = ellapsedTimeString;
-		
+
 		document.getElementById('numErrors').innerHTML = this.numErrors;
 
 		setTimeout(() => {
 			overlayDialog.classList.remove('showing');
 		}, 2000);
-		
+
 		GameScoreStorage.INSTANCE.saveGameScore(this.gameName, ellapsedTimeString, this.numErrors);
 
 		window.history.back();
