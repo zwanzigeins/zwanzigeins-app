@@ -4,7 +4,7 @@
   "description": "Kopfrechen-Trainer für die unverdrehte Zahlensprechweise.",
   "main": "src/zwanzigeins-app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jasmine"
   },
   "repository": {
     "type": "git",
@@ -27,5 +27,6 @@
     "rollup": "^1.32.1",
     "rollup-plugin-uglify-es": "0.0.1",
     "shelljs": "^0.8.4"
-  }
+  },
+  "type": "module"
 }
