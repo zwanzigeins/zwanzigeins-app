@@ -77,8 +77,12 @@ export default class Letterizer {
 
 				let digit = triple.charAt(y);
 				if (mode == 'zehneins') {
-
-					tripleWordArray.push(this.getDigitWord(digit, subArity));
+					
+					let digitWord = this.getDigitWord(digit, subArity);
+					if(digitWord != ''){
+						tripleWordArray.push(digitWord);
+					}
+						
 					subArity--;
 				}
 				else if (mode == 'zwanzigeins') {
@@ -91,7 +95,10 @@ export default class Letterizer {
 					}
 					else {
 
-						tripleWordArray.push(this.getDigitWord(digit, subArity));
+						let digitWord = this.getDigitWord(digit, subArity);
+						if(digitWord != ''){
+							tripleWordArray.push(digitWord);
+						}
 						subArity--;
 					}
 				}
@@ -121,9 +128,9 @@ export default class Letterizer {
 				}
 			}
 
-			let tripleWord = tripleWordArray.join('');
+			let tripleWord = tripleWordArray.join(' ');
 
-			numberWordArray.push(tripleWord + mainArityWord);
+			numberWordArray.push(tripleWord + ' ' + mainArityWord);
 			mainArity--;
 		}
 		
