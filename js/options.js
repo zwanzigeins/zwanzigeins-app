@@ -5,12 +5,18 @@ export default class Options {
 	constructor(pageId, defaultOptions) {
 
 		this.pageId = pageId;
+		
+		this.payloadPropertyKeys = [];
+		
+		this.defaultOptions = defaultOptions;
 
 		// copy default-options in here
 		for (var propertyKey in defaultOptions) {
+			
 			this[propertyKey] = defaultOptions[propertyKey];
+			this.payloadPropertyKeys.push(propertyKey);
 		}
-
+		
 		this.loadOptions();
 
 		this.pageElem = document.getElementById(pageId);
@@ -44,30 +50,67 @@ export default class Options {
 				case 'checkbox':
 
 					inputElem.checked = curVal;
+					
+					this.updateCheckBoxDataAttribute(inputElem);
+					
 					inputElem.onchange = e => {
+						
 						let propertyKey = e.target.name;
 						this[propertyKey] = e.target.checked;
+						this.updateCheckBoxDataAttribute(inputElem);
 						this.saveOptions();
 					}
+					
 					break;
 
 				case 'radio':
 
 					if (inputElem.value == curVal) {
 						inputElem.checked = true;
+						inputElem.parentElement.dataset.selectedValue = curVal;
 					}
+
 					inputElem.onchange = e => {
+
 						let propertyKey = e.target.name;
-						this[propertyKey] = e.target.value;
+						
+						let newValue = e.target.value;
+						
+						let defaultOption = this.defaultOptions[name];
+						if(typeof defaultOption == 'number'){
+							newValue = parseFloat(newValue);
+						}
+						
+						this[propertyKey] = newValue;											
+						
+						inputElem.parentElement.dataset.selectedValue = curVal;
 						this.saveOptions();
 					}
+					
 					break;
 
+				case 'number':
+					
+					// for input[text] and others
+					
+					inputElem.value = parseFloat(curVal);
+					
+					inputElem.oninput = e => {
+						
+						let propertyKey = e.target.name;
+						this[propertyKey] = parseFloat(e.target.value);
+						this.saveOptions();
+					}
+					
+					break;
+					
 				default:
 
-					// for input[text] and [number]
-					inputElem.value = curVal
-					inputElem.onchange = e => {
+					// for input[text] and others
+					inputElem.value = curVal;
+					
+					inputElem.oninput = e => {
+						
 						let propertyKey = e.target.name;
 						this[propertyKey] = e.target.value;
 						this.saveOptions();
@@ -75,10 +118,20 @@ export default class Options {
 			}
 		}
 	}
+	
+	updateCheckBoxDataAttribute(checkBoxInput) {
+		
+		if(checkBoxInput.checked){
+			checkBoxInput.parentElement.dataset.checked = 'true';
+		}
+		else {
+			checkBoxInput.parentElement.dataset.checked = 'false';
+		}
+	}
 
 	saveOptions() {
 
-		var optionsJson = JSON.stringify(this);
+		var optionsJson = JSON.stringify(this.getPayloadObject());
 		localStorage.setItem(this.pageId + '-options', optionsJson);
 	}
 
@@ -105,5 +158,16 @@ export default class Options {
 			}
 		}
 	}
+	
+	getPayloadObject() {
+		
+		let payloadObj = {};
+		
+		for(let propertyKey of this.payloadPropertyKeys){
+			payloadObj[propertyKey] = this[propertyKey];
+		}
+		
+		return payloadObj;
+	}	
 
 }

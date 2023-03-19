@@ -5,9 +5,11 @@ export default class GlobalSettings extends Options {
 	constructor() {
 
 		super('settings', {
-			speechRate: "1",
-			twistedSpeechMode: "zehneins",
-			theme: "device"
+			speechRate: '1',
+			twistedSpeechMode: 'zehneins',
+			theme: 'device',
+			profileEnabled: false,
+			profileName: ''
 		});
 
 		this.applyTheme();
@@ -92,6 +94,16 @@ export default class GlobalSettings extends Options {
 				location.reload();
 			}
 		}
+	}
+	
+	getProfileName() {
+		
+		if(this.profileEnabled){
+			return this.profileName;	
+		}
+		else {
+			return '';
+		}		
 	}
 
 }

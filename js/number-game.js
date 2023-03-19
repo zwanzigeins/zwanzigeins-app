@@ -188,8 +188,17 @@ export default class NumberGame {
 		setTimeout(() => {
 			overlayDialog.classList.remove('showing');
 		}, 2000);
+		
+		let optionsPayload;
+		
+		if(this.options['getPayloadObject']){
+			optionsPayload = this.options.getPayloadObject();
+		}
+		else {
+			optionsPayload = this.options;			
+		}
 
-		GameScoreStorage.INSTANCE.saveGameScore(this.gameName, ellapsedTimeString, this.numErrors);
+		GameScoreStorage.INSTANCE.saveGameScore(this.gameName, ellapsedTimeString, this.numErrors, optionsPayload);
 
 		window.history.back();
 	}

@@ -43,7 +43,7 @@ export default class Utils {
 			}, 100);
 		}
 
-		elem.ontouchdown = evt => {
+		elem.ontouchstart = evt => {
 
 			processEvent(elem, evt);
 			evt.preventDefault();
@@ -172,5 +172,33 @@ export default class Utils {
 		}
 
 		return resultNumber;
+	}
+	
+	static getTimeStampWithMinutesPrecision(){
+		
+		let now = new Date();
+			
+		let timestamp = '';
+		
+		let fullYear = now.getFullYear();
+		timestamp += fullYear;
+		
+		let month = now.getMonth() + 1;
+		if(month < 10){
+			timestamp += '0';
+		}
+		timestamp += month;
+		
+		let date = now.getDate();
+		if(date < 10){
+			timestamp += '0';
+		}
+		timestamp += date;
+		
+		let timeString = now.toLocaleTimeString();
+		
+		timestamp += 'T' + timeString.replaceAll(':', '');
+		
+		return timestamp;		
 	}
 }

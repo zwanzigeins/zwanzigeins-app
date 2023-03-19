@@ -120,12 +120,12 @@ html.consent-required #consent,
 
 header{
     position: relative;
+    width: 100%;
     background-color: var(--header-bg-color);
     color: var(--header-font-color);
     height: 3rem;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: center;    
 }
 
 header > img{
@@ -133,6 +133,10 @@ header > img{
 	left: 18px;
 	top: 11px;
 	height: calc(3rem - 20px);
+}
+
+header > .stretcher {
+	flex: 1;
 }
 
 .dialog {
@@ -171,17 +175,18 @@ header h1{
     outline: 0 !important;
     min-height: 1.1em;
     font-size: 1em;
+    position: absolute;
+    width: 100%;
+    margin: auto;
 }
 
 header button{
-    position: absolute;
-    left: 0;
-    top: 0;
     height: 100%;
     margin: 0;
     border: 0;
     background: center center no-repeat;
-    width: fit-content;
+    position: relative;
+    z-index: 10;
 }
 
 header button:empty{
@@ -267,7 +272,8 @@ input + label {
 	margin-left: 10px;
 }
 
-input[type="text"], input[type="number"]{
+input[type="text"],
+input[type="number"]{
     display: block;
     width: 100%;
     border: 1px solid var(--default-border-color);
@@ -277,6 +283,16 @@ input[type="text"], input[type="number"]{
     background: var(--input-bg-color);
     color: inherit;
     font-size: 1rem;
+}
+
+input[type="text"] {
+	order: 1;
+}
+
+input[type="text"] + label {
+	order: 0;
+	margin-left: 1rem;
+	margin-right: 1rem;
 }
 
 input[type="number"]{

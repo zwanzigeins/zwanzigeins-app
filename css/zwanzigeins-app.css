@@ -12,6 +12,10 @@ html.dark-theme{
 	--button-gradient-bottom-active-color: var(--button-bg-active-color);
 }
 
+.profileEnabled[data-checked='false'] + .field{
+	display: none;
+}
+
 #mentalArithmeticMenu > button {
 	margin-top: 1rem;
 }
@@ -151,6 +155,13 @@ html.dark-theme{
 }
 
 button.share {
-	left: calc(100% - 3rem);
 	background-image: url(../img/ic_share_24px-fff.svg);
+}
+
+button.download {
+	background-image: url(../img/ic_file_download_24px-fff.svg);
+}
+
+button.clear {
+	background-image: url(../img/ic_delete_24px-fff.svg);
 }

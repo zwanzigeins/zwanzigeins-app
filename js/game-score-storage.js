@@ -1,3 +1,5 @@
+import GlobalSettings from './global-settings.js';
+
 export default class GameScoreStorage {
 	
 	constructor(){
@@ -12,27 +14,36 @@ export default class GameScoreStorage {
 		}
 	}
 	
-	saveGameScore(gameName, elapsedTime, numErrors){
+	saveGameScore(gameName, elapsedTime, numErrors, gameOptions){
 		
 		let now = new Date();
 		let isoString = now.toISOString();
 		let lastColonIdx = isoString.lastIndexOf(':');
 		let timeStamp = isoString.substring(0, lastColonIdx);
 		
-		let profileName = '';
+		let profileName = GlobalSettings.INSTANCE.getProfileName();
+		let twistedSpeechMode = GlobalSettings.INSTANCE.twistedSpeechMode;
+		let speechRate = GlobalSettings.INSTANCE.speechRate;
 		
 		let gameScoreEntry = {
 			
 			gameName,
 			timeStamp,
 			profileName,
+			twistedSpeechMode,
+			speechRate,
 			elapsedTime,
-			numErrors
+			numErrors,
+			gameOptions
 		}
 		
 		this.gameScores.push(gameScoreEntry);
 		let gameScoresJson = JSON.stringify(this.gameScores);
 		localStorage.setItem('game-scores', gameScoresJson);		
+	}
+	
+	clear(){
+		localStorage.removeItem('game-scores');
 	}
 	
 }

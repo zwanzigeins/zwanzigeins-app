@@ -69,7 +69,6 @@
 	                    <label>bis</label>
 	                    <input type="number" id="to" name="to" value="100">
 		            </div>
-		            
             	
                     <h2>Anzahl Aufgaben</h2>
                     
@@ -442,6 +441,18 @@
                     </div>
                  </div>
                  
+                 <h2>Profil</h2>
+                 <div class="controlGroup">
+                     <div class="field profileEnabled">
+                         <input type="checkbox" name="profileEnabled" id="profileEnabled">
+                         <label for="profileEnabled"> Profil aktiv</label>
+                     </div>
+                     <div class="field display-flex">
+                         <input type="text" name="profileName" id="profileName">
+                         <label for="profileName">Profil&#8209;Name</label>
+                     </div>                     
+                 </div>
+                 
                  <h2>Darstellung</h2>
                  <div class="controlGroup">
                  	  <div class="field">
@@ -466,8 +477,11 @@
         <div id="statistics" class="page">
             <header>
                 <button class="back"></button>
-                <button class="share"></button>
+                <div class="stretcher"></div>
                 <h1>Statistik</h1>
+                <button class="clear"></button>
+                <button class="download"></button>
+                <button class="share"></button>
             </header>
             <div class="center">
                 Die Statistic.

@@ -12,8 +12,7 @@ export default class ListenAndWriteGame extends NumberGame {
 		this.defaultOptions = {
 			from: 11,
 			to: 100,
-			numTasks: 5,
-			fullscreen: false
+			numTasks: 5
 		};
 
 		this.options = new Options('listen-and-write-menu', this.defaultOptions);
