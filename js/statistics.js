@@ -17,37 +17,35 @@ export default class Statistics {
 				this.showStatistics();
 			}
 		});
-		
+
 		let clearButton = statisticsPageElem.querySelector('.clear');
-		
+
 		clearButton.addEventListener('click', () => {
-			
+
 			let confirmed = confirm('Willst Du wirklich alle Spiel-Statistiken löschen?');
-			
-			if(confirmed){
+
+			if (confirmed) {
 				GameScoreStorage.INSTANCE.clear();
 				this.centerElem.innerHTML = '';
 			}
 		});
-		
+
 		let downloadButton = statisticsPageElem.querySelector('.download');
-		
+
 		downloadButton.addEventListener('click', () => {
-			
+
 			let csv = this.createStatsticsCsv();
-			
+
 			let csvBlob = new Blob([csv], {
-    			type: 'text/plain'
+				type: 'text/plain'
 			});
-			
+
 			let downloadUrl = URL.createObjectURL(csvBlob);
-			
+
 			let downloadAnchor = document.createElement('a');
-			
-			let timestamp = Utils.getTimeStampWithMinutesPrecision();
-			
-			downloadAnchor.download = 'zwanzigeins-statistik-' + timestamp + '.csv';
-			
+
+			downloadAnchor.download = this.createCsvFileName();
+
 			downloadAnchor.href = downloadUrl;
 			this.centerElem.appendChild(downloadAnchor);
 			downloadAnchor.click();
@@ -55,25 +53,45 @@ export default class Statistics {
 			URL.revokeObjectURL(downloadUrl);
 		});
 
-		let shareButton = statisticsPageElem.querySelector('.share');
+		//		let shareButton = statisticsPageElem.querySelector('.share');
+		//
+		//		shareButton.addEventListener('click', () => {
+		//			
+		//			let csv = this.createStatsticsCsv();
+		//			
+		//			let csvBlob = new Blob([csv], {
+		//				type: 'text/plain'
+		//			});
+		//			
+		//			let csvFile = new File([csvBlob], this.createCsvFileName());
+		//
+		//			const shareData = {
+		//				title: 'Zwanzigeins Statistik',
+		//				files: [csvFile]
+		//			};
+		//
+		//			try {
+		//				navigator.share(shareData);
+		//			} catch (err) {
+		//			}
+		//		});
+	}
 
-		shareButton.addEventListener('click', () => {
-			
-			const shareData = {
-			  title: 'Zwanzigeins Statistik',
-			  text: this.createStatsticsCsv()
-			};
-			
-			try {
-				navigator.share(shareData);
-			} catch (err) {
-			}
-		});
+	createCsvFileName() {
+
+		let timestamp = Utils.getTimeStampWithMinutesPrecision();
+		return 'zwanzigeins-statistik-' + timestamp + '.csv';
 	}
 
 	showStatistics() {
 
-		let html = '<pre>' + this.createStatsticsCsv() + '</pre>';
+		let html;
+		try {
+			html = '<pre>' + this.createStatsticsCsv() + '</pre>';
+		}
+		catch (e) {
+			html = 'Statistik-Daten nicht kompatibel, bitte mithilfe des Mülleimers oben rechts löschen.';
+		}
 
 		this.centerElem.innerHTML = html;
 	}
@@ -83,15 +101,15 @@ export default class Statistics {
 		let html = '';
 
 		for (let gameScore of GameScoreStorage.INSTANCE.gameScores) {
-			
+
 			let gameOptionsJson;
-			
-			if(gameScore.gameOptions){
+
+			if (gameScore.gameOptions) {
 				gameOptionsJson = JSON.stringify(gameScore.gameOptions);
 			}
-			
+
 			let speechRateOutput = Math.round(gameScore.speechRate * 100) + '%';
-			
+
 			let row = `<div>${gameScore.profileName}, ${gameScore.gameName}, ${gameScore.timeStamp}, ${gameScore.twistedSpeechMode}, ${speechRateOutput}, ${gameScore.elapsedTime}, ${gameScore.numErrors}, ${gameOptionsJson}</div>`;
 
 			html += row;
@@ -99,36 +117,36 @@ export default class Statistics {
 
 		return html;
 	}
-	
+
 	createStatsticsCsv() {
-		
+
 		let csv = 'Profil;Spiel;Zeit-Stempel;Sprach-Modus;Sprech-Geschwindigkeit;Aufgaben-Anzahl;Spiel-Dauer;Spiel-Fehler;Spiel-Optionen';
-		
+
 		for (let gameScore of GameScoreStorage.INSTANCE.gameScores) {
-			
+
 			let profileNameOutput = this.escapeForCsv(gameScore.profileName.trim());
-			
+
 			let gameNameOutput;
-			
-			if(gameScore.gameName == 'listen-and-write'){
+
+			if (gameScore.gameName == 'listen-and-write') {
 				gameNameOutput = 'Hören-und-Schreiben';
 			}
 			else {
 				gameNameOutput = 'Kopfrechen-Trainer';
 			}
-			
+
 			let speechRateOutput = Math.round(gameScore.speechRate * 100) + '%';
 
 			let gameOptionsJson;
-			
-			let numTasksOutput = gameScore.gameOptions.numTasks; 
+
+			let numTasksOutput = gameScore.gameOptions.numTasks;
 
 			// remove tasks-property from options-output
 			let optionsClone = Object.assign({}, gameScore.gameOptions)
 			delete optionsClone.numTasks;
-				
+
 			gameOptionsJson = JSON.stringify(optionsClone);
-			
+
 			let rowParts = new Array(
 				profileNameOutput,
 				gameNameOutput,
@@ -139,23 +157,23 @@ export default class Statistics {
 				gameScore.elapsedTime,
 				gameScore.numErrors,
 				gameOptionsJson
-				);
-			
-			let row = rowParts.join(';');				
+			);
+
+			let row = rowParts.join(';');
 
 			csv += '\n' + row;
 		}
-		
+
 		return csv;
 	}
-	
-	escapeForCsv(string){
-		
+
+	escapeForCsv(string) {
+
 		return string.replace(' ', '_');
 	}
-	
-	getLevelNameTranslation(levelName){
-		
+
+	getLevelNameTranslation(levelName) {
+
 		switch (levelName) {
 
 			case 'addition-easy':
@@ -243,7 +261,7 @@ export default class Statistics {
 				return 'Gemischt-schwer';
 
 		}
-		
+
 	}
 
 }
