@@ -1,8 +1,9 @@
 :root{
-	--button-gradient-top-color: #f4f5f5;
+	--button-gradient-top-color: #eaebeb;
 	--button-gradient-bottom-color: #dfdddd;
 	--button-gradient-top-active-color: #d9dddd;
 	--button-gradient-bottom-color-active: #c6c3c3;
+	--correct-indication-bg: #22b560;
 }
 
 html.dark-theme{
@@ -10,6 +11,7 @@ html.dark-theme{
 	--button-gradient-bottom-color: var(--default-panel-bg-color);
 	--button-gradient-top-active-color: var(--button-bg-active-color);
 	--button-gradient-bottom-active-color: var(--button-bg-active-color);
+	--correct-indication-bg: #1c954f;
 }
 
 .profileEnabled[data-checked='false'] + .field{
@@ -92,7 +94,7 @@ html.dark-theme{
 }
 
 .numberGame .answer.correct{
-	background: #22b560;
+	background: var(--correct-indication-bg);
 	color: white;
 }
 

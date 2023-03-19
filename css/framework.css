@@ -135,10 +135,6 @@ header > img{
 	height: calc(3rem - 20px);
 }
 
-header > .stretcher {
-	flex: 1;
-}
-
 .dialog {
 	display: block;
 	text-align: center;
@@ -166,7 +162,7 @@ header > .stretcher {
 /***** end layout-elements *****/
 
 header h1{
-    text-align: center;
+    text-align: left;
     flex: 1;
     padding: .7em 0;
     text-overflow: ellipsis;
@@ -175,9 +171,8 @@ header h1{
     outline: 0 !important;
     min-height: 1.1em;
     font-size: 1em;
-    position: absolute;
     width: 100%;
-    margin: auto;
+    margin: 0 0.5rem;
 }
 
 header button{
