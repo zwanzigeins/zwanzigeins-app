@@ -48,6 +48,7 @@ export default class GameScoreStorage {
 	clear() {
 		
 		localStorage.removeItem(this.storageKey);
+		this.gameScores = [];
 	}
 
 }

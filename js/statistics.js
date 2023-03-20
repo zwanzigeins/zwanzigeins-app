@@ -89,7 +89,10 @@ export default class Statistics {
 	createCsvFileName() {
 
 		let timestamp = Utils.getTimeStampWithMinutesPrecision();
-		return 'zwanzigeins-statistik-' + this.gameName + '-' + timestamp + '.csv';
+		
+		let gameNameOutput = this.getGameNameTranslationForFileName(this.gameName);
+		
+		return 'zwanzigeins-statistik-' + gameNameOutput + '-' + timestamp + '.csv';
 	}
 
 	showStatistics() {
@@ -294,7 +297,20 @@ export default class Statistics {
 				return 'Hören & Schreiben';
 			
 			case 'mental-arithmetic':
-				return 'Kopfrechen-Trainer';
+				return 'Kopfrechnen';
 		}
 	}
+	
+	getGameNameTranslationForFileName(gameName){
+		
+		switch(gameName){
+			
+			case 'listen-and-write':
+				return 'hoeren-und-schreiben';
+			
+			case 'mental-arithmetic':
+				return 'kopfrechnen';
+		}
+	}
+	
 }

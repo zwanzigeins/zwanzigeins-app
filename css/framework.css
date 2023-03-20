@@ -15,6 +15,8 @@
     --button-text-shadow-color: rgba(243, 243, 243, 0.7);
     --input-bg-color: #fff;
     
+    --checkbox-border-color: #888;
+    
     --icon-filter: brightness(0) invert(15%);
     --field-padding: .5em;
 }
@@ -32,6 +34,8 @@ html.dark-theme{
 	
 	--button-text-shadow-color: rgba(0, 0, 0, 0.7);
 	--input-bg-color: #393939;
+	
+	--checkbox-border-color: #fff;
 	
 	--icon-filter: brightness(0) invert(100%);
 }
@@ -232,7 +236,7 @@ a{
 
 a:before,
 button:before,
-.icon:before{
+.icon:before {
 	content: '';
 	position: absolute;
 	display: inline-block;
@@ -312,7 +316,6 @@ input[type="number"]::-webkit-inner-spin-button {
 	margin-left: 10px;
 }
 
-input[type="checkbox"],
 input[type="radio"]{
     display: none;
 }
@@ -326,7 +329,6 @@ input[type="radio"] + label {
 	cursor: pointer;
 }
 
-input[type="checkbox"] + label:before,
 input[type="radio"] + label:before {
     content: '';
 	display: inline-block;
@@ -335,16 +337,6 @@ input[type="radio"] + label:before {
 	margin-right: 1rem;
 	vertical-align: middle;
 	border: 1px solid #aaa;
-}
-
-input[type="checkbox"] + label:before{
-    border-radius: 2px;
-}
-
-input[type="checkbox"]:checked + label:before {
-	background: url(../img/ic_check_24px.svg) center 0 no-repeat;
-	background-size: 110% 110%;
-	filter: var(--icon-filter);
 }
 
 input[type="radio"] + label:before{
@@ -365,7 +357,83 @@ input[type="radio"]:checked + label:before {
 	pointer-events: all;
 }
 
+/***** form-elements *****/
+
+/*
+	Expected markup:
+	 
+	<input type='checkbox' class='checkbox' id='someId'>
+	<label for='someId'>
+		labelText
+		<div class='control'></div>
+	</label>
+*/
+
+input[type='checkbox'] {
+    opacity: 0;
+    position: absolute;
+    width: 0;
+    height: 0;
+    visibility: hidden;
+}
+
+input[type='checkbox'] + label{
+	position: relative;
+	cursor: pointer;
+    display: inline-flex;
+    line-height: 1.25em;
+	align-items: center;	    
+}
+
+input[type='checkbox'] + label > .control{
+	order: -1;
+	display: inline;
+	position: relative;
+	margin-right: 1em;
+	width: 1.25em;
+	height: 1.25em;
+	background: inherit;
+	border: 2px solid;
+	border-color: var(--checkbox-border-color);
+	border-radius: 0.125em;
+	cursor: pointer;
+	transition: background .3s;
+}
+
+input[type='checkbox'] + label > .control:after{
+	content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    box-sizing: border-box;
+}
+
+input[type='checkbox']:checked + label > .control {
+	background: var(--selected-bg-color);
+    border:none;
+}
+
+input[type='checkbox']:checked:disabled + label > .control {
+	background: grey;
+    border:none;
+}
+
+input[type='checkbox']:disabled + label > .control {
+	background: none;
+    border-color: grey;
+}
+
+input[type='checkbox']:checked + label > .control:after {
+    transform: translate(0.25em, 0.3365384615em) rotate(-45deg);
+	width: 0.75em;
+	height: 0.375em;
+	border: 2px solid #fff;
+	border-top-style: none;
+    border-right-style: none;
+}
+
 /***** aux classes *****/
+
 .vcenter{
     display: flex;
     align-items: center;
@@ -386,3 +454,4 @@ html:not(.iphone) .iphone-only{
 .flex-1{
 	flex: 1;
 }
+

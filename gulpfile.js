@@ -123,7 +123,7 @@ gulp.task('deploy', ready => {
 	
 	config.destDirs.forEach(destDir =>{
 		gulpSsh
-			.exec(['rm ' + destDir + '/* -r'], {filePath: 'commands.log'})
+			.exec(['rm ' + destDir + '/* -rf'], {filePath: 'commands.log'})
 			.pipe(gulp.dest('logs'))
 	});
 	

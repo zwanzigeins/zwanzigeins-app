@@ -187,3 +187,7 @@ a[href='#statistics']:before {
 a.web:before {
 	background-image: url(../img/web.svg);
 }
+
+a.github:before {
+	background-image: url(../img/github-circle.svg);	
+}

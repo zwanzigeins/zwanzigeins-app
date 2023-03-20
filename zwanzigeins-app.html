@@ -36,7 +36,7 @@
             </header>
             <div class="center">
             
-                <p>Willkommen bei <b>der App</b> zur Erforschung der unverdrehten, stellenwertgerechten Zahlensprechweise.</p>
+                <p>Willkommen bei <b>der App</b> zur Erforschung der <b>unverdrehten, stellenwertgerechten Zahlensprechweise</b>.</p>
                 <h2>Hauptmenü</h2>
                 <a href="#listen-and-write-menu">Hören &amp; Schreiben</a>
                 <a href="#mental-arithmetic-menu">Kopfrechnen</a>
@@ -44,7 +44,8 @@
                 <a href="#settings">Einstellungen</a>
                 <a href="#statistics">Statistik</a>
 <!--                 <a href="#help">Hilfe</a> -->
-                <a href="https://zwanzigeins.jetzt" class="web">Zur Zwanzigeins-Website</a>
+                <a href="https://zwanzigeins.jetzt" class="web">Zwanzigeins-Website</a>
+                <a href="https://github.com/zwanzigeins/zwanzigeins-app" class="github">GitHub-Repository</a>
             </div>
 
         </div>
@@ -54,10 +55,10 @@
                 <button class="back"></button>
                 <h1>Hören &amp; Schreiben</h1>
             </header>
-            <div class='center'>
+            <div class="center">
             	<p>Bei diesem Spiel muss man eine gesprochene Zahl korrekt eingeben.</p>
             	
-            	<a class='btnStart' href="#listen-and-write-game">Start</a>
+            	<a class="btnStart" href="#listen-and-write-game">Start</a>
             	
             	<form>
             	
@@ -137,7 +138,7 @@
                 <a href="#addition-subtraction-choose-level">Addition / Subtraktion</a>
                 <a href="#multiplication-choose-level">Multiplikation</a>
                 <a href="#division-choose-level">Division</a>
-                <a href="#multiplikation-division-choose-level">Multiplikation / Division</a>
+                <a href="#multiplication-division-choose-level">Multiplikation / Division</a>
                 <a href="#mixed-choose-level">Gemischt</a>
                 
                 <form id="numTasks">
@@ -161,11 +162,15 @@
                     <div class="controlGroup">
                         <div class="field">
                             <input type="checkbox" id="fullscreen" name="fullscreen">
-                            <label for="fullscreen"> Vollbild </label>
+                            <label for="fullscreen"> Vollbild 
+                            	<span class='control'></span>
+                            </label>
                         </div>
                         <div class="field">
                             <input type="checkbox" id="auditive" name="auditive">
-                            <label for="auditive"> Auditiver Modus (Aufgabe nur vorlesen) </label>
+                            <label for="auditive"> Auditiver Modus (Aufgabe nur vorlesen) 
+                            	<span class='control'></span>
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -312,19 +317,19 @@
 	            <div class="controlGroup">
 	                <div class="field">
 	                    <input type="checkbox" id="plus" name="plus">
-	                    <label for="plus"> + </label>
+	                    <label for="plus"> + <span class='control'></span></label>
 	                </div>
 	                <div class="field">
 	                    <input type="checkbox" id="multiply" name="multiply">
-	                    <label for="multiply"> &times; </label>
+	                    <label for="multiply"> &times; <span class='control'></span></label>
 	                </div>
 	                <div class="field">
 	                    <input type="checkbox" id="minus" name="minus">
-	                    <label for="minus"> &thinsp;- </label>
+	                    <label for="minus"> &thinsp;- <span class='control'></span></label>
 	                </div>
 	                <div class="field">
 	                    <input type="checkbox" id="divide" name="divide">
-	                    <label for="divide"> &divide; </label>
+	                    <label for="divide"> &divide; <span class='control'></span></label>
 	                </div>
 	            </div>
 	        </div>
@@ -445,7 +450,7 @@
                  <div class="controlGroup">
                      <div class="field profileEnabled">
                          <input type="checkbox" name="profileEnabled" id="profileEnabled">
-                         <label for="profileEnabled"> Profil aktiv</label>
+                         <label for="profileEnabled"> Profil aktiv <span class='control'></span></label>
                      </div>
                      <div class="field display-flex">
                          <input type="text" name="profileName" id="profileName">
