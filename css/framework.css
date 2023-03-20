@@ -15,7 +15,7 @@
     --button-text-shadow-color: rgba(243, 243, 243, 0.7);
     --input-bg-color: #fff;
     
-    --icon-filter: brightness(0);
+    --icon-filter: brightness(0) invert(15%);
     --field-padding: .5em;
 }
 
@@ -188,8 +188,8 @@ header button:empty{
 	width: 3rem;
 }
 
-header button.back{
-    background-image: url(../img/ic_arrow_back_24px-fff.svg);
+header button.back:before{
+    background-image: url(../img/ic_arrow_back_24px.svg);
 }
 
 h2 {
@@ -223,18 +223,31 @@ a, button {
     text-shadow: var(--button-text-shadow-color) 0px 1px 0px;
     background: var(--button-bg-color);
     -webkit-tap-highlight-color:rgba(0,0,0,0);
+    position: relative;
 }
 
 a{
     text-decoration: none;
 }
 
+a:before,
+button:before,
 .icon:before{
 	content: '';
+	position: absolute;
+	display: inline-block;
+	left: 0;
+	top: 0;
+	width: 3rem;
+	height: 100%;
 	background-repeat: no-repeat;
 	background-position: center center;
 	vertical-align: middle;
 	filter: var(--icon-filter);
+}
+
+header button {
+	filter: brightness(0) invert(100%);
 }
 
 .icon:empty{

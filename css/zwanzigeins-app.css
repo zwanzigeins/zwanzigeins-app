@@ -156,14 +156,34 @@ html.dark-theme{
 	background-color: var(--input-bg-color);
 }
 
-button.share {
-	background-image: url(../img/ic_share_24px-fff.svg);
+button.share:before {
+	background-image: url(../img/ic_share_24px.svg);
 }
 
-button.download {
-	background-image: url(../img/ic_file_download_24px-fff.svg);
+button.download:before {
+	background-image: url(../img/ic_file_download_24px.svg);
 }
 
-button.clear {
-	background-image: url(../img/ic_delete_24px-fff.svg);
+button.clear:before {
+	background-image: url(../img/ic_delete_24px.svg);
+}
+
+a[href='#listen-and-write-menu']:before {
+	background-image: url(../img/ic_hearing_24px.svg);
+}
+
+a[href='#mental-arithmetic-menu']:before {
+	background-image: url(../img/mental-arithmetic.svg);
+}
+
+a[href='#settings']:before {
+	background-image: url(../img/ic_settings_24px.svg);
+}
+
+a[href='#statistics']:before {
+	background-image: url(../img/chart-line.svg);
+}
+
+a.web:before {
+	background-image: url(../img/web.svg);
 }

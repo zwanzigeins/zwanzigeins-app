@@ -129,7 +129,7 @@ export default class Statistics {
 
 	createStatsticsCsv() {
 
-		let csv = 'Profil;Spiel;Zeit-Stempel;Sprach-Modus;Sprech-Geschwindigkeit;Aufgaben-Anzahl;Spiel-Dauer;Spiel-Fehler;Spiel-Optionen';
+		let csv = 'Profil;Spiel;Zeit-Stempel;Sprach-Modus;Sprech-Geschwindigkeit;Aufgaben-Anzahl;Spiel-Dauer(s);Spiel-Fehler;Spiel-Optionen';
 
 		for (let gameScore of this.gameScoreStorage.gameScores) {
 
@@ -138,10 +138,10 @@ export default class Statistics {
 			let gameNameOutput;
 
 			if (this.gameName == 'listen-and-write') {
-				gameNameOutput = 'Hören-und-Schreiben';
+				gameNameOutput = 'Hoeren-und-Schreiben';
 			}
 			else {
-				gameNameOutput = 'Kopfrechen-Trainer';
+				gameNameOutput = 'Kopfrechnen';
 			}
 
 			let speechRateOutput = Math.round(gameScore.speechRate * 100) + '%';
@@ -149,6 +149,12 @@ export default class Statistics {
 			let gameOptionsJson;
 
 			let numTasksOutput = gameScore.gameOptions.numTasks;
+			
+			let timeParts = gameScore.elapsedTime.split(':');
+			let minutes = parseInt(timeParts[0]);
+			let seconds = parseInt(timeParts[1]);
+			
+			let elapsedTimeOutput = minutes * 60 + seconds;
 
 			// remove tasks-property from options-output
 			let optionsClone = Object.assign({}, gameScore.gameOptions)
@@ -163,7 +169,7 @@ export default class Statistics {
 				gameScore.twistedSpeechMode,
 				speechRateOutput,
 				numTasksOutput,
-				gameScore.elapsedTime,
+				elapsedTimeOutput,
 				gameScore.numErrors,
 				gameOptionsJson
 			);
