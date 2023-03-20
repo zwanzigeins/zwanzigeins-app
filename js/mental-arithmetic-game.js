@@ -30,7 +30,7 @@ export default class MentalArithmeticGame {
 
 				levelOptions['numTasks'] = this.options.numTasks;
 
-				let level = new MentalArithmeticGameLevel(levelName, levelOptions);
+				let level = new MentalArithmeticGameLevel(levelOptions);
 				level.startGame();
 			}
 		}

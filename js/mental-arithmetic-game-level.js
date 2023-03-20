@@ -3,9 +3,9 @@ import Sound from './sound.js';
 
 export default class MentalArithmeticGameLevel extends NumberGame {
 
-	constructor(levelName, levelOptions) {
+	constructor(levelOptions) {
 
-		super('mental-arithmetic, ' + levelName, 'mental-arithmetic-menu', 'mental-arithmetic-game');
+		super('mental-arithmetic', 'mental-arithmetic-menu', 'mental-arithmetic-game');
 		this.options = levelOptions;
 	}
 

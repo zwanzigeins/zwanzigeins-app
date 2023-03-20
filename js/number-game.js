@@ -1,4 +1,4 @@
-import GameScoreStorage from './game-score-storage.js';
+import GameScoreStorageRegistry from './game-score-storage-registry.js';
 import Utils from './utils.js';
 import Sound from './sound.js';
 
@@ -198,7 +198,7 @@ export default class NumberGame {
 			optionsPayload = this.options;
 		}
 
-		GameScoreStorage.INSTANCE.saveGameScore(this.gameName, ellapsedTimeString, this.numErrors, optionsPayload);
+		GameScoreStorageRegistry.INSTANCE.saveGameScore(this.gameName, ellapsedTimeString, this.numErrors, optionsPayload);
 
 		window.history.back();
 	}

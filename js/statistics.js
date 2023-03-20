@@ -1,18 +1,25 @@
-import GameScoreStorage from "./game-score-storage.js";
-import Pages from "./pages.js";
-import Utils from "./utils.js";
+import GameScoreStorage from './game-score-storage.js';
+import GameScoreStorageRegistry from './game-score-storage-registry.js';
+import Pages from './pages.js';
+import Utils from './utils.js';
 
 export default class Statistics {
 
-	constructor() {
+	constructor(gameName) {
+		
+		this.gameName = gameName;
+		
+		const statisticsId = 'statistics-' + gameName;
+		
+		this.gameScoreStorage = GameScoreStorageRegistry.INSTANCE.getGameScoreStorage(gameName);
 
-		let statisticsPageElem = document.getElementById('statistics');
+		let statisticsPageElem = document.getElementById(statisticsId);
 
 		this.centerElem = statisticsPageElem.querySelector('.center');
 
 		Pages.INSTANCE.addBeforeOpenedHandler(id => {
 
-			if (id == 'statistics') {
+			if (id == statisticsId) {
 
 				this.showStatistics();
 			}
@@ -21,11 +28,13 @@ export default class Statistics {
 		let clearButton = statisticsPageElem.querySelector('.clear');
 
 		clearButton.addEventListener('click', () => {
+			
+			let gameNameTranslation = this.getGameNameTranslation(this.gameName);
 
-			let confirmed = confirm('Willst Du wirklich alle Spiel-Statistiken löschen?');
+			let confirmed = confirm('Willst Du wirklich alle Spiel-Statistiken für "' + gameNameTranslation + '" löschen?');
 
 			if (confirmed) {
-				GameScoreStorage.INSTANCE.clear();
+				this.gameScoreStorage.clear();
 				this.centerElem.innerHTML = '';
 			}
 		});
@@ -80,7 +89,7 @@ export default class Statistics {
 	createCsvFileName() {
 
 		let timestamp = Utils.getTimeStampWithMinutesPrecision();
-		return 'zwanzigeins-statistik-' + timestamp + '.csv';
+		return 'zwanzigeins-statistik-' + this.gameName + '-' + timestamp + '.csv';
 	}
 
 	showStatistics() {
@@ -100,7 +109,7 @@ export default class Statistics {
 
 		let html = '';
 
-		for (let gameScore of GameScoreStorage.INSTANCE.gameScores) {
+		for (let gameScore of this.gameScoreStorage.gameScores) {
 
 			let gameOptionsJson;
 
@@ -110,7 +119,7 @@ export default class Statistics {
 
 			let speechRateOutput = Math.round(gameScore.speechRate * 100) + '%';
 
-			let row = `<div>${gameScore.profileName}, ${gameScore.gameName}, ${gameScore.timeStamp}, ${gameScore.twistedSpeechMode}, ${speechRateOutput}, ${gameScore.elapsedTime}, ${gameScore.numErrors}, ${gameOptionsJson}</div>`;
+			let row = `<div>${gameScore.profileName}, ${this.gameName}, ${gameScore.timeStamp}, ${gameScore.twistedSpeechMode}, ${speechRateOutput}, ${gameScore.elapsedTime}, ${gameScore.numErrors}, ${gameOptionsJson}</div>`;
 
 			html += row;
 		}
@@ -122,13 +131,13 @@ export default class Statistics {
 
 		let csv = 'Profil;Spiel;Zeit-Stempel;Sprach-Modus;Sprech-Geschwindigkeit;Aufgaben-Anzahl;Spiel-Dauer;Spiel-Fehler;Spiel-Optionen';
 
-		for (let gameScore of GameScoreStorage.INSTANCE.gameScores) {
+		for (let gameScore of this.gameScoreStorage.gameScores) {
 
 			let profileNameOutput = this.escapeForCsv(gameScore.profileName.trim());
 
 			let gameNameOutput;
 
-			if (gameScore.gameName == 'listen-and-write') {
+			if (this.gameName == 'listen-and-write') {
 				gameNameOutput = 'Hören-und-Schreiben';
 			}
 			else {
@@ -259,9 +268,18 @@ export default class Statistics {
 			case 'mixed-hard':
 
 				return 'Gemischt-schwer';
-
 		}
-
 	}
-
+	
+	getGameNameTranslation(gameName){
+		
+		switch(gameName){
+			
+			case 'listen-and-write':
+				return 'Hören & Schreiben';
+			
+			case 'mental-arithmetic':
+				return 'Kopfrechen-Trainer';
+		}
+	}
 }
