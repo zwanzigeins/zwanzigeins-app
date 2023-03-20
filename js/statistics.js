@@ -184,7 +184,16 @@ export default class Statistics {
 
 	escapeForCsv(string) {
 
-		return string.replace(' ', '_');
+		return string
+			.replaceAll(/\s+/g, '_')
+			.replaceAll('ä', 'ae')
+			.replaceAll('ö', 'oe')
+			.replaceAll('ü', 'ue')
+			.replaceAll('ß', 'ss')
+			.replaceAll('<', '')
+			.replaceAll('>', '')
+			.replaceAll(',', '')
+			;
 	}
 
 	getLevelNameTranslation(levelName) {
