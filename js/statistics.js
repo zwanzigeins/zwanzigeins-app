@@ -111,9 +111,9 @@ export default class Statistics {
 	createStatsticsHtml() {
 
 		let html = '';
-		let svgCreator = new SvgCreator();
+		let svgCreator = new SvgCreator(this.gameScoreStorage.gameScores);
 
-		html = svgCreator.createStatisticsSvg(this.gameScoreStorage.gameScores);
+		html = svgCreator.createStatisticsSvg();
 
 		return html;
 	}
@@ -141,11 +141,7 @@ export default class Statistics {
 
 			let numTasksOutput = gameScore.gameOptions.numTasks;
 			
-			let timeParts = gameScore.elapsedTime.split(':');
-			let minutes = parseInt(timeParts[0]);
-			let seconds = parseInt(timeParts[1]);
-			
-			let elapsedTimeOutput = minutes * 60 + seconds;
+			let elapsedTimeOutput = Utils.parseTimeToSeconds(gameScore.elapsedTime);
 
 			// remove tasks-property from options-output
 			let optionsClone = Object.assign({}, gameScore.gameOptions)

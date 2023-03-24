@@ -201,4 +201,15 @@ export default class Utils {
 		
 		return timestamp;		
 	}
+	
+	static parseTimeToSeconds(minutesSecondsTimeStr){
+		
+		let timeParts = minutesSecondsTimeStr.split(':');
+		let minutes = parseInt(timeParts[0]);
+		let seconds = parseInt(timeParts[1]);
+		
+		let result = minutes * 60 + seconds;
+		
+		return result;
+	}
 }

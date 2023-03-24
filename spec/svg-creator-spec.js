@@ -1,7 +1,6 @@
 import SvgCreator from '../js/svg-creator.js';
 import * as fs from 'fs';
 
-let svgCreator = new SvgCreator();
 let gameScores = [];
 
 let now = new Date();
@@ -63,5 +62,8 @@ gameScoreEntry = {
 
 gameScores.push(gameScoreEntry);
 
-let statisticsSvg = svgCreator.createStatisticsSvg(gameScores);
-fs.writeFileSync('spec/diagram.svg', statisticsSvg);
+let svgCreator = new SvgCreator(gameScores);
+
+
+let statisticsSvg = svgCreator.createStatisticsSvg();
+fs.writeFileSync('local/diagram.svg', statisticsSvg);
