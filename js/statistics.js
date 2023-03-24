@@ -1,7 +1,7 @@
-import GameScoreStorage from './game-score-storage.js';
 import GameScoreStorageRegistry from './game-score-storage-registry.js';
 import Pages from './pages.js';
 import Utils from './utils.js';
+import SvgCreator from './svg-creator.js';
 
 export default class Statistics {
 
@@ -99,7 +99,7 @@ export default class Statistics {
 
 		let html;
 		try {
-			html = '<pre>' + this.createStatsticsCsv() + '</pre>';
+			html = this.createStatsticsHtml();
 		}
 		catch (e) {
 			html = 'Statistik-Daten nicht kompatibel, bitte mithilfe des Mülleimers oben rechts löschen.';
@@ -111,21 +111,9 @@ export default class Statistics {
 	createStatsticsHtml() {
 
 		let html = '';
+		let svgCreator = new SvgCreator();
 
-		for (let gameScore of this.gameScoreStorage.gameScores) {
-
-			let gameOptionsJson;
-
-			if (gameScore.gameOptions) {
-				gameOptionsJson = JSON.stringify(gameScore.gameOptions);
-			}
-
-			let speechRateOutput = Math.round(gameScore.speechRate * 100) + '%';
-
-			let row = `<div>${gameScore.profileName}, ${this.gameName}, ${gameScore.timeStamp}, ${gameScore.twistedSpeechMode}, ${speechRateOutput}, ${gameScore.elapsedTime}, ${gameScore.numErrors}, ${gameOptionsJson}</div>`;
-
-			html += row;
-		}
+		html = svgCreator.createStatisticsSvg(this.gameScoreStorage.gameScores);
 
 		return html;
 	}
