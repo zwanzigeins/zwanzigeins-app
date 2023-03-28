@@ -191,3 +191,11 @@ a.web:before {
 a.github:before {
 	background-image: url(../img/github-circle.svg);	
 }
+
+text, circle {
+	fill: var(--default-font-color);
+}
+
+.chartAxis {
+	stroke: var(--default-font-color);
+}

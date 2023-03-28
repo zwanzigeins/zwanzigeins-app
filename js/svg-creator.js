@@ -72,7 +72,8 @@ export default class SvgCreator {
     createSvgDiagramScala() {
 
         let diagramScala =
-            "<path d='M" + this.chartMarginLeft + " " + this.chartMarginTop + " " +
+            "<path class='chartAxis' " + 
+            "d='M" + this.chartMarginLeft + " " + this.chartMarginTop + " " +
             "l0 " + this.chartHeight + " " +
             "l" + this.chartWidth + " 0' " +
             "stroke='black' stroke-linecap='square' stroke-width='1px' fill='none'/>";
