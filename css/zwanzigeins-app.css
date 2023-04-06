@@ -22,6 +22,15 @@ html.dark-theme{
 	margin-top: 1rem;
 }
 
+#mental-arithmetic-level-creation .controlGroup {
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+
+#mental-arithmetic-level-creation .controlGroup > .field[data-checked='false'] ~ * {	
+	display: none;
+}
+
 .fromTo:last-child {
 	margin-top: 1rem;
 }
@@ -164,8 +173,17 @@ button.download:before {
 	background-image: url(../img/ic_file_download_24px.svg);
 }
 
-button.clear:before {
+button.clear:before,
+button.delete:before {
 	background-image: url(../img/ic_delete_24px.svg);
+}
+
+a.createLevel:before {
+	background-image: url(../img/plus-box.svg);
+}
+
+.splitButton > .delete {
+	width: 3rem;
 }
 
 a[href='#listen-and-write-menu']:before {
@@ -189,7 +207,7 @@ a.web:before {
 }
 
 a.github:before {
-	background-image: url(../img/github-circle.svg);	
+	background-image: url(../img/github-circle.svg);
 }
 
 text, circle {
@@ -198,4 +216,17 @@ text, circle {
 
 .chartAxis {
 	stroke: var(--default-font-color);
+}
+
+button.finishLevelCreation {
+	margin-top: 1rem;
+}
+
+button.finishLevelCreation:before {
+	background-image: url(../img/check-bold.svg);
+}
+
+.customLevels > .splitButton > button {
+	overflow: visible;
+	white-space: normal;
 }

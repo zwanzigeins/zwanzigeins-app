@@ -1,6 +1,7 @@
 import GameScoreStorageRegistry from './game-score-storage-registry.js';
 import Utils from './utils.js';
 import Sound from './sound.js';
+import Options from './options.js';
 
 export default class NumberGame {
 
@@ -154,7 +155,7 @@ export default class NumberGame {
 
 		let min = parseInt(from);
 		let max = parseInt(to);
-		return Math.floor(Math.random() * (max - min + 1)) + min;
+		return Math.floor(Math.random() * (max - min + 1) + min);
 	}
 
 	startGame() {
@@ -216,5 +217,134 @@ export default class NumberGame {
 	styleReset() {
 
 		this.answerElem.classList.remove('error', 'correct');
+	}
+
+	// ##### custom level handling #####
+
+	initCustomLevelHandling(defaultOptions) {
+
+		this.loadCustomLevels();
+		this.appendCustomLevelButtons();
+		this.initCustomLevelCreationDialog(defaultOptions);
+	}
+
+	initCustomLevelCreationDialog(defaultOptions) {
+
+		let pageId = this.gameName + '-level-creation';
+
+		let pageElem = document.querySelector('#' + pageId);
+
+		let createLevelButton = pageElem.querySelector('.finishLevelCreation');
+
+		let options = new Options(pageId, defaultOptions, false);
+
+		createLevelButton.onclick = evt => {
+
+			let levelDefinitionData = options.getPayloadObject();
+
+			this.customLevels.push(levelDefinitionData);
+
+			this.saveCustomLevels();
+			
+			this.refreshCustomLevelButtons();
+
+			history.back();
+		};
+	}
+
+	loadCustomLevels() {
+
+		let storageKey = 'custom-levels: ' + this.gameName;
+
+		let json = localStorage.getItem(storageKey);
+
+		let customLevels;
+
+		if (json) {
+			customLevels = JSON.parse(json);
+		}
+		else {
+			customLevels = [];
+		}
+
+		this.customLevels = customLevels;
+	}
+
+	saveCustomLevels() {
+
+		let storageKey = 'custom-levels: ' + this.gameName;
+
+		let json = JSON.stringify(this.customLevels);
+
+		localStorage.setItem(storageKey, json);
+	}
+
+	appendCustomLevelButtons() {
+
+		let customLevelsContainer = this.menuElem.querySelector('.customLevels');
+
+		for (let customLevel of this.customLevels) {
+			
+			let labelText;
+			
+			if(this.provideCustomLevelLabelText){
+				labelText = this.provideCustomLevelLabelText(customLevel);
+			}
+			else {
+				labelText = JSON.stringify(customLevel);
+			}
+
+			let levelButtonContainer = document.createElement('div');
+			levelButtonContainer.classList.add('splitButton');
+
+			levelButtonContainer.innerHTML =
+				'<button>' + labelText + '</button>' + 
+				'<button class="delete"></button>'
+				;
+
+			let levelButton = levelButtonContainer.firstElementChild;
+
+			levelButton.customLevel = customLevel;
+
+			levelButton.onclick = evt => {
+
+				let level = evt.currentTarget.customLevel;
+
+				Utils.copyObjectProperties(level, this.options);
+
+				this.startGame();
+			};
+
+			let deleteButton = levelButtonContainer.lastElementChild;
+
+			deleteButton.customLevel = customLevel;
+
+			deleteButton.onclick = evt => {
+				
+				evt.stopPropagation();
+
+				let levelLabel = evt.currentTarget.closest('.splitButton').firstElementChild.textContent;
+				
+				let confirmed = confirm('Willst du das Level "' + levelLabel + "' wirklich löschen?");
+				
+				if(confirmed){
+
+					let customLevel = evt.currentTarget.customLevel;
+					Utils.removeObjectFromArray(this.customLevels, customLevel);
+					this.saveCustomLevels();
+					this.refreshCustomLevelButtons();
+				}
+			};
+
+			customLevelsContainer.append(levelButtonContainer);
+		}
+	}
+	
+	refreshCustomLevelButtons() {
+		
+		let customLevelsContainer = this.menuElem.querySelector('.customLevels');
+
+		customLevelsContainer.innerHTML = '';
+		this.appendCustomLevelButtons();
 	}
 }

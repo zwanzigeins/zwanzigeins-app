@@ -58,8 +58,27 @@
             <div class="center">
             	<p>Bei diesem Spiel muss man eine gesprochene Zahl korrekt eingeben.</p>
             	
-            	<a class="btnStart" href="#listen-and-write-game">Start</a>
+            	<a class="btnStart" href="#listen-and-write-game" data-level="easy">Leicht</a>
+            	<a class="btnStart" href="#listen-and-write-game" data-level="medium">Mittel</a>
+            	<a class="btnStart" href="#listen-and-write-game" data-level="hard">Schwer</a>
             	
+                <h2>Eigene Level</h2>
+                
+                <div class="customLevels">
+                </div>
+                
+                <a class="createLevel" href="#listen-and-write-level-creation">Level erstellen</a>
+            	
+            </div>
+        </div>
+        
+        <div id="listen-and-write-level-creation" class="page">
+        	<header>
+                <button class="back"></button>
+                <h1>Level erstellen</h1>
+            </header>
+            <div class="center">
+            
             	<form>
             	
 	            	<h2>Zahlenbereich</h2>
@@ -70,8 +89,8 @@
 	                    <label>bis</label>
 	                    <input type="number" id="to" name="to" value="100">
 		            </div>
-            	
-                    <h2>Anzahl Aufgaben</h2>
+		            
+		            <h2>Anzahl Aufgaben</h2>
                     
                     <div class="field">
                         <input type="radio" id="listen-and-write-num-tasks-5" name="numTasks" value="5" checked>
@@ -85,7 +104,9 @@
                         <input type="radio" id="listen-and-write-num-tasks-20" name="numTasks" value="20">
                         <label for="listen-and-write-num-tasks-20"> 20</label>
                     </div>
-                    
+		            
+		            <button type="button" class="finishLevelCreation">Level erstellen</button>
+            	
                 </form>
             	
             </div>
@@ -141,7 +162,131 @@
                 <a href="#multiplication-division-choose-level">Multiplikation / Division</a>
                 <a href="#mixed-choose-level">Gemischt</a>
                 
-                <form id="numTasks">
+                <h2>Eigene Level</h2>
+                <div class="customLevels"></div>
+                
+                <a class="createLevel" href="#mental-arithmetic-level-creation">Level erstellen</a>
+                
+            </div>
+        </div>
+        
+        <div id="mental-arithmetic-level-creation" class="page">
+        	<header>
+                <button class="back"></button>
+                <h1>Level erstellen</h1>
+            </header>
+            <div class="center">
+            
+            	<form>
+            	
+	            	<div class="controlGroup">
+	            	
+                        <div class="field">
+                            <input type="checkbox" id="addition-enabled" name="addition-enabled">
+                            <label for="addition-enabled"> <b>+ Addition</b>
+                            	<span class='control'></span>
+                            </label>
+                        </div>
+                        
+                        <div class="display-flex">
+	                        <h3>Operand 1</h3>
+		                    <label>von</label>
+		                    <input type="number" id="addition-operand1-from" name="addition-operand1-from" min="0" value="11">
+		                    <label>bis</label>
+		                    <input type="number" id="addition-operand1-to" name="addition-operand1-to" value="100">
+		            	</div>
+		            	
+		            	<div class="display-flex">
+	                        <h3>Operand 2</h3>
+		                    <label>von</label>
+		                    <input type="number" id="addition-operand2-from" name="addition-operand2-from" min="0" value="11">
+		                    <label>bis</label>
+		                    <input type="number" id="addition-operand2-to" name="addition-operand2-to" value="100">
+		            	</div>
+		            	
+                    </div>
+                    
+                    <div class="controlGroup">
+	            	
+                        <div class="field">
+                            <input type="checkbox" id="subtraction-enabled" name="subtraction-enabled">
+                            <label for=subtraction-enabled> <b>&minus; Subtraktion</b>
+                            	<span class='control'></span>
+                            </label>
+                        </div>
+                        
+                        <div class="display-flex">
+	                        <h3>Operand 1</h3>
+		                    <label>von</label>
+		                    <input type="number" id="subtraction-operand1-from" name="subtraction-operand1-from" min="0" value="11">
+		                    <label>bis</label>
+		                    <input type="number" id="subtraction-operand1-to" name="subtraction-operand1-to" value="100">
+		            	</div>
+		            	
+		            	<div class="display-flex">
+	                        <h3>Operand 2</h3>
+		                    <label>von</label>
+		                    <input type="number" id="subtraction-operand2-from" name="subtraction-operand2-from" min="0" value="11">
+		                    <label>bis</label>
+		                    <input type="number" id="subtraction-operand2-to" name="subtraction-operand2-to" value="100">
+		            	</div>
+		            	
+                    </div>
+                    
+                    <div class="controlGroup">
+	            	
+                        <div class="field">
+                            <input type="checkbox" id="multiplication-enabled" name="multiplication-enabled">
+                            <label for="multiplication-enabled"> <b>&times; Multiplikation</b>
+                            	<span class='control'></span>
+                            </label>
+                        </div>
+                        
+                        <div class="display-flex">
+	                        <h3>Operand 1</h3>
+		                    <label>von</label>
+		                    <input type="number" id="multiplication-operand1-from" name="multiplication-operand1-from" min="0" value="11">
+		                    <label>bis</label>
+		                    <input type="number" id="multiplication-operand1-to" name="multiplication-operand1-to" value="100">
+		            	</div>
+		            	
+		            	<div class="display-flex">
+	                        <h3>Operand 2</h3>
+		                    <label>von</label>
+		                    <input type="number" id="multiplication-operand2-from" name="multiplication-operand2-from" min="0" value="11">
+		                    <label>bis</label>
+		                    <input type="number" id="multiplication-operand2-to" name="multiplication-operand2-to" value="100">
+		            	</div>
+		            	
+                    </div>
+                    
+                    <div class="controlGroup">
+	            	
+                        <div class="field">
+                            <input type="checkbox" id="division-enabled" name="division-enabled">
+                            <label for="division-enabled"> <b>&divide; Division</b>
+                            	<span class='control'></span>
+                            </label>
+                        </div>
+                        
+                        <div class="display-flex">
+	                        <h3>Operand 1</h3>
+		                    <label>von</label>
+		                    <input type="number" id="division-operand1-from" name="division-operand1-from" min="0" value="11">
+		                    <label>bis</label>
+		                    <input type="number" id="division-operand1-to" name="division-operand1-to" value="100">
+		            	</div>
+		            	
+		            	<div class="display-flex">
+	                        <h3>Operand 2</h3>
+		                    <label>von</label>
+		                    <input type="number" id="division-operand2-from" name="division-operand2-from" min="0" value="11">
+		                    <label>bis</label>
+		                    <input type="number" id="division-operand2-to" name="division-operand2-to" value="100">
+		            	</div>
+		            	
+                    </div>
+                    
                     <h2>Anzahl Aufgaben</h2>
                     <div class="field">
                         <input type="radio" id="numTasks5" name="numTasks" value="5" checked>
@@ -155,26 +300,20 @@
                         <input type="radio" id="numTasks20" name="numTasks" value="20">
                         <label for="numTasks20"> 20</label>
                     </div>
-                </form>
-
-                <div id="prefs">
-                    <h2>Einstellungen</h2>
+                    
                     <div class="controlGroup">
-                        <div class="field">
-                            <input type="checkbox" id="fullscreen" name="fullscreen">
-                            <label for="fullscreen"> Vollbild 
-                            	<span class='control'></span>
-                            </label>
-                        </div>
-                        <div class="field">
-                            <input type="checkbox" id="auditive" name="auditive">
-                            <label for="auditive"> Auditiver Modus (Aufgabe nur vorlesen) 
-                            	<span class='control'></span>
-                            </label>
-                        </div>
+                    <div class="field">
+                        <input type="checkbox" id="auditive" name="auditive">
+                        <label for="auditive"> Auditiver Modus (Aufgabe nur vorlesen) 
+                        	<span class='control'></span>
+                        </label>
                     </div>
-                </div>
+                    </div>
 
+                    <button type="button" class="finishLevelCreation">Level erstellen</button>
+            	
+                </form>
+            	
             </div>
         </div>
         
@@ -261,80 +400,7 @@
                 <a class="btnStart" data-level="mixed-hard" href="#mental-arithmetic-game">Schwer</a>		            
             </div>
         </div>
-        
-        <div id="mental-arithmetic-level" class="page">
-        	<header>
-                <button class="back"></button>
-                <h1></h1>
-            </header>
-        	<div>
-	            <h2>Stelligkeiten</h2>
-	            <table class="fromTo">
-	                <tr>
-	                    <td rowspan="2"><h3>Zahl&nbsp;1&nbsp;</h3></td>
-	                    <td><label>von</label></td>
-	                    <td>
-	                        <div class="field">
-	                            <input type="number" id="from1" name="from1" min="0">
-	                        </div>
-	                    </td>
-	                </tr>
-	                <tr>
-	                    <td><label>bis</label></td>
-	                    <td>
-	                        <div class="field">
-	                            <input type="number" id="to1" name="to1">
-	                        </div>
-	                    </td>
-	                </tr>
-	            </table>
-	
-	            <table class="fromTo secondNumArity">
-	                <tr>
-	                    <td rowspan="2"><h3>Zahl&nbsp;2&nbsp;</h3></td>
-	                    <td><label>von</label></td>
-	                    <td>
-	                        <div class="field">
-	                            <input type="number" id="from2" name="from2" min="0">
-	                        </div>
-	                    </td>
-	
-	                </tr>
-	                <tr>
-	                    <td><label>bis</label></td>
-	                    <td>
-	                        <div class="field">
-	                            <input type="number" id="to2" name="to2">
-	                        </div>
-	                    </td>
-	                </tr>
-	            </table>
-	
-	        </div>
-	
-	        <div id="arities">
-	            <h2>Rechenarten</h2>
-	            <div class="controlGroup">
-	                <div class="field">
-	                    <input type="checkbox" id="plus" name="plus">
-	                    <label for="plus"> + <span class='control'></span></label>
-	                </div>
-	                <div class="field">
-	                    <input type="checkbox" id="multiply" name="multiply">
-	                    <label for="multiply"> &times; <span class='control'></span></label>
-	                </div>
-	                <div class="field">
-	                    <input type="checkbox" id="minus" name="minus">
-	                    <label for="minus"> &thinsp;- <span class='control'></span></label>
-	                </div>
-	                <div class="field">
-	                    <input type="checkbox" id="divide" name="divide">
-	                    <label for="divide"> &divide; <span class='control'></span></label>
-	                </div>
-	            </div>
-	        </div>
-        </div>
-		
+        		
 		<div id="mental-arithmetic-game" class="page numberGame" data-prevent-initial-display>
 			<header class="iphone-only">
                 <button class="back"></button>

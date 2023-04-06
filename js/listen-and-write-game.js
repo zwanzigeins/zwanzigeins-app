@@ -1,6 +1,5 @@
 import Options from './options.js';
 import NumberGame from './number-game.js';
-import Pages from './pages.js';
 import Sound from './sound.js';
 
 export default class ListenAndWriteGame extends NumberGame {
@@ -12,20 +11,52 @@ export default class ListenAndWriteGame extends NumberGame {
 		this.defaultOptions = {
 			from: 11,
 			to: 100,
-			numTasks: 5
+			numTasks: 10
 		};
 
 		this.options = new Options('listen-and-write-menu', this.defaultOptions);
 
-		var btnStart = this.menuElem.querySelector('.btnStart');
+		var startButtons = this.menuElem.querySelectorAll('.btnStart');
+		
+		for(let i = 0; i < startButtons.length; i++){
+			
+			let startButton = startButtons[i];
+			
+			// IOS needs a click-handler to play sound
+			startButton.addEventListener('click', e => {
+				
+				let levelName = e.currentTarget.dataset.level;
+				
+				switch(levelName){
+					
+					case 'easy':
+						this.options.from = 11;
+						this.options.to = 99;
+						break;
+						
+					case 'medium':
+						this.options.from = 10011;
+						this.options.to = 99999;
+						break;
+						
+					case 'hard':
+						this.options.from = 10000000;
+						this.options.to = 90000000;
+						break;
+						
+				}
+				
+				this.startGame();
+			});	
+		}
 
-		// IOS needs a click-handler to play sound
-		btnStart.addEventListener('click', e => {
-
-			e.preventDefault();
-			Pages.INSTANCE.show('listen-and-write-game');
-			this.startGame();
-		});
+		let defaultLevelCreationOptions = {
+			from: 10,
+			to: 100,
+			numTasks: 5
+		};
+		
+		super.initCustomLevelHandling(defaultLevelCreationOptions);
 	}
 
 	putNewTask() {
@@ -55,6 +86,11 @@ export default class ListenAndWriteGame extends NumberGame {
 				this.processNumberInput(digit);
 			}
 		}
+	}
+	
+	provideCustomLevelLabelText(customLevel) {
+		
+		return `Von ${customLevel.from} bis ${customLevel.to}, ${customLevel.numTasks} Aufgaben`;
 	}
 
 }

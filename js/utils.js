@@ -173,43 +173,62 @@ export default class Utils {
 
 		return resultNumber;
 	}
-	
-	static getTimeStampWithMinutesPrecision(){
-		
+
+	static getTimeStampWithMinutesPrecision() {
+
 		let now = new Date();
-			
+
 		let timestamp = '';
-		
+
 		let fullYear = now.getFullYear();
 		timestamp += fullYear;
-		
+
 		let month = now.getMonth() + 1;
-		if(month < 10){
+		if (month < 10) {
 			timestamp += '0';
 		}
 		timestamp += month;
-		
+
 		let date = now.getDate();
-		if(date < 10){
+		if (date < 10) {
 			timestamp += '0';
 		}
 		timestamp += date;
-		
+
 		let timeString = now.toLocaleTimeString();
-		
+
 		timestamp += 'T' + timeString.replaceAll(':', '');
-		
-		return timestamp;		
+
+		return timestamp;
 	}
-	
-	static parseTimeToSeconds(minutesSecondsTimeStr){
-		
+
+	static parseTimeToSeconds(minutesSecondsTimeStr) {
+
 		let timeParts = minutesSecondsTimeStr.split(':');
 		let minutes = parseInt(timeParts[0]);
 		let seconds = parseInt(timeParts[1]);
-		
+
 		let result = minutes * 60 + seconds;
-		
+
 		return result;
 	}
+
+	static copyObjectProperties(srcObj, targetObj) {
+
+		for (let propertyKey in srcObj) {
+
+			targetObj[propertyKey] = srcObj[propertyKey];
+		}
+	}
+
+	static removeObjectFromArray(array, obj) {
+
+		for (let i = 0; i < array.length; i++) {
+			if (array[i] === obj) {
+				const removedElements = array.splice(i, 1);
+				i--; // Since the indexes of elements following this index get updated after removal
+			}
+		}
+	}
+
 }

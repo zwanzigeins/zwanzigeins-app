@@ -202,7 +202,7 @@ h2 {
 }
 
 h3 {
-	font-size: 0.9rem;
+	font-size: 1rem;
 }
 
 a, button {
@@ -230,6 +230,40 @@ a, button {
     position: relative;
 }
 
+.splitButton {
+	background: var(--button-bg-color);
+	margin: .5em 0;
+	width: 100%;
+	text-align: center;	
+	font-size: 16px;
+	line-height: 0;
+	position: relative;
+}
+
+.splitButton > .delete {
+	width: 3rem;
+	height: 100%;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+.splitButton > button {
+	margin: 0;	
+}
+
+.splitButton > *:first-child {
+	width: fit-content;
+	margin-left: auto;
+	margin-right: auto;
+	padding-right: 8%;
+	padding-left: 7%;
+}
+
+.splitButton > *:last-child {
+	border-left: 0;
+}
+
 a{
     text-decoration: none;
 }
@@ -249,6 +283,8 @@ button:before,
 	vertical-align: middle;
 	filter: var(--icon-filter);
 }
+
+
 
 header button {
 	filter: brightness(0) invert(100%);
@@ -449,6 +485,14 @@ html:not(.iphone) .iphone-only{
 .display-flex{
 	display: flex;
 	align-items: center;
+}
+
+.display-flex h3 {
+	white-space: nowrap;
+	display: inline-flex;
+	align-items: center;
+	margin-left: 1rem;
+	margin-right: 1rem;
 }
 
 .flex-1{
