@@ -513,7 +513,13 @@ export default class MentalArithmeticGame extends NumberGame{
 			parts.push(labelPart);
 		}
 		
+		if(customLevel.auditive){
+			parts.push('auditiv');
+		}
+				
 		let labelText = parts.join(', ');
+		
+		labelText += ', ' + customLevel.numTasks + '&nbsp;Aufgaben';
 		
 		return labelText;
 	}
