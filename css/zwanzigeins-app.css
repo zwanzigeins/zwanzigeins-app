@@ -230,3 +230,12 @@ button.finishLevelCreation:before {
 	overflow: visible;
 	white-space: normal;
 }
+
+#statistics-chart .levelOptionsLabel {
+	font-weight: bold;
+	margin-bottom: 1rem;
+}
+
+.statisticsPage > .center:empty:after {
+	content: 'Keine entprechenden Statistik-Daten verfügbar.';
+}

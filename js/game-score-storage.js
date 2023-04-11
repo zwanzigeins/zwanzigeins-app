@@ -6,16 +6,7 @@ export default class GameScoreStorage {
 
 		this.gameName = gameName;
 
-		this.storageKey = 'game-scores: ' + gameName;
-
-		let gameScoresJson = localStorage.getItem(this.storageKey);
-
-		if (gameScoresJson != null) {
-			this.gameScores = JSON.parse(gameScoresJson);
-		}
-		else {
-			this.gameScores = [];
-		}
+		this.storageNameSpaceKey = 'game-scores: ' + gameName;
 	}
 
 	saveGameScore(elapsedTime, numErrors, gameOptions) {
@@ -38,17 +29,102 @@ export default class GameScoreStorage {
 			elapsedTime,
 			numErrors,
 			gameOptions
-		}
+		};
 
-		this.gameScores.push(gameScoreEntry);
-		let gameScoresJson = JSON.stringify(this.gameScores);
-		localStorage.setItem(this.storageKey, gameScoresJson);
+		let gameOptionsJson = JSON.stringify(gameOptions);
+
+		let storageKey = this.storageNameSpaceKey + '|' + gameOptionsJson;
+
+		let gameScores = this.getGameScores(gameOptions);
+		gameScores.push(gameScoreEntry);
+
+		let gameScoresJson = JSON.stringify(gameScores);
+
+		localStorage.setItem(storageKey, gameScoresJson);
+	}
+
+	getGameScores(levelOptions) {
+
+		let storageKey = this.storageNameSpaceKey + '|' + JSON.stringify(levelOptions);
+
+		let json = localStorage.getItem(storageKey);
+
+		if(json){
+			return JSON.parse(json);
+		}
+		else {
+			return [];
+		}		
+	}
+
+	deleteGameScores(levelOptions) {
+
+		let levelOptionsJsonToDelete = JSON.stringify(levelOptions);
+
+		for (let key in localStorage) {
+
+			if (key.startsWith(this.storageNameSpaceKey)) {
+
+				if (key.indexOf('|') == -1) {
+					continue;
+				}
+
+				let levelOptionsJson = key.split('|')[1];
+
+				if (levelOptionsJson == levelOptionsJsonToDelete) {
+					localStorage.removeItem(key);
+				}
+			}
+		}
 	}
 
 	clear() {
-		
-		localStorage.removeItem(this.storageKey);
-		this.gameScores = [];
+
+		for (let key in localStorage) {
+
+			if (key.startsWith(this.storageNameSpaceKey)) {
+				localStorage.removeItem(key);
+			}
+		}
+	}
+
+	getAllGameScoreLevelOptions() {
+
+		let allGameScoreLevelOptions = [];
+
+		for (let key in localStorage) {
+
+			if (key.startsWith(this.storageNameSpaceKey)) {
+
+				if (key.indexOf('|') == -1) {
+					continue;
+				}
+
+				let levelOptionsJson = key.split('|')[1];
+
+				let levelOptions = JSON.parse(levelOptionsJson);
+				allGameScoreLevelOptions.push(levelOptions);
+			}
+		}
+
+		return allGameScoreLevelOptions;
+	}
+
+	getAllGameScores() {
+
+		let result = [];
+
+		for (let key in localStorage) {
+
+			if (key.startsWith(this.storageNameSpaceKey)) {
+
+				let json = localStorage.getItem(key);
+				let gameScores = JSON.parse(json);
+				result = result.concat(gameScores);
+			}
+		}
+
+		return result;
 	}
 
 }

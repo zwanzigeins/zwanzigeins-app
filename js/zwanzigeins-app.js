@@ -4,7 +4,6 @@ import NumberDictationGame from './number-dictation-game.js';
 import Pages from './pages.js';
 import Sound from './sound.js';
 import GlobalSettings from './global-settings.js';
-import GameScoreStorageRegistry from './game-score-storage-registry.js';
 import Statistics from './statistics.js';
 
 GlobalSettings.INSTANCE = new GlobalSettings();
@@ -12,15 +11,13 @@ GlobalSettings.INSTANCE = new GlobalSettings();
 Sound.INSTANCE = new Sound();
 Pages.INSTANCE = new Pages();
 
-new ListenAndWriteGame();
-MentalArithmeticGame.INSTANCE = new MentalArithmeticGame();
+let listenAndWriteGame = new ListenAndWriteGame();
+let mentalArithmeticGame = new MentalArithmeticGame();
+
 new NumberDictationGame();
 
-
-GameScoreStorageRegistry.INSTANCE = new GameScoreStorageRegistry();
-
-new Statistics('listen-and-write');
-new Statistics('mental-arithmetic');
+new Statistics(listenAndWriteGame);
+new Statistics(mentalArithmeticGame);
 
 Pages.INSTANCE.handleInitialNavigation();
 

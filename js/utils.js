@@ -212,6 +212,22 @@ export default class Utils {
 
 		return result;
 	}
+	
+	static convertSecondsToTime(seconds) {
+		
+		let minutes = Math.floor(seconds / 60);
+		let remainingSeconds = seconds % 60;
+
+		let result = minutes + ':';
+		
+		if(remainingSeconds < 10){
+			result += '0';
+		}
+		
+		result += remainingSeconds;
+
+		return result;
+	}
 
 	static copyObjectProperties(srcObj, targetObj) {
 

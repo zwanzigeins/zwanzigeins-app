@@ -1,7 +1,7 @@
-import GameScoreStorageRegistry from './game-score-storage-registry.js';
 import Utils from './utils.js';
 import Sound from './sound.js';
 import Options from './options.js';
+import GameScoreStorage from './game-score-storage.js';
 
 export default class NumberGame {
 
@@ -51,6 +51,8 @@ export default class NumberGame {
 
 			this.currentAnswerReset();
 		});
+		
+		this.gameScoreStorage = new GameScoreStorage(this.gameName);
 
 		// declare for documentation
 		this.wrongAnswerOccured = false;
@@ -168,21 +170,21 @@ export default class NumberGame {
 
 	finishGame() {
 
-		let ellapsed = new Date().getTime() - this.gameStartTimeStamp.getTime();
-		let ellapsedDate = new Date(ellapsed);
+		let elapsed = new Date().getTime() - this.gameStartTimeStamp.getTime();
+		let elapsedDate = new Date(elapsed);
 
 		let overlayDialog = document.querySelector('.dialog');
 
 		overlayDialog.classList.add('showing');
-		let minutes = ellapsedDate.getMinutes();
-		let seconds = ellapsedDate.getSeconds();
+		let minutes = elapsedDate.getMinutes();
+		let seconds = elapsedDate.getSeconds();
 		if (seconds < 10) {
 			seconds = '0' + seconds;
 		}
 
-		let ellapsedTimeString = minutes + ':' + seconds;
+		let elapsedTimeString = minutes + ':' + seconds;
 
-		document.getElementById('lastGameTime').innerHTML = ellapsedTimeString;
+		document.getElementById('lastGameTime').innerHTML = elapsedTimeString;
 
 		document.getElementById('numErrors').innerHTML = this.numErrors;
 
@@ -199,7 +201,7 @@ export default class NumberGame {
 			optionsPayload = this.options;
 		}
 
-		GameScoreStorageRegistry.INSTANCE.saveGameScore(this.gameName, ellapsedTimeString, this.numErrors, optionsPayload);
+		this.gameScoreStorage.saveGameScore(elapsedTimeString, this.numErrors, optionsPayload);
 
 		window.history.back();
 	}
@@ -245,7 +247,7 @@ export default class NumberGame {
 			this.customLevels.push(levelDefinitionData);
 
 			this.saveCustomLevels();
-			
+
 			this.refreshCustomLevelButtons();
 
 			history.back();
@@ -284,10 +286,10 @@ export default class NumberGame {
 		let customLevelsContainer = this.menuElem.querySelector('.customLevels');
 
 		for (let customLevel of this.customLevels) {
-			
+
 			let labelText;
-			
-			if(this.provideCustomLevelLabelText){
+
+			if (this.provideCustomLevelLabelText) {
 				labelText = this.provideCustomLevelLabelText(customLevel);
 			}
 			else {
@@ -298,7 +300,7 @@ export default class NumberGame {
 			levelButtonContainer.classList.add('splitButton');
 
 			levelButtonContainer.innerHTML =
-				'<button>' + labelText + '</button>' + 
+				'<button>' + labelText + '</button>' +
 				'<button class="delete"></button>'
 				;
 
@@ -320,14 +322,14 @@ export default class NumberGame {
 			deleteButton.customLevel = customLevel;
 
 			deleteButton.onclick = evt => {
-				
+
 				evt.stopPropagation();
 
 				let levelLabel = evt.currentTarget.closest('.splitButton').firstElementChild.textContent;
-				
-				let confirmed = confirm('Willst du das Level "' + levelLabel + "' wirklich löschen?");
-				
-				if(confirmed){
+
+				let confirmed = confirm('Willst du das Level "' + levelLabel + '" wirklich löschen?');
+
+				if (confirmed) {
 
 					let customLevel = evt.currentTarget.customLevel;
 					Utils.removeObjectFromArray(this.customLevels, customLevel);
@@ -339,12 +341,19 @@ export default class NumberGame {
 			customLevelsContainer.append(levelButtonContainer);
 		}
 	}
-	
+
 	refreshCustomLevelButtons() {
-		
+
 		let customLevelsContainer = this.menuElem.querySelector('.customLevels');
 
 		customLevelsContainer.innerHTML = '';
 		this.appendCustomLevelButtons();
 	}
+	
+	// abstract provideCustomLevelLabelText(customLevel)
+	
+	// abstract getGameNameTranslation();
+	
+	// abstract getGameNameTranslationForFileName();
+	
 }

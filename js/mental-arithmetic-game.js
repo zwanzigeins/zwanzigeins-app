@@ -1,7 +1,7 @@
-import Options from './options.js';
 import NumberGame from './number-game.js';
 import Utils from './utils.js';
 import Sound from './sound.js';
+import MentalArithmeticGameOptions from './mental-arithmetic-game-options.js';
 
 export default class MentalArithmeticGame extends NumberGame{
 
@@ -14,7 +14,7 @@ export default class MentalArithmeticGame extends NumberGame{
 		this.defaultOptions.numTasks = 5;
 		this.defaultOptions.auditive = false;
 
-		this.options = new Options('mental-arithmetic-menu', this.defaultOptions);
+		this.options = new MentalArithmeticGameOptions('mental-arithmetic-menu', this.defaultOptions);
 
 		let startAnchorElems = document.querySelectorAll('[id$="choose-level"] .btnStart');
 
@@ -202,110 +202,110 @@ export default class MentalArithmeticGame extends NumberGame{
 
 	appendAdditionEasy(levelOptions) {
 		
-		levelOptions["addition-enabled"] = true;
-		levelOptions["addition-operand1-from"] = 2;
-		levelOptions["addition-operand1-to"] = 20;
-		levelOptions["addition-operand2-from"] = 2;
-		levelOptions["addition-operand2-to"] = 20;
+		levelOptions['addition-enabled'] = true;
+		levelOptions['addition-operand1-from'] = 2;
+		levelOptions['addition-operand1-to'] = 20;
+		levelOptions['addition-operand2-from'] = 2;
+		levelOptions['addition-operand2-to'] = 20;
 	}
 
 	appendAdditionMedium(levelOptions) {
 		
-		levelOptions["addition-enabled"] = true;
-		levelOptions["addition-operand1-from"] = 11;
-		levelOptions["addition-operand1-to"] = 100;
-		levelOptions["addition-operand2-from"] = 11;
-		levelOptions["addition-operand2-to"] = 100;
+		levelOptions['addition-enabled'] = true;
+		levelOptions['addition-operand1-from'] = 11;
+		levelOptions['addition-operand1-to'] = 100;
+		levelOptions['addition-operand2-from'] = 11;
+		levelOptions['addition-operand2-to'] = 100;
 	}
 
 	appendAdditionHard(levelOptions) {
 		
-		levelOptions["addition-enabled"] = true;
-		levelOptions["addition-operand1-from"] = 11;
-		levelOptions["addition-operand1-to"] = 500;
-		levelOptions["addition-operand2-from"] = 11;
-		levelOptions["addition-operand2-to"] = 500;
+		levelOptions['addition-enabled'] = true;
+		levelOptions['addition-operand1-from'] = 11;
+		levelOptions['addition-operand1-to'] = 500;
+		levelOptions['addition-operand2-from'] = 11;
+		levelOptions['addition-operand2-to'] = 500;
 	}
 
 	appendSubtractionEasy(levelOptions) {
 		
-		levelOptions["subtraction-enabled"] = true;
-		levelOptions["subtraction-operand1-from"] = 2;
-		levelOptions["subtraction-operand1-to"] = 20;
-		levelOptions["subtraction-operand2-from"] = 2;
-		levelOptions["subtraction-operand2-to"] = 20;
+		levelOptions['subtraction-enabled'] = true;
+		levelOptions['subtraction-operand1-from'] = 2;
+		levelOptions['subtraction-operand1-to'] = 20;
+		levelOptions['subtraction-operand2-from'] = 2;
+		levelOptions['subtraction-operand2-to'] = 20;
 	}
 
 	appendSubtractionMedium(levelOptions) {
 		
-		levelOptions["subtraction-enabled"] = true;
-		levelOptions["subtraction-operand1-from"] = 11;
-		levelOptions["subtraction-operand1-to"] = 100;
-		levelOptions["subtraction-operand2-from"] = 11;
-		levelOptions["subtraction-operand2-to"] = 100;
+		levelOptions['subtraction-enabled'] = true;
+		levelOptions['subtraction-operand1-from'] = 11;
+		levelOptions['subtraction-operand1-to'] = 100;
+		levelOptions['subtraction-operand2-from'] = 11;
+		levelOptions['subtraction-operand2-to'] = 100;
 	}
 
 	appendSubtractionHard(levelOptions) {
 		
-		levelOptions["subtraction-enabled"] = true;
-		levelOptions["subtraction-operand1-from"] = 11;
-		levelOptions["subtraction-operand1-to"] = 500;
-		levelOptions["subtraction-operand2-from"] = 11;
-		levelOptions["subtraction-operand2-to"] = 500;
+		levelOptions['subtraction-enabled'] = true;
+		levelOptions['subtraction-operand1-from'] = 11;
+		levelOptions['subtraction-operand1-to'] = 500;
+		levelOptions['subtraction-operand2-from'] = 11;
+		levelOptions['subtraction-operand2-to'] = 500;
 	}
 
 	appendMultiplicatonEasy(levelOptions) {
 		
-		levelOptions["multiplication-enabled"] = true;
-		levelOptions["multiplication-operand1-from"] = 2;
-		levelOptions["multiplication-operand1-to"] = 5;
-		levelOptions["multiplication-operand2-from"] = 2;
-		levelOptions["multiplication-operand2-to"] = 5;
+		levelOptions['multiplication-enabled'] = true;
+		levelOptions['multiplication-operand1-from'] = 2;
+		levelOptions['multiplication-operand1-to'] = 5;
+		levelOptions['multiplication-operand2-from'] = 2;
+		levelOptions['multiplication-operand2-to'] = 5;
 	}
 
 	appendMultiplicatonMedium(levelOptions) {
 		
-		levelOptions["multiplication-enabled"] = true;
-		levelOptions["multiplication-operand1-from"] = 2;
-		levelOptions["multiplication-operand1-to"] = 9;
-		levelOptions["multiplication-operand2-from"] = 2;
-		levelOptions["multiplication-operand2-to"] = 9;
+		levelOptions['multiplication-enabled'] = true;
+		levelOptions['multiplication-operand1-from'] = 2;
+		levelOptions['multiplication-operand1-to'] = 9;
+		levelOptions['multiplication-operand2-from'] = 2;
+		levelOptions['multiplication-operand2-to'] = 9;
 	}
 
 	appendMultiplicatonHard(levelOptions) {
 		
-		levelOptions["multiplication-enabled"] = true;
-		levelOptions["multiplication-operand1-from"] = 5;
-		levelOptions["multiplication-operand1-to"] = 20;
-		levelOptions["multiplication-operand2-from"] = 5;
-		levelOptions["multiplication-operand2-to"] = 20;
+		levelOptions['multiplication-enabled'] = true;
+		levelOptions['multiplication-operand1-from'] = 5;
+		levelOptions['multiplication-operand1-to'] = 20;
+		levelOptions['multiplication-operand2-from'] = 5;
+		levelOptions['multiplication-operand2-to'] = 20;
 	}
 
 	appendDivisionEasy(levelOptions) {
 		
-		levelOptions["division-enabled"] = true;
-		levelOptions["division-operand1-from"] = 10;
-		levelOptions["division-operand1-to"] = 30;
-		levelOptions["division-operand2-from"] = 2;
-		levelOptions["division-operand2-to"] = 5;
+		levelOptions['division-enabled'] = true;
+		levelOptions['division-operand1-from'] = 10;
+		levelOptions['division-operand1-to'] = 30;
+		levelOptions['division-operand2-from'] = 2;
+		levelOptions['division-operand2-to'] = 5;
 	}
 
 	appendDivisionMedium(levelOptions) {
 		
-		levelOptions["division-enabled"] = true;
-		levelOptions["division-operand1-from"] = 10;
-		levelOptions["division-operand1-to"] = 100;
-		levelOptions["division-operand2-from"] = 2;
-		levelOptions["division-operand2-to"] = 9;
+		levelOptions['division-enabled'] = true;
+		levelOptions['division-operand1-from'] = 10;
+		levelOptions['division-operand1-to'] = 100;
+		levelOptions['division-operand2-from'] = 2;
+		levelOptions['division-operand2-to'] = 9;
 	}
 
 	appendDivisionHard(levelOptions) {
 		
-		levelOptions["division-enabled"] = true;
-		levelOptions["division-operand1-from"] = 100;
-		levelOptions["division-operand1-to"] = 1000;
-		levelOptions["division-operand2-from"] = 2;
-		levelOptions["division-operand2-to"] = 20;
+		levelOptions['division-enabled'] = true;
+		levelOptions['division-operand1-from'] = 100;
+		levelOptions['division-operand1-to'] = 1000;
+		levelOptions['division-operand2-from'] = 2;
+		levelOptions['division-operand2-to'] = 20;
 	}
 	
 	startGame() {
@@ -562,6 +562,16 @@ export default class MentalArithmeticGame extends NumberGame{
 			return null;
 		}
 		
+	}
+	
+	getGameNameTranslation() {
+		
+		return 'Kopfrechnen';
+	}
+	
+	getGameNameTranslationForFileName() {
+		
+		return 'kopfrechnen';
 	}
 
 }

@@ -1,17 +1,18 @@
-import GameScoreStorageRegistry from './game-score-storage-registry.js';
 import Pages from './pages.js';
 import Utils from './utils.js';
 import SvgCreator from './svg-creator.js';
 
 export default class Statistics {
 
-	constructor(gameName) {
-		
-		this.gameName = gameName;
-		
-		const statisticsId = 'statistics-' + gameName;
-		
-		this.gameScoreStorage = GameScoreStorageRegistry.INSTANCE.getGameScoreStorage(gameName);
+	constructor(game) {
+
+		this.game = game;
+
+		this.gameName = game.gameName;
+
+		const statisticsId = 'statistics-' + this.gameName;
+
+		this.gameScoreStorage = game.gameScoreStorage;
 
 		let statisticsPageElem = document.getElementById(statisticsId);
 
@@ -20,20 +21,20 @@ export default class Statistics {
 		Pages.INSTANCE.addBeforeOpenedHandler(id => {
 
 			if (id == statisticsId) {
-
-				this.showStatistics();
+				this.showStatisticsMenu();
 			}
 		});
 
 		let clearButton = statisticsPageElem.querySelector('.clear');
 
 		clearButton.addEventListener('click', () => {
-			
-			let gameNameTranslation = this.getGameNameTranslation(this.gameName);
+
+			let gameNameTranslation = this.game.getGameNameTranslation();
 
 			let confirmed = confirm('Willst Du wirklich alle Spiel-Statistiken für "' + gameNameTranslation + '" löschen?');
 
 			if (confirmed) {
+
 				this.gameScoreStorage.clear();
 				this.centerElem.innerHTML = '';
 			}
@@ -43,7 +44,7 @@ export default class Statistics {
 
 		downloadButton.addEventListener('click', () => {
 
-			let csv = this.createStatsticsCsv();
+			let csv = this.createStatisticsCsv();
 
 			let csvBlob = new Blob([csv], {
 				type: 'text/plain'
@@ -66,7 +67,7 @@ export default class Statistics {
 		//
 		//		shareButton.addEventListener('click', () => {
 		//			
-		//			let csv = this.createStatsticsCsv();
+		//			let csv = this.createStatisticsCsv();
 		//			
 		//			let csvBlob = new Blob([csv], {
 		//				type: 'text/plain'
@@ -89,40 +90,202 @@ export default class Statistics {
 	createCsvFileName() {
 
 		let timestamp = Utils.getTimeStampWithMinutesPrecision();
-		
-		let gameNameOutput = this.getGameNameTranslationForFileName(this.gameName);
-		
+
+		let gameNameOutput = this.game.getGameNameTranslationForFileName();
+
 		return 'zwanzigeins-statistik-' + gameNameOutput + '-' + timestamp + '.csv';
 	}
 
-	showStatistics() {
+	showStatisticsMenu() {
+		
+		this.centerElem.innerHTML = '';
 
-		let html;
-		try {
-			html = this.createStatsticsHtml();
-		}
-		catch (e) {
-			html = 'Statistik-Daten nicht kompatibel, bitte mithilfe des Mülleimers oben rechts löschen.';
-		}
+		let allLevelOptions = this.gameScoreStorage.getAllGameScoreLevelOptions();
+		
+		for (let levelOptions of allLevelOptions) {
 
-		this.centerElem.innerHTML = html;
+			let labelText = this.game.provideCustomLevelLabelText(levelOptions);
+			
+			let button = document.createElement('button');
+			button.innerHTML = labelText;
+			button.levelOptions = levelOptions;
+			
+			button.onclick = evt => {
+				
+				let levelOptions = evt.currentTarget.levelOptions;
+				let gameScores = this.gameScoreStorage.getGameScores(levelOptions);
+				
+				let levelLabelText = this.game.provideCustomLevelLabelText(levelOptions);
+				
+				let statisticsHtml = this.createStatisticsHtml(gameScores);
+				
+				let chartPage = document.getElementById('statistics-chart');
+				
+				let h1 = chartPage.querySelector('h1');
+				h1.textContent = 'Statistik: ' + this.game.getGameNameTranslation();
+				
+				let deleteButton = chartPage.querySelector('.delete');
+				deleteButton.levelOptions = levelOptions;
+				
+				deleteButton.onclick = () => {
+					
+					let text = levelLabelText.replaceAll('&nbsp;', ' ');
+					
+					let confirmed = confirm('Willst du wirklich alle Statistik-Daten zum Level "' + text + '" löschen?');
+					
+					if(confirmed){
+						
+						this.gameScoreStorage.deleteGameScores(levelOptions);
+						history.back();
+					}
+				};
+				
+				let center = chartPage.querySelector('.center');
+				
+				center.innerHTML = 
+					'<div class="levelOptionsLabel">' + levelLabelText + '</div>' +
+					statisticsHtml;
+				
+				location.hash = 'statistics-chart';
+			}
+
+			this.centerElem.appendChild(button);
+		}
 	}
 
-	createStatsticsHtml() {
+	createStatisticsHtml(gameScores) {
 
-		let html = '';
-		let svgCreator = new SvgCreator(this.gameScoreStorage.gameScores);
+		let svgCreator = new SvgCreator(gameScores);
 
-		html = svgCreator.createStatisticsSvg();
-
+		let html = svgCreator.createStatisticsSvg();
+		
+		let averageBaskets = this.calculateAveragesBySpeechMode(gameScores);
+				
+		html += '<h2>Durchschnitte nach Sprechweise</h2>';
+		
+		for(let basketKey in averageBaskets){
+			
+			let basket = averageBaskets[basketKey];
+			
+			let averageElapsedTime = Utils.convertSecondsToTime(Math.round(basket.averageElapsedSeconds));
+			
+			if(basket.numEntries > 0){
+				
+				let basketHtml =
+				`
+				<h3>${basketKey}</h3>
+				<table>
+				<tr>
+					<td>Anzahl Einträge: <td><td>${basket.numEntries}</td>
+				</tr>
+				<tr>
+					<td>Durchschnittliche Zeit: <td><td>${averageElapsedTime}</td>
+				</tr>
+				<tr>
+					<td>Durchschnittliche Fehler-Anzahl: <td><td>${basket.averageErrors}</td>
+				</tr>
+				</table>
+				`				
+				html += basketHtml;
+			}				
+		}
+		
 		return html;
 	}
+	
+	calculateAveragesBySpeechMode(gameScores) {
+	
+		let zehneins = {
+			numEntries : 0,
+			totalElapsedSeconds : 0,
+			totalErrors : 0
+		}
 
-	createStatsticsCsv() {
+		let zwanzigeins = {
+			numEntries : 0,
+			totalElapsedSeconds : 0,
+			totalErrors : 0
+		}
+
+		let traditionellVerdreht = {
+			numEntries : 0,
+			totalElapsedSeconds : 0,
+			totalErrors : 0
+		}
+
+		let zehneinsEndnull = {
+			numEntries : 0,
+			totalElapsedSeconds : 0,
+			totalErrors : 0
+		}
+
+		let zwanzigeinsEndnull = {
+			numEntries : 0,
+			totalElapsedSeconds : 0,
+			totalErrors : 0
+		}
+			
+		for(let gameScore of gameScores){
+			
+			switch(gameScore.twistedSpeechMode){
+				
+				case 'zehneins':
+					this.increaseAverageBasket(gameScore, zehneins);
+					break;
+					
+				case 'zwanzigeins':
+					this.increaseAverageBasket(gameScore, zwanzigeins);
+					break;
+					
+				case 'traditionellVerdreht':
+					this.increaseAverageBasket(gameScore, traditionellVerdreht);
+					break;
+					
+				case 'zehneinsEndnull':
+					this.increaseAverageBasket(gameScore, zehneinsEndnull);
+					break;
+					
+				case 'zwanzigeinsEndnull':
+					this.increaseAverageBasket(gameScore, zwanzigeinsEndnull);
+					break;
+			}		
+		}
+
+		this.calculateAveragesInBasket(zehneins);
+		this.calculateAveragesInBasket(zwanzigeins);
+		this.calculateAveragesInBasket(traditionellVerdreht);
+		this.calculateAveragesInBasket(zehneinsEndnull);
+		this.calculateAveragesInBasket(zwanzigeinsEndnull);
+		
+		return {
+			zehneins,
+			zwanzigeins,
+			traditionellVerdreht,
+			zehneinsEndnull,
+			zwanzigeinsEndnull
+		};
+	}
+	
+	increaseAverageBasket(gameScore, basket){
+		
+		basket.numEntries++;
+		basket.totalElapsedSeconds += Utils.parseTimeToSeconds(gameScore.elapsedTime);
+		basket.totalErrors += gameScore.numErrors;
+	}
+	
+	calculateAveragesInBasket(basket){
+
+		if(basket.numEntries > 0) {
+			basket.averageElapsedSeconds = basket.totalElapsedSeconds / basket.numEntries;
+			basket.averageErrors = basket.totalErrors / basket.numEntries;
+		}
+	}
+
+	createStatisticsCsv() {
 
 		let csv = 'Profil;Spiel;Zeit-Stempel;Sprach-Modus;Sprech-Geschwindigkeit;Aufgaben-Anzahl;Spiel-Dauer(s);Spiel-Fehler;Spiel-Optionen';
 
-		for (let gameScore of this.gameScoreStorage.gameScores) {
+		for (let gameScore of this.gameScoreStorage.getAllGameScores()) {
 
 			let profileNameOutput = this.escapeForCsv(gameScore.profileName.trim());
 
@@ -140,7 +303,7 @@ export default class Statistics {
 			let gameOptionsJson;
 
 			let numTasksOutput = gameScore.gameOptions.numTasks;
-			
+
 			let elapsedTimeOutput = Utils.parseTimeToSeconds(gameScore.elapsedTime);
 
 			// remove tasks-property from options-output
@@ -272,29 +435,5 @@ export default class Statistics {
 				return 'Gemischt-schwer';
 		}
 	}
-	
-	getGameNameTranslation(gameName){
-		
-		switch(gameName){
-			
-			case 'listen-and-write':
-				return 'Hören & Schreiben';
-			
-			case 'mental-arithmetic':
-				return 'Kopfrechnen';
-		}
-	}
-	
-	getGameNameTranslationForFileName(gameName){
-		
-		switch(gameName){
-			
-			case 'listen-and-write':
-				return 'hoeren-und-schreiben';
-			
-			case 'mental-arithmetic':
-				return 'kopfrechnen';
-		}
-	}
-	
+
 }

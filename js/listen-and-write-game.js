@@ -92,5 +92,15 @@ export default class ListenAndWriteGame extends NumberGame {
 		
 		return `Von ${customLevel.from} bis ${customLevel.to}, ${customLevel.numTasks} Aufgaben`;
 	}
+	
+	getGameNameTranslation(){
+		
+		return 'Hören & Schreiben';
+	}
+	
+	getGameNameTranslationForFileName(){
+		
+		return 'hoeren-und-schreiben';
+	}
 
 }

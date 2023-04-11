@@ -20,7 +20,7 @@ export default class SvgCreator {
         this.yStepHeight = this.chartHeight / this.yStepsCount;  
         
         this.chartMarginTop = 10;
-        this.chartMarginBottom = 250;
+        this.chartMarginBottom = 150;
         this.chartMarginLeft = 25;
         
         this.svgHeight = this.chartHeight + this.chartMarginTop + this.chartMarginBottom;
@@ -31,13 +31,17 @@ export default class SvgCreator {
     }
 
     createStatisticsSvg() {
+		
+		let minMax = this.findMinMaxElapsedTimes();
+		let minSeconds = minMax.minSeconds;
+		let maxSeconds = minMax.maxSeconds;
 
         let svg = "";
 
         svg += this.getSvgDiagramHeader();
         svg += this.getSvgDiagramStyleDeclaration();        
-        svg += this.createSvgDiagramScala();
-        svg += this.createSvgDataPoints(this.gameScores);
+        svg += this.createSvgDiagramScala(minSeconds, maxSeconds);
+        svg += this.createSvgDataPoints(this.gameScores, minSeconds, maxSeconds);
         svg += "</svg>";
 
         return svg;
@@ -50,7 +54,7 @@ export default class SvgCreator {
             "width='" + this.svgWidth + "' " +
             "height='" + this.svgHeight + "' " +
             "viewbox='0 0 " + this.svgWidth + " " + this.svgHeight + "'>";
-        
+
         return  svgDiagramHeader;
     }
 
@@ -64,109 +68,129 @@ export default class SvgCreator {
                 .timeStamp {
                 	font: bold 10px sans-serif;
                 }
+                text {
+					white-space: pre;
+				}
             </style>`;
        
         return style;     
     }
+    
+    findMinMaxElapsedTimes() {
+		
+		let firstGameScore = this.gameScores[0];
+		
+		let seconds = Utils.parseTimeToSeconds(firstGameScore.elapsedTime);
+		
+		let minSeconds = seconds; 
+		let maxSeconds = seconds;
+		
+		for(let i = 1; i < this.gameScores.length; i++) {
+			
+			let gameScore = this.gameScores[i];
+			let elapsedSeconds = Utils.parseTimeToSeconds(gameScore.elapsedTime);
+			if(elapsedSeconds < minSeconds){
+				minSeconds = elapsedSeconds;
+			}
+			else if(elapsedSeconds > maxSeconds){
+				maxSeconds = elapsedSeconds;
+			}
+		}
+		
+		return {minSeconds, maxSeconds};		
+	}
 
-    createSvgDiagramScala() {
+    createSvgDiagramScala(minSeconds, maxSeconds) {
 
         let diagramScala =
             "<path class='chartAxis' " + 
-            "d='M" + this.chartMarginLeft + " " + this.chartMarginTop + " " +
-            "l0 " + this.chartHeight + " " +
-            "l" + this.chartWidth + " 0' " +
-            "stroke='black' stroke-linecap='square' stroke-width='1px' fill='none'/>";
+	            "d='M" + this.chartMarginLeft + " " + this.chartMarginTop + " " +
+	            "l0 " + this.chartHeight + " " +
+	            "l" + this.chartWidth + " 0' " +
+	            "stroke='black' stroke-linecap='square' stroke-width='1px' fill='none'/>";
+            
+        let variance = maxSeconds - minSeconds;
+        let varianceStep = variance / this.yStepsCount;
         
-        for(let i = 0; i < this.yStepsCount; i++) {
+        let i = 0;
+		                
+        for(; i < this.yStepsCount; i++) {
 			
 			let curY = this.chartMarginTop + (i * this.yStepHeight);
+
+			let yStepLabel = maxSeconds - (i * varianceStep);
+			yStepLabel = Math.round(yStepLabel * 10) / 10;
 
             diagramScala += 
                 "<path d='M" + (this.chartMarginLeft + 2) + " " + curY + " " +
                 	"l" + this.chartWidth + " " + 0 + "' stroke='grey' stroke-width='0.5px' stroke-dasharray='5,5' fill='none'/>" +
                 "<text class='steps' text-anchor='end' alignment-baseline='central' x='" + (this.chartMarginLeft - 5) + "' " + 
                 	"y='" + curY + "'>" +
-                	(100 - (i * 10)) + 
+                	yStepLabel +
                 "</text>";
         }
+        
+        let curY = this.chartMarginTop + (i * this.yStepHeight);
+        diagramScala += 
+	        "<text class='steps' text-anchor='end' alignment-baseline='central' x='" + (this.chartMarginLeft - 5) + "' " +
+            	"y='" + curY + "'>" +
+            	minSeconds +
+            "</text>";
 
         return diagramScala;
     }
-
-    createSvgDataPoints(gameScores) {
+    
+    createSvgDataPoints(gameScores, minSeconds, maxSeconds) {
 
         let svgDataPoints = "";
         let previousPointX = 0;
         let previousPointY = 0;
-        let averageElapsedTime = this.getAverageElapsedTime(gameScores);
+        
+        let variance = maxSeconds - minSeconds;
 
         //first create all paths
+        
+        let points = [];
 
         for(let i = 0; i < gameScores.length; i++) {
 
             let gameScoreEntry = gameScores[i];
-            let scorePoint = this.getScorePoints(gameScoreEntry, averageElapsedTime);
-            let unitPerScorePoint = this.chartHeight / 100;
+            
+            let elapsedSeconds = Utils.parseTimeToSeconds(gameScoreEntry.elapsedTime);
+			
             let pointX = this.chartMarginLeft + this.xStepWidth * (i + 1);
-            let pointY = (this.chartMarginTop + this.chartHeight) - (scorePoint * unitPerScorePoint);
+            let pointY = this.chartMarginTop + this.chartHeight * ((elapsedSeconds - minSeconds) / variance);
+            
+            points.push({x: pointX, y: pointY});
 
             if(previousPointX != 0) {
 
                 svgDataPoints +=
                 "<path d='M" + previousPointX + " " + previousPointY + " " +
                 "L" + pointX + " " + pointY + "' " + 
-                "stroke='" + this.lineColor + "' stroke-linecap='square' stroke-width='1px' fill='none'/>";
+                "stroke='" + this.lineColor + "' stroke-linecap='square' stroke-width='2px' fill='none'/>";
             }
 
             previousPointX = pointX;
             previousPointY = pointY;
-        }
-
-        //create circles on top
-
-        for(let i = 0; i < gameScores.length; i++) {
             
-            let gameScoreEntry = gameScores[i];
-            let scorePoint = this.getScorePoints(gameScoreEntry, averageElapsedTime);
-            let timeStampOutput = this.getTimeStampOutput(gameScoreEntry);
-            let unitPerScorePoint = this.chartHeight / 100;
-            let pointX = this.chartMarginLeft + this.xStepWidth * (i + 1);
-            let pointY = (this.svgHeight - this.chartMarginBottom) - (scorePoint * unitPerScorePoint);
+            let timeStampOutput = this.getTimeStampOutput(gameScoreEntry);            
 
-            svgDataPoints += 
-                "<circle cx='" + pointX + "' cy='" + pointY + "' r='2px'></circle>" +
+			svgDataPoints +=                 
                 "<text class='timeStamp' alignment-baseline='central' " + 
-                "transform='translate(" + pointX + ", " + (this.svgHeight - this.chartMarginBottom + 5) + ") rotate(90)'>" + 
-                timeStampOutput + "</text>";
+	                "transform='translate(" + pointX + ", " + (this.svgHeight - this.chartMarginBottom + 5) + ") rotate(90)'>" + 
+	                timeStampOutput + "</text>";
         }
+        
+        // draw circles later so they cover the paths
+        for(let point of points) {			
+			svgDataPoints += "<circle cx='" + point.x + "' cy='" + point.y + "' r='2px'></circle>";
+		}
+        
 
         return svgDataPoints;
     }
 
-    getScorePoints(gameScoreEntry, averageElapsedTime) {
-
-        let secondsPerPoint = averageElapsedTime / 50;
-        let gameScoreEntryPoints = this.getElapsedTimeInSeconds(gameScoreEntry) / secondsPerPoint;
-
-        return 100 - gameScoreEntryPoints;
-    }
-
-    getAverageElapsedTime(gameScores) {
-
-        let averageElapsedTime = 0;
-
-        for(var i = 0; i < gameScores.length; i++) {
-
-            let gameScoreEntry = gameScores[i];
-            averageElapsedTime += Utils.parseTimeToSeconds(gameScoreEntry.elapsedTime);
-        }
-
-        averageElapsedTime = averageElapsedTime / gameScores.length;
-
-        return averageElapsedTime;
-    }
-    
     getElapsedTimeInSeconds(gameScoreEntry) {
 		
 		return Utils.parseTimeToSeconds(gameScoreEntry.elapsedTime);
@@ -185,16 +209,15 @@ export default class SvgCreator {
         switch(twistedSpeechMode) {
             case 'zehneins': speechModeOutput = "ZE"; break;
             case 'zwanzigeins': speechModeOutput = "ZWE"; break;
-            case 'traditionell verdreht': speechModeOutput = "TV"; break;
-            case 'zehneins(endnull)': speechModeOutput = "ZE0"; break;
-            case 'zwanzigeins(endnull)': speechModeOutput =" ZWE0"; break;
+            case 'traditionellVerdreht': speechModeOutput = "TV"; break;
+            case 'zehneinsEndnull': speechModeOutput = "ZE0"; break;
+            case 'zwanzigeinsEndnull': speechModeOutput =" ZWE0"; break;
         }
 
         let timeStampOutput =
-        	"Date:" + germanDateString + 
-            ", Mode:" + speechModeOutput + 
-            ", Time:" + gameScoreEntry.elapsedTime + 
-            ", Errors:" + gameScoreEntry.numErrors;
+        	' ' + germanDateString + 
+            ', ' + speechModeOutput + 
+            ', ' + gameScoreEntry.numErrors + ' Fehler';
         
         return timeStampOutput;
     }
