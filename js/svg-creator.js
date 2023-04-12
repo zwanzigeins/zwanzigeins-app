@@ -159,7 +159,10 @@ export default class SvgCreator {
             let elapsedSeconds = Utils.parseTimeToSeconds(gameScoreEntry.elapsedTime);
 			
             let pointX = this.chartMarginLeft + this.xStepWidth * (i + 1);
-            let pointY = this.chartMarginTop + this.chartHeight * ((elapsedSeconds - minSeconds) / variance);
+			
+            let pointY = this.chartMarginTop + this.chartHeight - (this.chartHeight * ((elapsedSeconds - minSeconds) / variance));
+
+			console.log('elapsedSeconds: ' + elapsedSeconds + ', pointY: ' + pointY);
             
             points.push({x: pointX, y: pointY});
 
