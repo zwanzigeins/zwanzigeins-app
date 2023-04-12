@@ -14,7 +14,7 @@ export default class MentalArithmeticGame extends NumberGame{
 		this.defaultOptions.numTasks = 5;
 		this.defaultOptions.auditive = false;
 
-		this.options = new MentalArithmeticGameOptions('mental-arithmetic-menu', this.defaultOptions);
+		this.options = new MentalArithmeticGameOptions('mental-arithmetic-menu', this.defaultOptions, false);
 
 		let startAnchorElems = document.querySelectorAll('[id$="choose-level"] .btnStart');
 
@@ -33,7 +33,7 @@ export default class MentalArithmeticGame extends NumberGame{
 					levelOptions['auditive'] = false;
 				}
 
-				levelOptions['numTasks'] = this.options.numTasks;
+				levelOptions['numTasks'] = 10;
 				
 				Utils.copyObjectProperties(levelOptions, this.options);
 								
@@ -311,28 +311,6 @@ export default class MentalArithmeticGame extends NumberGame{
 	startGame() {
 		
 		super.startGame();
-
-		window.location.hash = 'mental-arithmetic-game';
-
-		if (this.options.fullscreen) {
-			
-			if (document.documentElement.webkitRequestFullscreen) {
-				document.documentElement.webkitRequestFullscreen();
-			}
-			else if (document.documentElement.requestFullscreen) {
-				document.documentElement.requestFullscreen();
-			}
-		}
-
-		this.putNewTask();
-
-		window.onkeydown = e => {
-			
-			let digit = parseInt(e.key);
-			if (!isNaN(digit)) {
-				this.processNumberInput(digit);
-			}
-		}
 
 		if (this.options['auditive']) {
 			this.gameElem.classList.add('auditive');

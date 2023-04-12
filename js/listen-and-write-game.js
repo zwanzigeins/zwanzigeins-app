@@ -14,7 +14,7 @@ export default class ListenAndWriteGame extends NumberGame {
 			numTasks: 10
 		};
 
-		this.options = new Options('listen-and-write-menu', this.defaultOptions);
+		this.options = new Options('listen-and-write-menu', this.defaultOptions, false);
 
 		var startButtons = this.menuElem.querySelectorAll('.btnStart');
 		
@@ -27,6 +27,8 @@ export default class ListenAndWriteGame extends NumberGame {
 				
 				let levelName = e.currentTarget.dataset.level;
 				
+				this.options.numTasks = 10;
+				
 				switch(levelName){
 					
 					case 'easy':
@@ -35,15 +37,14 @@ export default class ListenAndWriteGame extends NumberGame {
 						break;
 						
 					case 'medium':
-						this.options.from = 10011;
-						this.options.to = 99999;
+						this.options.from = 111;
+						this.options.to = 999;
 						break;
 						
 					case 'hard':
-						this.options.from = 10000000;
-						this.options.to = 90000000;
+						this.options.from = 10011;
+						this.options.to = 99999;
 						break;
-						
 				}
 				
 				this.startGame();
@@ -51,7 +52,7 @@ export default class ListenAndWriteGame extends NumberGame {
 		}
 
 		let defaultLevelCreationOptions = {
-			from: 10,
+			from: 11,
 			to: 100,
 			numTasks: 5
 		};
@@ -69,25 +70,8 @@ export default class ListenAndWriteGame extends NumberGame {
 
 		this.currentAnswerReset();
 		this.tasksPut++;
-
 	}
 
-	startGame() {
-		
-		super.startGame();
-
-		window.location.hash = 'listen-and-write-game';
-
-		this.putNewTask();
-
-		window.onkeydown = e => {
-			let digit = parseInt(e.key);
-			if (!isNaN(digit)) {
-				this.processNumberInput(digit);
-			}
-		}
-	}
-	
 	provideCustomLevelLabelText(customLevel) {
 		
 		return `Von ${customLevel.from} bis ${customLevel.to}, ${customLevel.numTasks} Aufgaben`;

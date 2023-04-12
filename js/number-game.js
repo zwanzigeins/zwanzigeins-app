@@ -8,6 +8,8 @@ export default class NumberGame {
 	constructor(gameName, menuPageId, gamePageId) {
 
 		this.gameName = gameName;
+		
+		this.gamePageId = gamePageId;
 
 		this.menuElem = document.getElementById(menuPageId);
 		this.gameElem = document.getElementById(gamePageId);
@@ -166,6 +168,18 @@ export default class NumberGame {
 		this.gameStartTimeStamp = new Date();
 		this.tasksPut = 0;
 		this.numErrors = 0;
+		
+		window.location.hash = this.gamePageId;
+		
+		this.putNewTask();
+
+		window.onkeydown = e => {
+			
+			let digit = parseInt(e.key);
+			if (!isNaN(digit)) {
+				this.processNumberInput(digit);
+			}
+		}
 	}
 
 	finishGame() {
@@ -190,7 +204,7 @@ export default class NumberGame {
 
 		setTimeout(() => {
 			overlayDialog.classList.remove('showing');
-		}, 2000);
+		}, 3000);
 
 		let optionsPayload;
 
