@@ -55,7 +55,7 @@ export default class Sound {
 				return this.letterizer.letterizeZwanzigEinsNumber(number);
 				
 			case 'traditionellVerdreht':
-				return number;
+				return this.letterizer.letterizeTraditionellVerdrehtNumber(number);
 				
 			case 'zwanzigeinsEndnull':
 				return this.letterizer.letterizeZwanzigEinsNumberEndnull(number);

@@ -38,6 +38,21 @@ export default class Letterizer {
 		return word;
 	}
 
+	letterizeTraditionellVerdrehtNumber(number) {
+
+		if (number > 999999999999) {
+			throw new Exception('unsupported number');
+		}
+
+		number = number.toString();
+
+		var mode = 'traditionellVerdreht';
+		var numberArray = this.splitNumber(number);
+		var word = this.letterizeNumber(numberArray, mode);
+
+		return word;
+	}
+
 	letterizeZwanzigEinsNumberEndnull(number) {
 
 		var word = this.letterizeZwanzigEinsNumber(number);
@@ -76,6 +91,7 @@ export default class Letterizer {
 			for (let y = 0; y < triple.length; y++) {
 
 				let digit = triple.charAt(y);
+
 				if (mode == 'zehneins') {
 					
 					let digitWord = this.getDigitWord(digit, subArity);
@@ -100,6 +116,40 @@ export default class Letterizer {
 							tripleWordArray.push(digitWord);
 						}
 						subArity--;
+					}
+				}
+				else if (mode == 'traditionellVerdreht') {
+
+					let digitWord = this.getDigitWord(digit, subArity);
+
+					if (subArity == 2) {
+
+						if(digit == '1') {
+						
+							let lastDigit = triple.charAt(triple.length - 1);
+							tripleWordArray.push(this.getDigitWordTenner(lastDigit));
+							break;
+						}
+						else {
+
+							let lastDigit = triple.charAt(triple.length - 1);
+							let lastDigitWord = this.getDigitWord(lastDigit, 1);
+
+							if(lastDigitWord == 'eins') {
+								lastDigitWord = 'ein';
+							}
+
+							digitWord = lastDigitWord + 'und' + digitWord;
+							tripleWordArray.push(digitWord);
+							break;
+						}
+					}
+					else {
+						
+						if(digitWord != ''){
+							tripleWordArray.push(digitWord);
+						}
+						subArity--;						
 					}
 				}
 			}
@@ -130,7 +180,13 @@ export default class Letterizer {
 
 			let tripleWord = tripleWordArray.join(' ');
 
-			numberWordArray.push(tripleWord + ' ' + mainArityWord);
+			if(mainArityWord != '') {
+				numberWordArray.push(tripleWord + ' ' + mainArityWord);
+			}
+			else {
+				numberWordArray.push(tripleWord);
+			}
+			
 			mainArity--;
 		}
 		
