@@ -122,25 +122,33 @@ export default class Letterizer {
 
 					let digitWord = this.getDigitWord(digit, subArity);
 
-					if (subArity == 2) {
+					if (subArity == 2 && digit != '0') {
 
 						if(digit == '1') {
-						
+							
 							let lastDigit = triple.charAt(triple.length - 1);
 							tripleWordArray.push(this.getDigitWordTenner(lastDigit));
 							break;
 						}
 						else {
 
-							let lastDigit = triple.charAt(triple.length - 1);
-							let lastDigitWord = this.getDigitWord(lastDigit, 1);
+							let lastDigit = triple.charAt(triple.length - 1);						
 
-							if(lastDigitWord == 'eins') {
-								lastDigitWord = 'ein';
+							if(lastDigit != '0') {
+
+								let lastDigitWord = this.getDigitWord(lastDigit, 1);
+
+								if(lastDigitWord == 'eins') {
+									lastDigitWord = 'ein';
+								}
+	
+								digitWord = lastDigitWord + 'und' + digitWord;
+							}
+							
+							if(digitWord != ''){
+								tripleWordArray.push(digitWord);
 							}
 
-							digitWord = lastDigitWord + 'und' + digitWord;
-							tripleWordArray.push(digitWord);
 							break;
 						}
 					}
@@ -149,6 +157,7 @@ export default class Letterizer {
 						if(digitWord != ''){
 							tripleWordArray.push(digitWord);
 						}
+						
 						subArity--;						
 					}
 				}
