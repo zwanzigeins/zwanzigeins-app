@@ -7,7 +7,7 @@ let sound = new Sound();
 let letterizer = new Letterizer();
 
 GlobalSettings.INSTANCE = new GlobalSettings();
-GlobalSettings.INSTANCE.speechRate = '1.5';
+GlobalSettings.INSTANCE.speechRate = '1.0';
 
 
 function playSequence(number){
@@ -36,7 +36,10 @@ buttonZwanzigeins.onclick = () =>{
 let buttonVerdreht = document.querySelector('#playVerdreht');
 buttonVerdreht.onclick = () =>{
 	GlobalSettings.INSTANCE.twistedSpeechMode = "traditionellVerdreht";
-	playSequence(21);
+	
+	sound.playInteger(50100);
+	sound.playInteger(21);
+	sound.playInteger(20);
 }
 
 let buttonPlaySplitVersion = document.querySelector('#playSplitVersion');

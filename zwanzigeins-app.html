@@ -451,7 +451,7 @@
         </div>
         
         <div id="settings" class="page">
-             <header>
+            <header>
                 <button class="back"></button>
                 <h1>Einstellungen</h1>
             </header>
@@ -504,12 +504,12 @@
                      </div>
                      <div class="field">
                         <input type="radio" name="twistedSpeechMode" id="zehneinsEndnull" value="zehneinsEndnull">
-                        <label for="zehneinsEndnull"> zehneins(endnull)</label>
-                    </div>
-                    <div class="field">
+                        <label for="zehneinsEndnull"> zehneins (endnull)</label>
+                     </div>
+                     <div class="field">
                         <input type="radio" name="twistedSpeechMode" id="zwanzigeinsEndnull" value="zwanzigeinsEndnull">
-                        <label for="zwanzigeinsEndnull"> zwanzigeins(endnull)</label>
-                    </div>
+                        <label for="zwanzigeinsEndnull"> zwanzigeins (endnull)</label>
+                     </div>
                  </div>
                  
                  <h2>Profil</h2>
@@ -537,6 +537,30 @@
                      <div class="field">
                          <input type="radio" name="theme" id="dark" value="dark">
                          <label for="dark"> dunkel</label>
+                     </div>
+                 </div>
+                 
+                 <h2>Schnellzugriff Sprechweisen-Wechsel</h2>
+                 <div class="controlGroup">
+                 	 <div class="field">
+                         <input type="checkbox" name="quickAccessZehneinsEnabled" id="quickAccessZehneinsEnabled">
+                         <label for="quickAccessZehneinsEnabled"> zehneins <span class='control'></span></label>
+                     </div>
+                     <div class="field">
+                         <input type="checkbox" name="quickAccessZwanzigeinsEnabled" id="quickAccessZwanzigeinsEnabled">
+                         <label for="quickAccessZwanzigeinsEnabled"> zwanzigeins <span class='control'></span></label>
+                     </div>
+                     <div class="field">
+                         <input type="checkbox" name="quickAccessTraditionellVerdrehtEnabled" id="quickAccessTraditonellVerdrehtEnabled">
+                         <label for="quickAccessTraditonellVerdrehtEnabled"> traditionell verdreht <span class='control'></span></label>
+                     </div>
+                     <div class="field">
+                         <input type="checkbox" name="quickAccessZehneinsEndnullEnabled" id="quickAccessZehneinsEndnullEnabled">
+                         <label for="quickAccessZehneinsEndnullEnabled"> zehneins (endnull) <span class='control'></span></label>
+                     </div>
+                     <div class="field">
+                         <input type="checkbox" name="quickAccessZwanzigeinsEndnullEnabled" id="quickAccessZwanzigeinsEndnullEnabled">
+                         <label for="quickAccessZwanzigeinsEndnullEnabled"> zwanzigeins (endnull) <span class='control'></span></label>
                      </div>
                  </div>
                  
@@ -601,17 +625,6 @@
             </div>
         </div>
         
-        <div class="dialog overlayDialog page">
-		    <!-- class="showing" -->
-		    <div class="vcenter">
-		    	<div>
-		        	Deine Zeit<br><span id="lastGameTime"></span> min
-		        	<br>
-		        	<span id="numErrors"></span> Fehler
-		        </div>
-		    </div>
-    	</div>
-    	
     	<div id="consent" class="page">
     	   	<header>
                 <img src="img/logo-icon-with-text.svg">
@@ -635,8 +648,49 @@
 	    		</div>
     		</div>
     	</div>
-
+    	
+    	<div class="dialog overlayDialog page">
+		    <!-- class="showing" -->
+		    <div class="vcenter">
+		    	<div>
+		        	Deine Zeit<br><span id="lastGameTime"></span> min
+		        	<br>
+		        	<span id="numErrors"></span> Fehler
+		        </div>
+		    </div>
+    	</div>
+    	
     </div>
+    
+    <div id="speechModeQuickAccess">
+   		<!-- prepared element for dynamic adding to game-settings-pages -->
+
+   		<h2>Sprechweise</h2>
+
+   		<div class="controlGroup">
+            <div class="field">
+                <input type="radio" name="twistedSpeechMode" id="zehneinsQuickAccess" value="zehneins">
+                <label for="zehneinsQuickAccess"> zehneins</label>
+            </div>
+            <div class="field">
+                <input type="radio" name="twistedSpeechMode" id="zwanzigeinsQuickAccess" value="zwanzigeins">
+                <label for="zwanzigeinsQuickAccess"> zwanzigeins</label>
+            </div>
+            <div class="field">
+                <input type="radio" name="twistedSpeechMode" id="traditionellVerdrehtQuickAccess" value="traditionellVerdreht">
+                <label for="traditionellVerdrehtQuickAccess"> traditionell verdreht</label>
+            </div>
+            <div class="field">
+               <input type="radio" name="twistedSpeechMode" id="zehneinsEndnullQuickAccess" value="zehneinsEndnull">
+               <label for="zehneinsEndnullQuickAccess"> zehneins (endnull)</label>
+           </div>
+           <div class="field">
+               <input type="radio" name="twistedSpeechMode" id="zwanzigeinsEndnullQuickAccess" value="zwanzigeinsEndnull">
+               <label for="zwanzigeinsEndnullQuickAccess"> zwanzigeins (endnull)</label>
+           </div>
+        </div>
+           
+   	</div>
     
     <script src="js/zwanzigeins-app.js" type="module"></script>
 </body>

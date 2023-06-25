@@ -2,6 +2,8 @@ import Utils from './utils.js';
 import Sound from './sound.js';
 import Options from './options.js';
 import GameScoreStorage from './game-score-storage.js';
+import Pages from './pages.js';
+import GlobalSettings from './global-settings.js';
 
 export default class NumberGame {
 
@@ -61,8 +63,18 @@ export default class NumberGame {
 		this.gameStartTimeStamp = new Date();
 		this.tasksPut = 0;
 		this.numErrors = 0;
+		
+		Pages.INSTANCE.addBeforeOpenedHandler(pageId => {
+			
+			if(pageId == menuPageId){
+				
+				let speechModeQuickAccessElem = GlobalSettings.INSTANCE.getSpeechModeQuickAccessElement();
+				let center = this.menuElem.querySelector('.center');				
+				center.appendChild(speechModeQuickAccessElem);
+			}
+		});
 	}
-
+	
 	/**
 	 * Aktuelle Antwort (Wert im Eingabefeld)
 	 */
