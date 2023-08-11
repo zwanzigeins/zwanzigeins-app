@@ -298,7 +298,7 @@ export default class Statistics {
 				gameNameOutput = 'Kopfrechnen';
 			}
 
-			let speechRateOutput = Math.round(gameScore.speechRate * 100) + '%';
+			let speechRateOutput = gameScore.speechRate;
 
 			let gameOptionsJson;
 
