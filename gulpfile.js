@@ -3,7 +3,6 @@ const
   	rollup = require('gulp-better-rollup'),
   	uglify = require('rollup-plugin-uglify-es'),
   	uglifycss = require('gulp-uglifycss'),
-  	GulpSSH = require('gulp-ssh'),
   	shell = require('shelljs'),
   	fs = require('fs'),
   	os = require('os'),
@@ -110,29 +109,21 @@ gulp.task('build-service-worker', ready => {
 });
 
 gulp.task('deploy', ready => {
-	
+
 	let configJson = fs.readFileSync('deploy-config.json');
 	let config = JSON.parse(configJson);
-	
-	config.privateKey = fs.readFileSync(os.homedir() + '/.ssh/id_rsa');
-	
-	let gulpSsh = new GulpSSH({
-		ignoreErrors: false,
-		sshConfig: config
-	});
-	
-	config.destDirs.forEach(destDir =>{
-		gulpSsh
-			.exec(['rm ' + destDir + '/* -rf'], {filePath: 'commands.log'})
-			.pipe(gulp.dest('logs'))
-	});
-	
-	config.destDirs.forEach(destDir =>{
-		gulp.src(distPath + '/**/*')
-		.pipe(gulpSsh.dest(destDir + '/'));
+
+	config.destDirs.forEach(destDir => {
+		
+		let cmd = 'rsync -av -e ssh ' + __dirname + '/' + distPath + '/ root@' + config.host + ':' + destDir;
+		
+		console.log(cmd);
+		
+		shell.exec(cmd);
 	});
 	
 	ready();
+
 });
 
 gulp.task('clean', ready => {
