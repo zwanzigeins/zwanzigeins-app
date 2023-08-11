@@ -13,8 +13,11 @@ export default class GameScoreStorage {
 
 		let now = new Date();
 		let isoString = now.toISOString();
-		let lastColonIdx = isoString.lastIndexOf(':');
-		let timeStamp = isoString.substring(0, lastColonIdx);
+		
+		// format is e.g.: 2023-08-11T20:19:14.394Z
+		
+		let millisecondsDelimiterIdx = isoString.lastIndexOf('.');
+		let timeStamp = isoString.substring(0, millisecondsDelimiterIdx);
 
 		let profileName = GlobalSettings.INSTANCE.getProfileName();
 		let twistedSpeechMode = GlobalSettings.INSTANCE.twistedSpeechMode;
