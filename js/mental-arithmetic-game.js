@@ -48,7 +48,6 @@ export default class MentalArithmeticGame extends NumberGame{
 
 		// declare empty variables for documentation
 		this.rightResult;
-		this.rightResultStr;
 
 		this.wrongAnswerOccured;
 		this.wrongAnswerTimeStamp;
@@ -326,7 +325,9 @@ export default class MentalArithmeticGame extends NumberGame{
 		this.answerElem = this.gameElem.querySelector(queryTerm);
 	}
 
-	putNewTask() {
+	generateNewTask() {
+		
+		let task = {};
 
 		let operators = [];
 		let options = this.options;
@@ -360,18 +361,17 @@ export default class MentalArithmeticGame extends NumberGame{
 
 			case 'addition':
 				
-				operator = 'plus';
-
-				this.rightResult = num1 + num2;
-				this.taskElem.innerHTML = num1 + ' + ' + num2;
+				task.problem = num1 + ' + ' + num2;
+				task.rightResult = num1 + num2;
 				
-				Sound.INSTANCE.playTask(num1, operator, num2);
+				task.num1 = num1;
+				task.operator = 'plus';
+				task.num2 = num2;
+				
 				break;
 
 			case 'subtraction':
 				
-				operator = 'minus';
-
 				let minuend, subtrahent;
 				if (num1 > num2) {
 					minuend = num1;
@@ -382,25 +382,29 @@ export default class MentalArithmeticGame extends NumberGame{
 					subtrahent = num1;
 				}
 
-				Sound.INSTANCE.playTask(minuend, operator, subtrahent);
-
-				this.rightResult = minuend - subtrahent;
-				this.taskElem.innerHTML = minuend + ' - ' + subtrahent;
+				task.problem = minuend + ' - ' + subtrahent;
+				task.rightResult = minuend - subtrahent;
+				
+				task.num1 = minuend;
+				task.operator = 'minus';
+				task.num2 = subtrahent;
 
 				break;
 
 			case 'multiplication':
-
-				operator = "mal";
-				Sound.INSTANCE.playTask(num1, operator, num2);
-				this.rightResult = num1 * num2;
-				this.taskElem.innerHTML = num1 + ' &times; ' + num2;
+				
+				task.problem = num1 + ' &times; ' + num2;
+				task.rightResult = num1 * num2;
+				
+				task.num1 = num1;
+				task.operator = 'mal';
+				task.num2 = num2;
+				
 				break;
 
 			case 'division':
 
 				let subOptions = options[operator];
-				operator = "durch";
 
 				// Vorgehen um Werte ohne Rest zu erhalten:
 				//
@@ -421,15 +425,23 @@ export default class MentalArithmeticGame extends NumberGame{
 				);
 				let dividend = result * divisor;
 
-				this.rightResult = result;
-				Sound.INSTANCE.playTask(dividend, operator, divisor);
-				this.taskElem.innerHTML = dividend + ' &divide; ' + divisor;
+				task.problem = dividend + ' &divide; ' + divisor;
+				task.rightResult = result;
+				
+				task.num1 = dividend;
+				task.operator = 'durch';
+				task.num2 = divisor;
+				
 				break;
 		}
-
-		this.rightResultStr = new String(this.rightResult);
-		this.currentAnswerReset();
-		this.tasksPut++;
+		
+		return task;
+	}
+	
+	presentNewTask(task) {
+		
+		Sound.INSTANCE.playTask(task.num1, task.operator, task.num2);
+		this.taskElem.innerHTML = task.problem;
 	}
 	
 	createDefaultLevelOptions() {
@@ -534,7 +546,7 @@ export default class MentalArithmeticGame extends NumberGame{
 					break;
 			}
 			
-			return `[${operand1From} - ${operand1To}] ${operatorSign} [${operand2From} - ${operand2To}]`;			
+			return `[${operand1From};${operand1To}] ${operatorSign} [${operand2From};${operand2To}]`;			
 		}
 		else {
 			return null;

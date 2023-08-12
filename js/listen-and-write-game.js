@@ -59,17 +59,22 @@ export default class ListenAndWriteGame extends NumberGame {
 		
 		super.initCustomLevelHandling(defaultLevelCreationOptions);
 	}
-
-	putNewTask() {
-
+	
+	generateNewTask() {
+		
 		let random = this.getRandomNumber(this.options.from, this.options.to);
+		let task = {
+			problem: random,
+			rightResult: random
+		};
+		
+		return task;
+	}
 
-		Sound.INSTANCE.playInteger(random);
-		this.rightResult = random;
-		this.taskElem.innerHTML = random;
+	presentNewTask(task) {
 
-		this.currentAnswerReset();
-		this.tasksPut++;
+		Sound.INSTANCE.playInteger(task.problem);
+		this.taskElem.innerHTML = task.problem;
 	}
 
 	provideCustomLevelLabelText(customLevel) {

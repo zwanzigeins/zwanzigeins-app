@@ -10,7 +10,7 @@ export default class NumberGame {
 	constructor(gameName, menuPageId, gamePageId) {
 
 		this.gameName = gameName;
-		
+
 		this.gamePageId = gamePageId;
 
 		this.menuElem = document.getElementById(menuPageId);
@@ -53,9 +53,9 @@ export default class NumberGame {
 
 		Utils.setPressHandler(clearBtn, () => {
 
-			this.currentAnswerReset();
+			this.resetCurrentAnswer();
 		});
-		
+
 		this.gameScoreStorage = new GameScoreStorage(this.gameName);
 
 		// declare for documentation
@@ -63,18 +63,45 @@ export default class NumberGame {
 		this.gameStartTimeStamp = new Date();
 		this.tasksPut = 0;
 		this.numErrors = 0;
-		
+		// remember previous task to prevent consecutive putting of same task
+		this.prevTask;
+
 		Pages.INSTANCE.addBeforeOpenedHandler(pageId => {
-			
-			if(pageId == menuPageId){
-				
+
+			if (pageId == menuPageId) {
+
 				let speechModeQuickAccessElem = GlobalSettings.INSTANCE.getSpeechModeQuickAccessElement();
-				let center = this.menuElem.querySelector('.center');				
+				let center = this.menuElem.querySelector('.center');
 				center.appendChild(speechModeQuickAccessElem);
 			}
 		});
 	}
-	
+
+	putNewTask() {
+
+		let newTask = this.generateNewTask();
+
+		if (this.prevTask != null) {
+
+			// limit generation of new different task in case
+			// level is setup too narrow
+			let generationLimit = 10;
+
+			while (this.prevTask.problem == newTask.problem && generationLimit > 0) {
+
+				newTask = this.generateNewTask();
+				generationLimit--;
+			}
+		}
+
+		this.rightResult = newTask.rightResult;
+		this.resetCurrentAnswer();
+
+		this.presentNewTask(newTask);
+		this.tasksPut++;
+		this.prevTask = newTask;
+	}
+
 	/**
 	 * Aktuelle Antwort (Wert im Eingabefeld)
 	 */
@@ -102,7 +129,7 @@ export default class NumberGame {
 	/**
 	 * Leere das Feld der aktuellen Antwort und setze etwaige Styles zurück
 	 */
-	currentAnswerReset() {
+	resetCurrentAnswer() {
 
 		this.currentAnswer = "";
 		this.styleReset();
@@ -127,7 +154,8 @@ export default class NumberGame {
 			let elapsedMs = now.getTime() - this.wrongAnswerTimeStamp.getTime();
 
 			if (elapsedMs > 500) {
-				this.currentAnswerReset();
+
+				this.resetCurrentAnswer();
 				this.wrongAnswerOccured = false;
 			}
 		}
@@ -142,12 +170,14 @@ export default class NumberGame {
 			this.styleCorrectAnswer();
 
 			setTimeout(() => {
-				if (this.tasksPut < this.options.numTasks) {
-					return this.putNewTask();
-				}
 
-				// keine Tasks mehr übrig -> Spiel beenden
-				return this.finishGame();
+				if (this.tasksPut < this.options.numTasks) {
+					this.putNewTask();
+				}
+				else {
+					// keine Tasks mehr übrig -> Spiel beenden
+					this.finishGame();
+				}
 
 			}, 500);
 			return;
@@ -180,13 +210,14 @@ export default class NumberGame {
 		this.gameStartTimeStamp = new Date();
 		this.tasksPut = 0;
 		this.numErrors = 0;
-		
+		this.prevTask = null;
+
 		window.location.hash = this.gamePageId;
-		
+
 		this.putNewTask();
 
 		window.onkeydown = e => {
-			
+
 			let digit = parseInt(e.key);
 			if (!isNaN(digit)) {
 				this.processNumberInput(digit);
@@ -375,11 +406,20 @@ export default class NumberGame {
 		customLevelsContainer.innerHTML = '';
 		this.appendCustomLevelButtons();
 	}
-	
-	// abstract provideCustomLevelLabelText(customLevel)
-	
-	// abstract getGameNameTranslation();
-	
-	// abstract getGameNameTranslationForFileName();
-	
+
+	/** abstract */
+	generateNewTask() { };
+
+	/** abstract */
+	presentNewTask(task) { };
+
+	/** abstract */
+	provideCustomLevelLabelText(customLevel) { };
+
+	/** abstract */
+	getGameNameTranslation() { };
+
+	/** abstract */
+	getGameNameTranslationForFileName() { };
+
 }
