@@ -23,7 +23,7 @@ Pages.INSTANCE.handleInitialNavigation();
 
 // try to initialize sound early to prevent 
 // a delayed, half, first utterance 
-let soundWarmedUp = true;
+let soundWarmedUp = false;
 
 document.addEventListener('hashchange', () => {
 
