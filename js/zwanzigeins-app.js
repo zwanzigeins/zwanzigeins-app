@@ -23,7 +23,7 @@ Pages.INSTANCE.handleInitialNavigation();
 
 // try to initialize sound early to prevent 
 // a delayed, half, first utterance 
-let soundWarmedUp = false;
+let soundWarmedUp = true;
 
 document.addEventListener('hashchange', () => {
 
@@ -47,6 +47,11 @@ if (debugParam != null) {
 
 let swUri = 'service-worker.js';
 
+let reloadButton = document.querySelector('#reloadForUpdate > button');
+reloadButton.onclick = () => {
+	location.reload();	
+};
+
 window.navigator.serviceWorker.getRegistration().then(registration => {
 
 	if (registration == null) {
@@ -54,6 +59,11 @@ window.navigator.serviceWorker.getRegistration().then(registration => {
 	}
 	else {
 		registration.update();
+		
+		window.navigator.serviceWorker.addEventListener('controllerchange', () => {
+			
+			document.body.classList.add('updateInstalled');
+		});
 	}
 });
 

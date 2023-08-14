@@ -239,3 +239,11 @@ button.finishLevelCreation:before {
 .statisticsPage > .center:empty:after {
 	content: 'Keine entprechenden Statistik-Daten verfügbar.';
 }
+
+body.updateInstalled > .pages > [id$='-game']:first-child {
+	padding-bottom: 0 !important;
+}
+
+body.updateInstalled > .pages > [id$='-game']:first-child ~ #reloadForUpdate {
+	display: none;
+}

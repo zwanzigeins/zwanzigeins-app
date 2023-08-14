@@ -60,7 +60,6 @@ body {
     justify-content: center;
 }
 
-
 /***** layout-elements *****/
 
 body > *:not(.pages) {
@@ -78,6 +77,9 @@ body > *:not(.pages) {
     	1px 1px 0 var(--pages-container-border-color),
     	-1px -1px 0 var(--pages-container-border-color)
     	;
+    	
+    display: flex;
+    flex-direction: column;
 }
 
 @media(min-width:768px){
@@ -165,6 +167,36 @@ header > img{
 .dialog.showing {
 	opacity: 1;
 	z-index: 1000;
+}
+
+body.updateInstalled > .pages > .page{
+	padding-bottom: 60px !important;
+}
+
+body.updateInstalled > .pages > #reloadForUpdate{
+	display: block;
+	bottom: 0;
+	width: 100%;
+	padding: 0 16px;
+	margin-top: auto;
+	height: 60px;
+	border-top: 1px solid var(--default-border-color);
+}
+
+#reloadForUpdate {
+	display: none;
+}
+
+#reloadForUpdate > button {
+	background-color: #1a7540;
+	color: white;
+	text-shadow: rgba(0, 0, 0, 0.7) 0 1px 0;
+}
+
+#reloadForUpdate > button:before{
+	background-image: url(../img/reload.svg);
+	background-size: 24px;
+	filter: brightness(0) invert(100%);
 }
 
 /***** end layout-elements *****/
