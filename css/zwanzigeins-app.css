@@ -202,6 +202,11 @@ a[href='#statistics']:before {
 	background-image: url(../img/chart-line.svg);
 }
 
+a[href='#manual']:before {
+	background-image: url(../img/help-circle.svg);
+	background-size: 24px;
+}
+
 a.web:before {
 	background-image: url(../img/web.svg);
 }
