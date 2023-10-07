@@ -283,11 +283,16 @@ export default class Statistics {
 
 	createStatisticsCsv() {
 
-		let csv = 'Profil;Spiel;Zeit-Stempel;Sprach-Modus;Sprech-Geschwindigkeit;Aufgaben-Anzahl;Spiel-Dauer(s);Spiel-Fehler;Spiel-Optionen';
+		let csv = 'Profil;Spiel;Zeit-Stempel;Sprach-Modus;Sprech-Geschwindigkeit;Darstellung;Aufgaben-Anzahl;Spiel-Dauer(s);Spiel-Fehler;Spiel-Optionen;User-Agent';
 
 		for (let gameScore of this.gameScoreStorage.getAllGameScores()) {
 
 			let profileNameOutput = this.escapeForCsv(gameScore.profileName.trim());
+			
+			let themeOutput = '';
+			if(gameScore.theme) {
+				themeOutput = gameScore.theme == 'dark' ? 'dunkel' : 'hell'; 
+			}
 
 			let gameNameOutput;
 
@@ -311,6 +316,16 @@ export default class Statistics {
 			delete optionsClone.numTasks;
 
 			gameOptionsJson = JSON.stringify(optionsClone);
+			
+			let userAgentOutput = '';
+			if(gameScore.userAgent) {
+				// prevent inner semicolons to be csv-delimiters
+				userAgentOutput = '"';
+				userAgentOutput += 
+					gameScore.userAgent
+						.replaceAll('"', '""');
+				userAgentOutput += '"';				
+			}
 
 			let rowParts = new Array(
 				profileNameOutput,
@@ -318,10 +333,12 @@ export default class Statistics {
 				gameScore.timeStamp,
 				gameScore.twistedSpeechMode,
 				speechRateOutput,
+				themeOutput,
 				numTasksOutput,
 				elapsedTimeOutput,
 				gameScore.numErrors,
-				gameOptionsJson
+				gameOptionsJson,
+				userAgentOutput
 			);
 
 			let row = rowParts.join(';');

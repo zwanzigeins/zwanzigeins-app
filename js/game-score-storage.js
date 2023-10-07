@@ -22,6 +22,9 @@ export default class GameScoreStorage {
 		let profileName = GlobalSettings.INSTANCE.getProfileName();
 		let twistedSpeechMode = GlobalSettings.INSTANCE.twistedSpeechMode;
 		let speechRate = GlobalSettings.INSTANCE.speechRate;
+		
+		let theme = GlobalSettings.INSTANCE.isDarkThemeActive() ? 'dark' : 'bright';
+		let userAgent = navigator.userAgent;
 
 		let gameScoreEntry = {
 
@@ -29,9 +32,11 @@ export default class GameScoreStorage {
 			profileName,
 			twistedSpeechMode,
 			speechRate,
+			theme,
 			elapsedTime,
 			numErrors,
-			gameOptions
+			gameOptions,			
+			userAgent
 		};
 
 		let gameOptionsJson = JSON.stringify(gameOptions);

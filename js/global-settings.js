@@ -93,6 +93,11 @@ export default class GlobalSettings extends Options {
 			document.documentElement.classList.remove('dark-theme');
 		}
 	}
+	
+	isDarkThemeActive() {
+		
+		return document.documentElement.classList.contains('dark-theme');
+	}
 
 	processDataClearRequest() {
 
