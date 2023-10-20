@@ -12,7 +12,7 @@ export default class MentalArithmeticGame extends NumberGame{
 		this.defaultOptions = this.createDefaultLevelOptions(); 
 
 		this.defaultOptions.numTasks = 5;
-		this.defaultOptions.auditive = false;
+		this.defaultOptions.auditive = true;
 
 		this.options = new MentalArithmeticGameOptions('mental-arithmetic-menu', this.defaultOptions, false);
 
@@ -25,13 +25,6 @@ export default class MentalArithmeticGame extends NumberGame{
 				let elem = evt.target
 				let levelName = elem.dataset.level;
 				let levelOptions = this.getPredefinedLevelOptions(levelName);
-
-				if (this.options.auditive) {
-					levelOptions['auditive'] = true;
-				}
-				else {
-					levelOptions['auditive'] = false;
-				}
 
 				levelOptions['numTasks'] = 10;
 				
