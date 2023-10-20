@@ -283,7 +283,11 @@ export default class Statistics {
 
 	createStatisticsCsv() {
 
-		let csv = 'Profil;Spiel;Zeit-Stempel;Sprach-Modus;Sprech-Geschwindigkeit;Darstellung;Aufgaben-Anzahl;Spiel-Dauer(s);Spiel-Fehler;Spiel-Optionen;User-Agent;Name;Seminargruppe;Schule;Schulstufe;Klasse;Erstsprache;Nationalität;Geburtsdatum;Mathematik-Note';
+		let csv = 'Profil;Spiel;Zeit-Stempel;Sprach-Modus;Sprech-Geschwindigkeit;Darstellung;Aufgaben-Anzahl;Spiel-Dauer(s);Spiel-Fehler;Spiel-Optionen;Geräte-Infos;Name;Seminar-Gruppe;Schule;Schulstufe;Klasse;Erstsprache;Nationalitaet;Geburtsdatum;Mathematik-Note';
+		
+		if(!this.uaParser) {
+			this.uaParser = new UAParser();
+		}
 
 		for (let gameScore of this.gameScoreStorage.getAllGameScores()) {
 
@@ -317,14 +321,23 @@ export default class Statistics {
 
 			gameOptionsJson = JSON.stringify(optionsClone);
 			
-			let userAgentOutput = '';
+			let deviceInfosOutput = '';
 			if(gameScore.userAgent) {
-				// prevent inner semicolons to be csv-delimiters
-				userAgentOutput = '"';
-				userAgentOutput += 
-					gameScore.userAgent
-						.replaceAll('"', '""');
-				userAgentOutput += '"';				
+				
+				this.uaParser.setUA(gameScore.userAgent);
+				let uaResult = this.uaParser.getResult();
+				
+				delete uaResult.ua;
+				delete uaResult.engine;
+				delete uaResult.cpu;
+				
+				let uaDeviceInfo = uaResult.device; 
+				
+				if(!uaDeviceInfo.model && !uaDeviceInfo.type && !uaDeviceInfo.type) {
+					delete uaResult.device;
+				}
+				
+				deviceInfosOutput = JSON.stringify(uaResult);
 			}
 
 			let rowParts = new Array(
@@ -338,7 +351,7 @@ export default class Statistics {
 				elapsedTimeOutput,
 				gameScore.numErrors,
 				gameOptionsJson,
-				userAgentOutput
+				deviceInfosOutput
 			);
 
 			let row = rowParts.join(';');
