@@ -19,6 +19,46 @@ new NumberDictationGame();
 new Statistics(listenAndWriteGame);
 new Statistics(mentalArithmeticGame);
 
+function initExpandables(container) {
+	
+	let h2s = container.querySelectorAll('h2');
+	
+	h2s.forEach(h2 => {
+		
+		h2.onclick = () => {
+			
+			h2.classList.toggle('expanded');
+		};
+	});
+	
+}
+
+Pages.INSTANCE.addBeforeOpenedHandler(pageId => {
+	
+	if(pageId == 'manual') {
+		
+		let manualContentContainer = document.getElementById('manualContent');
+		if(manualContentContainer.textContent == '') {
+			// dev-mode => load manual-content from file
+			// in prod-mode it is already inserted by build-process
+			fetch("manual.html")
+				.then(response => {
+					
+					return response.text();
+				})
+				.then(text => {
+					
+					manualContentContainer.innerHTML = text;
+					initExpandables(manualContentContainer);
+				})
+				;
+		}
+		else {
+			initExpandables(manualContentContainer);
+		}
+	}
+});
+
 Pages.INSTANCE.handleInitialNavigation();
 
 // try to initialize sound early to prevent 

@@ -70,6 +70,13 @@ gulp.task('build-html', ready => {
 	
 	html = html.replace(' type="module"', '');
 	
+	let manualHtml = fs.readFileSync('manual.html', 'utf8');
+	
+	let insertionSign = ' id="manualContent">';
+	let insertionContent = insertionSign + manualHtml;
+	
+	html = html.replace(insertionSign, insertionContent);
+	
 	shell.mkdir('-p', stagePath);
 	
 	fs.writeFileSync(stagePath + '/index.html', html, 'utf8');

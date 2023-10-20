@@ -252,3 +252,47 @@ body.updateInstalled > .pages > [id$='-game']:first-child {
 body.updateInstalled > .pages > [id$='-game']:first-child ~ #reloadForUpdate {
 	display: none;
 }
+
+#manualContent {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+#manualContent  > h2 {
+	padding-left: 16px;
+	padding-right: 16px;
+	position: relative;
+}
+
+#manualContent  > h2:after {
+	content: '';
+	position: absolute;
+	right: 0;
+	top: 0;
+	height: 100%;
+	width: 3rem;
+	background: url(../img/triangle-small-right.svg) center center no-repeat;
+	filter: var(--icon-filter);
+	transition: 0.5s;
+}
+
+#manualContent > h2 + .expandable {
+	overflow: hidden;
+	transition: 0.5s;
+	border-bottom: 1px solid var(--default-border-color);
+	padding-left: 16px;
+	padding-right: 16px;
+}
+
+#manualContent > h2:not(.expanded) + .expandable {
+	max-height: 0;
+}
+
+#manualContent > h2.expanded:after {
+	transform: rotate(90deg);
+}
+
+#manualContent > h2.expanded + .expandable {
+	max-height: max-content;
+}
+	
