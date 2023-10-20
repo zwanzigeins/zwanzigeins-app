@@ -556,5 +556,16 @@ export default class MentalArithmeticGame extends NumberGame{
 		
 		return 'kopfrechnen';
 	}
+	
+	validateCustomLevel(customLevel) {
+		
+		if(	!customLevel['addition-enabled'] && 
+			!customLevel['subtraction-enabled'] &&
+			!customLevel['multiplication-enabled'] &&
+			!customLevel['division-enabled']) {
+				
+				return 'Mindestens ein Operator muss gewählt sein.';
+			}		
+	}
 
 }

@@ -300,14 +300,19 @@ export default class NumberGame {
 		createLevelButton.onclick = evt => {
 
 			let levelDefinitionData = options.getPayloadObject();
-
-			this.customLevels.push(levelDefinitionData);
-
-			this.saveCustomLevels();
-
-			this.refreshCustomLevelButtons();
-
-			history.back();
+			
+			let errorMsg = this.validateCustomLevel(levelDefinitionData);
+			
+			if(errorMsg){
+				alert('Invalide Angaben: ' + errorMsg);				
+			}
+			else {
+				
+				this.customLevels.push(levelDefinitionData);
+				this.saveCustomLevels();
+				this.refreshCustomLevelButtons();
+				history.back();
+			}
 		};
 	}
 
@@ -415,6 +420,9 @@ export default class NumberGame {
 
 	/** abstract */
 	provideCustomLevelLabelText(customLevel) { };
+
+	/** abstract */
+	validateCustomLevel(customLevel) { };
 
 	/** abstract */
 	getGameNameTranslation() { };
