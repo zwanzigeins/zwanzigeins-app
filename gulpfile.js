@@ -34,6 +34,12 @@ gulp.task('copy-images-to-stage', () => {
 		.pipe(gulp.dest(stagePath + '/img'));
 });
 
+gulp.task('copy-js-lib-to-stage', () => {
+	
+	return gulp.src('js/lib/**')
+		.pipe(gulp.dest(stagePath + '/js/lib'));
+});
+
 gulp.task('copy-other-to-stage', () => {
 	
 	return gulp.src('web-manifest.json')
@@ -136,6 +142,7 @@ gulp.task('default', gulp.series(
 	'clean',
 	'copy-images-to-stage',
 	'copy-other-to-stage',
+	'copy-js-lib-to-stage',
 	'build-js',
 	'build-css',
 	'build-html',
