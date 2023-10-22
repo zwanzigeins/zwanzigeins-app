@@ -406,8 +406,6 @@ export default class MentalArithmeticGame extends NumberGame {
 
 			case 'division':
 
-				let subOptions = options[operator];
-
 				// Vorgehen um Werte ohne Rest zu erhalten:
 				//
 				// geg.: Divisor liegt in einem bestimmten Intervall (z.B. [2;5],
@@ -420,11 +418,12 @@ export default class MentalArithmeticGame extends NumberGame {
 				// - Dividend ist Ergebnis*Divisor -> 21
 				// - die Aufgabe lautet 21:3
 
-				let divisor = this.getRandomNumber(subOptions['from2'], subOptions['to2']);
+				let divisor = this.getRandomNumber(from2, to2);
 				let result = this.getRandomNumber(
-					Math.ceil(subOptions.from1 / divisor),
-					Math.floor(subOptions.to1 / divisor)
+					Math.ceil(from1 / divisor),
+					Math.floor(to1 / divisor)
 				);
+				
 				let dividend = result * divisor;
 
 				task.problem = dividend + ' &divide; ' + divisor;
