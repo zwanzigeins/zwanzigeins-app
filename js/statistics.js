@@ -283,7 +283,7 @@ export default class Statistics {
 
 	createStatisticsCsv() {
 
-		let csv = 'Profil;Spiel;Zeit-Stempel;Sprach-Modus;Sprech-Geschwindigkeit;Darstellung;Aufgaben-Anzahl;Spiel-Dauer(s);Spiel-Fehler;Spiel-Optionen;Geräte-Infos;Name;Seminar-Gruppe;Schule;Schulstufe;Klasse;Erstsprache;Nationalitaet;Geburtsdatum;Mathematik-Note';
+		let csv = 'Profil;Spiel;Zeit-Stempel;Sprach-Modus;Sprech-Geschwindigkeit;Darstellung;Aufgaben-Anzahl;Spiel-Dauer(s);Spiel-Fehler;Spiel-Optionen;Geraete-Infos;Name;Seminar-Gruppe;Schule;Schulstufe;Klasse;Erstsprache;Nationalitaet;Geburtsdatum;Mathematik-Note';
 		
 		if(!this.uaParser) {
 			this.uaParser = new UAParser();

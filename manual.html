@@ -31,9 +31,10 @@
 		„App installieren" oder „zum Startbildschirm hinzufügen" oder so
 		ähnlich gehen und anklicken. Das solltest du machen, also nicht nur
 		im Webbetrieb arbeiten.</p>
-	<p>Wurde ein Update installiert, so erscheint am unteren Rand
-		der App ein Button („Update installiert, bitte neu laden“), mit dem
-		du das Update fertig stellen kannst.</p>
+	<p>Liegt ein Update vor, so wird es automatisch installiert. Am unteren Rand
+                der App erscheint ein Button: „Update installiert, bitte neu laden“.
+                Dann musst du die App schließen und neu starten, um so die Installation
+                abzuschließen.</p>
 	<p>Für Insider: die App ist als eine progressive Web-App
 		entwickelt.</p>
 	<p>
@@ -206,7 +207,7 @@
 	Ziffernanzeige hilfreich sein mag.</p>
 <p>Für alle Rechenarten und einige Kombinationen gibt es
 	voreingestellte Levels im auditiven Modus, d.h. nur Vorlesen ohne
-	Anzeige der Aufgabe, mit je 5 Aufgaben pro Aufgabenblock zu</p>
+	Anzeige der Aufgabe, mit je 10 Aufgaben pro Aufgabenblock zu</p>
 <ul>
 	<li><p>Addition einfach („2 bis 20“ + „2 bis 20“) mittel („11 bis 100“ + „11
 	bis 100“) schwer („11 bis 500“ + „11 bis 500“)</p></li>
@@ -300,23 +301,32 @@
 	aus (umgebrochen):</p>
 	<p>
 Spiel, Zeit-Stempel, Sprach-Modus,
-			Sprech-Geschwindigkeit,
+			Sprech-Geschwindigkeit, Darstellung,
 			Aufgaben-Anzahl,
 			Spiel-Dauer(s),
-		Spiel-Fehler, Spiel-Optionen
+		Spiel-Fehler, Spiel-Optionen, Geraete-Info, Name,
+                Seminar-Gruppe, Schule, Schulstufe, Klasse, Erstsprache,
+                Nationalitaet, Geburtsdatum, Mathematik-Note
 		</p>
 <p>Darunter stehen deine Daten. Pro Aufgabenblock gibt es eine
 	Zeile mit deinen Eingaben, Einstellungen und Ergebnissen. Es
 	beginnt mit dem Profilnamen, den du unter Einstellungen festgelegt
-	hast, dann folgen das Spiel (hier z.B.: Hoeren-und-Schreiben), ein
+	hast, dann folgen das Spiel (hier z.B. Hoeren-und-Schreiben), ein
 	auf Sekunden genauer Zeitstempel (Jahr-Monat-TagTUhrzeit, z.B.
 	2023-03-20T12:41:43; die Angabe ist in UTC, also für MEZ 1 Std.,
 	für MESZ 2 Std. addieren), der Sprach-Modus (d.h. die gewählte
 	Sprechweise, z.B. zehneins), die Sprechgeschwindigkeit (als
-	Dezimalzahl, z.B. 1.1 für 110%), die Aufgaben-Anzahl (z.B. 5), die
-	Spiel-Dauer in Sekunden (z.B. 41), die Spiel-Fehler (d.h. die
-	Anzahl der unterlaufenen Fehler, z.B. 3), die Spiel-Optionen (d.h.
-	der gewählte Zahlenbereich von-bis, z.B. {"from":21,"to":99}).</p>
+	Dezimalzahl, z.B. 1.1 für 110%), die Darstellung (hell oder dunkel), 
+        die Aufgaben-Anzahl (z.B. 5), die Spiel-Dauer in Sekunden (z.B. 41), 
+        die Spiel-Fehler (d.h. die Anzahl der unterlaufenen Fehler, z.B. 3), 
+        die Spiel-Optionen (d.h. der gewählte Zahlenbereich von-bis, z.B. 
+        {"from":21,"to":99}).Die Spalte Geraete-Info enthält Angaben zu 
+        Browser, Gerät (device) und Betriebssystem (os), mit denen du arbeitest,
+        z.B. {"browser":{"name":"Mobile Chrome","version":"117.0.0.0","major":"117"},
+        "device":{"type":"mobile","model":"K"},"os":{"name":"Android","version":"10"}}.
+        Die dann folgenden 9 Spalten (Name bis Mathematik-Note) sind leer und dienen
+        allein der manuellen Erfassung zusätzlicher Daten, z.B. in wissenschaftlichen
+        Studien.</p>
 <p>Diese Daten bleiben in der App gespeichert, bis du sie aktiv
 	löschst. Hierzu musst du auf das Papierkorbsymbol oben rechts
 	klicken (links neben dem Downloadpfeil), oder du löscht komplett
