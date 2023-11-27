@@ -571,7 +571,7 @@ export default class MentalArithmeticGame extends NumberGame {
 							break;
 
 						case 'easy':
-							resultPart = 'einfach';
+							resultPart = 'leicht';
 							break;
 
 						case 'medium':
