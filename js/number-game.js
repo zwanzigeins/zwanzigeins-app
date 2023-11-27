@@ -373,8 +373,13 @@ export default class NumberGame {
 			levelButton.onclick = evt => {
 
 				let level = evt.currentTarget.customLevel;
-
-				Utils.copyObjectProperties(level, this.options);
+				
+				if(!this.options) {
+					this.options = level;
+				}
+				else {
+					Utils.copyObjectProperties(level, this.options);
+				}
 
 				this.startGame();
 			};
