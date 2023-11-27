@@ -1,12 +1,17 @@
 import GlobalSettings from './global-settings.js';
 
+/**
+	stores game-results in localStorage with key-format <game-name>|<levelOptionsJson>
+	e.g: listen-and-write|{"from":11,"to":99,"numTasks":10,"levelName":"easy"} 
+*/
 export default class GameScoreStorage {
 
-	constructor(gameName) {
+	constructor(game) {
 
-		this.gameName = gameName;
+		this.game = game;
+		this.gameName = game.gameName;
 
-		this.storageNameSpaceKey = 'game-scores: ' + gameName;
+		this.storageNameSpaceKey = 'game-scores: ' + game.gameName;
 	}
 
 	saveGameScore(elapsedTime, numErrors, gameOptions) {
@@ -62,7 +67,7 @@ export default class GameScoreStorage {
 		}
 		else {
 			return [];
-		}		
+		}
 	}
 
 	deleteGameScores(levelOptions) {
@@ -97,7 +102,7 @@ export default class GameScoreStorage {
 	}
 
 	getAllGameScoreLevelOptions() {
-
+		
 		let allGameScoreLevelOptions = [];
 
 		for (let key in localStorage) {
@@ -114,22 +119,58 @@ export default class GameScoreStorage {
 				allGameScoreLevelOptions.push(levelOptions);
 			}
 		}
-
+		
+		// sorting: predefined levels first
+		this.game.initPredefinedLevelsIfNeeded();
+		let predefinedLevelIds = this.game.predefinedLevelIds;
+		
+		let compareFunction = (gameScoreLevelOption, otherGameScoreLevelOption) => {
+			
+			if(gameScoreLevelOption.levelName){
+				
+				if(!otherGameScoreLevelOption.levelName) {
+					return -1;
+				}
+				else {
+					
+					for(let predefinedLevelId of predefinedLevelIds) {
+						
+						if(gameScoreLevelOption.levelName == predefinedLevelId) {
+							return -1;
+						}
+						
+						if(otherGameScoreLevelOption.levelName == predefinedLevelId) {
+							return 1;
+						}
+					}
+					
+					// should never occur or only when levelNames changed
+					return 0;				
+				}
+			}
+			else {
+				return 0;				
+			}
+		}
+		
+		allGameScoreLevelOptions.sort(compareFunction);
+		
 		return allGameScoreLevelOptions;
 	}
 
 	getAllGameScores() {
 
 		let result = [];
+		
+		let allGameScoreLevelOptions = this.getAllGameScoreLevelOptions();
+		
+		for (let gameScoreLevelOptions of allGameScoreLevelOptions) {
+			
+			let key = this.storageNameSpaceKey + '|' + JSON.stringify(gameScoreLevelOptions);
 
-		for (let key in localStorage) {
-
-			if (key.startsWith(this.storageNameSpaceKey)) {
-
-				let json = localStorage.getItem(key);
-				let gameScores = JSON.parse(json);
-				result = result.concat(gameScores);
-			}
+			let json = localStorage.getItem(key);
+			let gameScores = JSON.parse(json);
+			result = result.concat(gameScores);			
 		}
 
 		return result;

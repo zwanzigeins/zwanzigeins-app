@@ -56,7 +56,7 @@ export default class NumberGame {
 			this.resetCurrentAnswer();
 		});
 
-		this.gameScoreStorage = new GameScoreStorage(this.gameName);
+		this.gameScoreStorage = new GameScoreStorage(this);
 
 		// declare for documentation
 		this.wrongAnswerOccured = false;
@@ -300,14 +300,14 @@ export default class NumberGame {
 		createLevelButton.onclick = evt => {
 
 			let levelDefinitionData = options.getPayloadObject();
-			
+
 			let errorMsg = this.validateCustomLevel(levelDefinitionData);
-			
-			if(errorMsg){
-				alert('Invalide Angaben: ' + errorMsg);				
+
+			if (errorMsg) {
+				alert('Invalide Angaben: ' + errorMsg);
 			}
 			else {
-				
+
 				this.customLevels.push(levelDefinitionData);
 				this.saveCustomLevels();
 				this.refreshCustomLevelButtons();
@@ -429,5 +429,8 @@ export default class NumberGame {
 
 	/** abstract */
 	getGameNameTranslationForFileName() { };
+
+	/** abstract */
+	initPredefinedLevelsIfNeeded() { };
 
 }

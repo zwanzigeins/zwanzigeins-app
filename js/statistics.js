@@ -97,55 +97,55 @@ export default class Statistics {
 	}
 
 	showStatisticsMenu() {
-		
+
 		this.centerElem.innerHTML = '';
 
 		let allLevelOptions = this.gameScoreStorage.getAllGameScoreLevelOptions();
-		
+
 		for (let levelOptions of allLevelOptions) {
 
 			let labelText = this.game.provideCustomLevelLabelText(levelOptions);
-			
+
 			let button = document.createElement('button');
 			button.innerHTML = labelText;
 			button.levelOptions = levelOptions;
-			
+
 			button.onclick = evt => {
-				
+
 				let levelOptions = evt.currentTarget.levelOptions;
 				let gameScores = this.gameScoreStorage.getGameScores(levelOptions);
-				
+
 				let levelLabelText = this.game.provideCustomLevelLabelText(levelOptions);
-				
+
 				let statisticsHtml = this.createStatisticsHtml(gameScores);
-				
+
 				let chartPage = document.getElementById('statistics-chart');
-				
+
 				let h1 = chartPage.querySelector('h1');
 				h1.textContent = 'Statistik: ' + this.game.getGameNameTranslation();
-				
+
 				let deleteButton = chartPage.querySelector('.delete');
 				deleteButton.levelOptions = levelOptions;
-				
+
 				deleteButton.onclick = () => {
-					
+
 					let text = levelLabelText.replaceAll('&nbsp;', ' ');
-					
+
 					let confirmed = confirm('Willst du wirklich alle Statistik-Daten zum Level "' + text + '" löschen?');
-					
-					if(confirmed){
-						
+
+					if (confirmed) {
+
 						this.gameScoreStorage.deleteGameScores(levelOptions);
 						history.back();
 					}
 				};
-				
+
 				let center = chartPage.querySelector('.center');
-				
-				center.innerHTML = 
+
+				center.innerHTML =
 					'<div class="levelOptionsLabel">' + levelLabelText + '</div>' +
 					statisticsHtml;
-				
+
 				location.hash = 'statistics-chart';
 			}
 
@@ -158,21 +158,21 @@ export default class Statistics {
 		let svgCreator = new SvgCreator(gameScores);
 
 		let html = svgCreator.createStatisticsSvg();
-		
+
 		let averageBaskets = this.calculateAveragesBySpeechMode(gameScores);
-				
+
 		html += '<h2>Durchschnitte nach Sprechweise</h2>';
-		
-		for(let basketKey in averageBaskets){
-			
+
+		for (let basketKey in averageBaskets) {
+
 			let basket = averageBaskets[basketKey];
-			
+
 			let averageElapsedTime = Utils.convertSecondsToTime(Math.round(basket.averageElapsedSeconds));
-			
-			if(basket.numEntries > 0){
-				
+
+			if (basket.numEntries > 0) {
+
 				let basketHtml =
-				`
+					`
 				<h3>${basketKey}</h3>
 				<table>
 				<tr>
@@ -185,70 +185,70 @@ export default class Statistics {
 					<td>Durchschnittliche Fehler-Anzahl: <td><td>${basket.averageErrors}</td>
 				</tr>
 				</table>
-				`				
+				`
 				html += basketHtml;
-			}				
+			}
 		}
-		
+
 		return html;
 	}
-	
+
 	calculateAveragesBySpeechMode(gameScores) {
-	
+
 		let zehneins = {
-			numEntries : 0,
-			totalElapsedSeconds : 0,
-			totalErrors : 0
+			numEntries: 0,
+			totalElapsedSeconds: 0,
+			totalErrors: 0
 		}
 
 		let zwanzigeins = {
-			numEntries : 0,
-			totalElapsedSeconds : 0,
-			totalErrors : 0
+			numEntries: 0,
+			totalElapsedSeconds: 0,
+			totalErrors: 0
 		}
 
 		let traditionellVerdreht = {
-			numEntries : 0,
-			totalElapsedSeconds : 0,
-			totalErrors : 0
+			numEntries: 0,
+			totalElapsedSeconds: 0,
+			totalErrors: 0
 		}
 
 		let zehneinsEndnull = {
-			numEntries : 0,
-			totalElapsedSeconds : 0,
-			totalErrors : 0
+			numEntries: 0,
+			totalElapsedSeconds: 0,
+			totalErrors: 0
 		}
 
 		let zwanzigeinsEndnull = {
-			numEntries : 0,
-			totalElapsedSeconds : 0,
-			totalErrors : 0
+			numEntries: 0,
+			totalElapsedSeconds: 0,
+			totalErrors: 0
 		}
-			
-		for(let gameScore of gameScores){
-			
-			switch(gameScore.twistedSpeechMode){
-				
+
+		for (let gameScore of gameScores) {
+
+			switch (gameScore.twistedSpeechMode) {
+
 				case 'zehneins':
 					this.increaseAverageBasket(gameScore, zehneins);
 					break;
-					
+
 				case 'zwanzigeins':
 					this.increaseAverageBasket(gameScore, zwanzigeins);
 					break;
-					
+
 				case 'traditionellVerdreht':
 					this.increaseAverageBasket(gameScore, traditionellVerdreht);
 					break;
-					
+
 				case 'zehneinsEndnull':
 					this.increaseAverageBasket(gameScore, zehneinsEndnull);
 					break;
-					
+
 				case 'zwanzigeinsEndnull':
 					this.increaseAverageBasket(gameScore, zwanzigeinsEndnull);
 					break;
-			}		
+			}
 		}
 
 		this.calculateAveragesInBasket(zehneins);
@@ -256,7 +256,7 @@ export default class Statistics {
 		this.calculateAveragesInBasket(traditionellVerdreht);
 		this.calculateAveragesInBasket(zehneinsEndnull);
 		this.calculateAveragesInBasket(zwanzigeinsEndnull);
-		
+
 		return {
 			zehneins,
 			zwanzigeins,
@@ -265,17 +265,17 @@ export default class Statistics {
 			zwanzigeinsEndnull
 		};
 	}
-	
-	increaseAverageBasket(gameScore, basket){
-		
+
+	increaseAverageBasket(gameScore, basket) {
+
 		basket.numEntries++;
 		basket.totalElapsedSeconds += Utils.parseTimeToSeconds(gameScore.elapsedTime);
 		basket.totalErrors += gameScore.numErrors;
 	}
-	
-	calculateAveragesInBasket(basket){
 
-		if(basket.numEntries > 0) {
+	calculateAveragesInBasket(basket) {
+
+		if (basket.numEntries > 0) {
 			basket.averageElapsedSeconds = basket.totalElapsedSeconds / basket.numEntries;
 			basket.averageErrors = basket.totalErrors / basket.numEntries;
 		}
@@ -283,19 +283,24 @@ export default class Statistics {
 
 	createStatisticsCsv() {
 
-		let csv = 'Profil;Spiel;Zeit-Stempel;Sprach-Modus;Sprech-Geschwindigkeit;Darstellung;Aufgaben-Anzahl;Spiel-Dauer(s);Spiel-Fehler;Spiel-Optionen;Geraete-Infos;Name;Seminar-Gruppe;Schule;Schulstufe;Klasse;Erstsprache;Nationalitaet;Geburtsdatum;Mathematik-Note';
+		let emptyExtraCols = "Untersucher-Name;Seminar-Gruppe;Schule;Klasse;Geschlecht;Erstsprache;Nationalitaet;Geburtsdatum;Mathematik-Note;";
 		
-		if(!this.uaParser) {
+		let emptyExtraColDelimiters = ';;;;;;;;;';
+		
+		let csv = 'Profil;Spiel;Zeit-Stempel;Sprach-Modus;Sprech-Geschwindigkeit;Darstellung;Aufgaben-Anzahl;Spiel-Dauer(s);Spiel-Fehler;Spiel-Optionen;' + emptyExtraCols + 'Geraete-Infos';
+		
+
+		if (!this.uaParser) {
 			this.uaParser = new UAParser();
 		}
 
 		for (let gameScore of this.gameScoreStorage.getAllGameScores()) {
 
 			let profileNameOutput = this.escapeForCsv(gameScore.profileName.trim());
-			
+
 			let themeOutput = '';
-			if(gameScore.theme) {
-				themeOutput = gameScore.theme == 'dark' ? 'dunkel' : 'hell'; 
+			if (gameScore.theme) {
+				themeOutput = gameScore.theme == 'dark' ? 'dunkel' : 'hell';
 			}
 
 			let gameNameOutput;
@@ -320,23 +325,23 @@ export default class Statistics {
 			delete optionsClone.numTasks;
 
 			gameOptionsJson = JSON.stringify(optionsClone);
-			
+
 			let deviceInfosOutput = '';
-			if(gameScore.userAgent) {
-				
+			if (gameScore.userAgent) {
+
 				this.uaParser.setUA(gameScore.userAgent);
 				let uaResult = this.uaParser.getResult();
-				
+
 				delete uaResult.ua;
 				delete uaResult.engine;
 				delete uaResult.cpu;
-				
-				let uaDeviceInfo = uaResult.device; 
-				
-				if(!uaDeviceInfo.model && !uaDeviceInfo.type && !uaDeviceInfo.type) {
+
+				let uaDeviceInfo = uaResult.device;
+
+				if (!uaDeviceInfo.model && !uaDeviceInfo.type && !uaDeviceInfo.type) {
 					delete uaResult.device;
 				}
-				
+
 				deviceInfosOutput = JSON.stringify(uaResult);
 			}
 
@@ -350,11 +355,12 @@ export default class Statistics {
 				numTasksOutput,
 				elapsedTimeOutput,
 				gameScore.numErrors,
-				gameOptionsJson,
-				deviceInfosOutput
+				gameOptionsJson
 			);
 
 			let row = rowParts.join(';');
+			row += emptyExtraColDelimiters;
+			row += ';' + deviceInfosOutput;
 
 			csv += '\n' + row;
 		}
