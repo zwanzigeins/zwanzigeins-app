@@ -77,6 +77,16 @@ gulp.task('build-html', ready => {
 	
 	html = html.replace(insertionSign, insertionContent);
 	
+	let now = new Date();
+	let dateString = now.toISOString();
+	let lastColonIdx = dateString.lastIndexOf(':');
+	dateString = dateString.substring(0, lastColonIdx);
+		
+	insertionSign = ' id="buildVersion">';
+	insertionContent = insertionSign + 'Build ' + dateString;
+	
+	html = html.replace(insertionSign, insertionContent);
+	
 	shell.mkdir('-p', stagePath);
 	
 	fs.writeFileSync(stagePath + '/index.html', html, 'utf8');

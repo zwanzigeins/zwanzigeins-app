@@ -295,4 +295,9 @@ body.updateInstalled > .pages > [id$='-game']:first-child ~ #reloadForUpdate {
 #manualContent > h2.expanded + .expandable {
 	max-height: max-content;
 }
-	
+
+#buildVersion {
+	text-align: center;
+	padding: 0.5rem;
+	font-style: italic;
+}
