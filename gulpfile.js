@@ -83,7 +83,7 @@ gulp.task('build-html', ready => {
 	dateString = dateString.substring(0, lastColonIdx);
 		
 	insertionSign = ' id="buildVersion">';
-	insertionContent = insertionSign + 'Build ' + dateString;
+	insertionContent = insertionSign + 'Version ' + dateString;
 	
 	html = html.replace(insertionSign, insertionContent);
 	
