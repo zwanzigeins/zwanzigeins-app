@@ -283,9 +283,9 @@ export default class Statistics {
 
 	createStatisticsCsv() {
 
-		let emptyExtraCols = "Untersucher-Name;Seminar-Gruppe;Schule;Klasse;Geschlecht;Erstsprache;Nationalitaet;Geburtsdatum;Mathematik-Note;";
+		let emptyExtraCols = "Untersucher-Name;Seminar-Gruppe;Schule;Klasse;Geschlecht;Erstsprache_1;Erstsprache_2;Erstsprache_3;Nationalitaet;Geburtsdatum;Mathematik-Note;Anmerkung;";
 		
-		let emptyExtraColDelimiters = ';;;;;;;;;';
+		let emptyExtraColDelimiters = ';;;;;;;;;;;;';
 		
 		let csv = 'Profil;Spiel;Zeit-Stempel;Sprach-Modus;Sprech-Geschwindigkeit;Darstellung;Aufgaben-Anzahl;Spiel-Dauer(s);Spiel-Fehler;Spiel-Optionen;' + emptyExtraCols + 'Geraete-Infos';
 		
