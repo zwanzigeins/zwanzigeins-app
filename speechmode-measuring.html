@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Sprechweisen messen</title>
+
+<style>
+
+html {
+	font-family: sans-serif;
+}
+
+.infos {
+	max-width: 600px;
+	margin-bottom: 2rem;
+}
+
+button {
+	width: 150px;
+}
+</style>
+</head>
+<body>
+
+	<div class="infos">
+	Beim Betätigen von 'Start' wird eine Liste von x Zufallszahlen zwischen
+	10011 und 99999 generiert. Die Anzahl der Zufallszahlen lässt sich mithilfe des folgenden Eingabe-Feldes einstellen.
+	Dann wird die Liste der Zufallszahlen in <i>traditionell verdreht</i> und danach in <i>zehneins</i> vorgelesen.
+	Die akkumulierte Dauer des Vorlesens wird in der Tabelle ausgegeben.
+	</div>
+	
+	<label>
+		Anzahl Durchgänge pro Sprach-Modus <input type='number' min='1' value='500' /> 
+	</label>
+	<br>
+	<button>
+		Start 
+	</button>
+	<br><br><br>
+	<table>	
+		<tr>
+			<th>Iteration</th><td id='iterations'></td>
+		<tr>
+		<tr>
+			<th>Dauer traditionell verdreht</th><td id='durationTraditionellVerdreht'></td>
+		<tr>
+		
+		<tr>
+			<th>Dauer zehneins</th><td id='durationZehneins'></td>
+		<tr>
+	</table>
+	
+	<script src="js/speechmode-measuring.js" type="module"></script>
+
+</body>
+</html>
