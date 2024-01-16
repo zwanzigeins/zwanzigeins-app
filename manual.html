@@ -96,11 +96,14 @@
 		Erklärungen.
 	</p>
 	<p>
-		Ganz unten findest du einen Balken zum Löschen der von dir in die
+		Darunter findest du einen Balken zum Löschen der von dir in die
 		App eingegebenen Daten: „<i><b>Alle gespeicherten Daten
 				löschen</b></i>“. Wenn du auf diesen Balken drückst, widerrufst du die
 		Einwilligung (Datenschutz) und löscht alle Daten, die von dir in
 		der App gespeichert wurden.
+	</p>
+	<p>
+		Ganz unten wird das <i><b>Erstellungsdatum</b></i> der App-Version angezeigt.
 	</p>
 </div>
 
@@ -298,16 +301,17 @@
 		href="https://www.youtube.com/watch?v=5HhIGwcQw08">https://www.youtube.com/watch?v=5HhIGwcQw08</a>.
 </p>
 <p>In der Excel-Datei (als csv oder als xlsx) stehen in der
-	Kopfzeile die Variablennamen (Spaltennamen). Die Kopfzeile sieht so
-	aus (umgebrochen):</p>
+	Kopfzeile die 22 Variablennamen (Spaltennamen). Die Kopfzeile sieht so
+	aus (umgebrochen und mit Komma getrennt):</p>
 	<p>
-Spiel, Zeit-Stempel, Sprach-Modus,
-			Sprech-Geschwindigkeit, Darstellung,
-			Aufgaben-Anzahl,
-			Spiel-Dauer(s),
+		Spiel, Zeit-Stempel, Sprach-Modus,
+		Sprech-Geschwindigkeit, Darstellung,
+		Aufgaben-Anzahl, Spiel-Dauer(s),
 		Spiel-Fehler, Spiel-Optionen, Untersucher-Name,
-                Seminar-Gruppe, Schule, Klasse, Geschlecht, Erstsprache,
-                Nationalitaet, Geburtsdatum, Mathematik-Note, Geraete-Infos
+                Seminar-Gruppe, Schule, Klasse, Geschlecht, 
+		Erstsprache_1, Erstsprache_2, Erstsprache_3,
+                Nationalitaet, Geburtsdatum, Mathematik-Note, 
+		Anmerkung, Geraete-Infos
 		</p>
 <p>Darunter stehen deine Daten. Pro Aufgabenblock gibt es eine
 	Zeile mit deinen Eingaben, Einstellungen und Ergebnissen. Es
@@ -325,9 +329,14 @@ Spiel, Zeit-Stempel, Sprach-Modus,
         Browser, Gerät (device) und Betriebssystem (os), mit denen du arbeitest,
         z.B. {"browser":{"name":"Mobile Chrome","version":"117.0.0.0","major":"117"},
         "device":{"type":"mobile","model":"K"},"os":{"name":"Android","version":"10"}}. 
-        Die dazwischen liegenden 9 Spalten (Untersucher-Name bis Mathematik-Note) sind leer 
+        Die dazwischen liegenden 12 Spalten (Untersucher-Name bis Anmerkung) sind leer 
 	und dienen allein der manuellen Erfassung zusätzlicher Daten, z.B. in 
 	wissenschaftlichen Studien.</p>
+<p>Kommentar zu diesen 12 Spalten: Es gibt drei Variablen Erstsprache_1, 
+	Erstsprache_2, Erstsprache_3, denn es gibt Menschen, die mit drei 
+	"Muttersprachen" aufwachsen (vom Vater, von der Mutter und Deutsch). 
+	In der vorletzten Spalte "Anmerkung" sollen wichtige Dinge als Freitext 
+	vermerkt werden, z.B. "verweigert die Testung".</p>	
 <p>Die Zeilen der Ausgabedatei werden zunächst nach den Levels und dann 
 	innerhalb eines Levels nach dem Zeitstempel aufsteigend sortiert. 
 	Die Levelsortierung beginnt mit den voreingestellten Levels 
