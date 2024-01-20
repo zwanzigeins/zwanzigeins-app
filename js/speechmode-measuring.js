@@ -17,7 +17,7 @@ let iterationsElem = document.querySelector('#iterations');
 let durationTraditionellVerdrehtElem = document.querySelector('#durationTraditionellVerdreht');
 let durationZehneinsElem = document.querySelector('#durationZehneins');
 
-let measurementsCountInput = document.querySelector('input');
+let measurementsCountInput = document.querySelector('#maxIterations');
 
 let randomNumberPoolFloor = 10011;
 let randomNumberPoolCeil = 99999;
@@ -37,7 +37,7 @@ startButton.onclick = () => {
 	
 	if(randomNumbersRadioInput.checked) {
 	
-		maxMeasurementsCount = measurementsCountInput.value;
+		maxMeasurementsCount = parseInt(measurementsCountInput.value);
 	
 		for(let i = 0; i < maxMeasurementsCount; i++){
 			
