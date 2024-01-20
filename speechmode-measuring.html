@@ -10,9 +10,19 @@ html {
 	font-family: sans-serif;
 }
 
-.infos {
+.infos-random-numbers,
+.infos-sequential{
 	max-width: 600px;
 	margin-bottom: 2rem;
+}
+
+#random-numbers:checked ~ .infos-sequential {
+	display: none;
+}
+
+#sequential:checked ~ .infos-random-numbers,
+#sequential:checked ~ #max-iterations {
+	display: none;
 }
 
 button {
@@ -22,14 +32,27 @@ button {
 </head>
 <body>
 
-	<div class="infos">
+	<input type="radio" name="mode" id="random-numbers" value="random-numbers" checked/>
+	<label for="random-numbers">Modus Zufallszahlen</label>
+	<br>
+	<input type="radio" name="mode" id="sequential" value="sequential" />
+	<label for="sequential">Modus 11 bis 99</label>
+	
+	<br><br>
+	
+	<div class="infos-random-numbers">
 	Beim Betätigen von 'Start' wird eine Liste von x Zufallszahlen zwischen
 	10011 und 99999 generiert. Die Anzahl der Zufallszahlen lässt sich mithilfe des folgenden Eingabe-Feldes einstellen.
 	Dann wird die Liste der Zufallszahlen in <i>traditionell verdreht</i> und danach in <i>zehneins</i> vorgelesen.
 	Die akkumulierte Dauer des Vorlesens wird in der Tabelle ausgegeben.
 	</div>
 	
-	<label>
+	<div class="infos-sequential">
+	Beim Betätigen von 'Start' werden die Zahlen <b>11 bis 99</b> erst in <i>traditionell verdreht</i> und danach in <i>zehneins</i> vorgelesen.
+	Die akkumulierte Dauer des Vorlesens wird in der Tabelle ausgegeben.
+	</div>
+	
+	<label id='max-iterations'>
 		Anzahl Durchgänge pro Sprach-Modus <input type='number' min='1' value='500' /> 
 	</label>
 	<br>

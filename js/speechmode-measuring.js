@@ -27,18 +27,29 @@ let currentDurationOutput = durationTraditionellVerdrehtElem;
 
 let maxMeasurementsCount;
 
-let randomNumbers;
+let numbersForReading;
 
-startButton.onclick = evt => {
+startButton.onclick = () => {
 	
-	randomNumbers = [];
+	numbersForReading = [];
 	
-	maxMeasurementsCount = measurementsCountInput.value;
-
-	for(let i = 0; i < maxMeasurementsCount; i++){
+	let randomNumbersRadioInput = document.querySelector('#random-numbers');
+	
+	if(randomNumbersRadioInput.checked) {
+	
+		maxMeasurementsCount = measurementsCountInput.value;
+	
+		for(let i = 0; i < maxMeasurementsCount; i++){
+			
+			let number = randomIntFromInterval(randomNumberPoolFloor, randomNumberPoolCeil);
+			numbersForReading.push(number);
+		}
+	}
+	else {
 		
-		let number = randomIntFromInterval(randomNumberPoolFloor, randomNumberPoolCeil);
-		randomNumbers.push(number);
+		for(let i = 11; i <= 99; i++) {
+			numbersForReading.push(i);
+		}
 	}
 	
 	resultMillis = 0;
@@ -47,7 +58,7 @@ startButton.onclick = evt => {
 
 function takeMeasurement(iteration, traditionellVerdrehtEnabled) {
 	
-	if(iteration >= maxMeasurementsCount) {
+	if(iteration >= numbersForReading.length) {
 		
 		if(traditionellVerdrehtEnabled) {
 			
@@ -61,7 +72,7 @@ function takeMeasurement(iteration, traditionellVerdrehtEnabled) {
 		}
 	}
 	
-	let number = randomNumbers[iteration];
+	let number = numbersForReading[iteration];
 		
 	let utteranceOutput;
 	
