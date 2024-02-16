@@ -82,6 +82,14 @@ function takeMeasurement(iteration, traditionellVerdrehtEnabled) {
 	}
 	
 	let utterance = new SpeechSynthesisUtterance(utteranceContent);
+	
+	let nowMillis;
+	
+	utterance.onstart = () => {
+		
+		nowMillis = new Date().getTime();
+	};
+	
 	utterance.onend = () => {
 		
 		let finishedMillis = new Date().getTime();
@@ -95,7 +103,6 @@ function takeMeasurement(iteration, traditionellVerdrehtEnabled) {
 	};
 	
 	utterance.lang = 'de-DE';	
-	let nowMillis = new Date().getTime();	
 	window.speechSynthesis.speak(utterance);	
 }
 
