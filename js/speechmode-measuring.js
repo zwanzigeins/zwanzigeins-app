@@ -85,7 +85,9 @@ function takeMeasurement(iteration, traditionellVerdrehtEnabled) {
 	}
 	
 	let utterance = new SpeechSynthesisUtterance(utteranceContent);
-	
+
+	utterance.rate = 1.0;
+
 	let nowMillis;
 	
 	utterance.onstart = () => {
@@ -105,7 +107,7 @@ function takeMeasurement(iteration, traditionellVerdrehtEnabled) {
 		takeMeasurement(iteration + 1, traditionellVerdrehtEnabled);		
 	};
 	
-	utterance.lang = 'de-DE';	
+	utterance.lang = 'de-DE';
 	window.speechSynthesis.speak(utterance);	
 }
 
