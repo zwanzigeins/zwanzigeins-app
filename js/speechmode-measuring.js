@@ -18,8 +18,11 @@ let currentDurationOutput;
 
 let maxMeasurementsCount;
 
-
 let numbersForReading;
+
+let versionDiv = document.createElement('div');
+versionDiv.innerHTML = '<br><br>Version 2024-02-16';
+document.body.appendChild(versionDiv);
 
 startButton.onclick = () => {
 	
