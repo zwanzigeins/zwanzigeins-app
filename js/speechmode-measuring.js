@@ -10,6 +10,8 @@ let durationZehneinsElem = document.querySelector('#durationZehneins');
 
 let measurementsCountInput = document.querySelector('#maxIterations');
 
+let speechRateInput = document.querySelector('#speechrate');
+
 let randomNumberPoolFloor = 10011;
 let randomNumberPoolCeil = 99999;
 
@@ -21,8 +23,10 @@ let maxMeasurementsCount;
 let numbersForReading;
 
 let versionDiv = document.createElement('div');
-versionDiv.innerHTML = '<br><br>Version 2024-02-16';
+versionDiv.innerHTML = '<br><br>Version 2024-02-22';
 document.body.appendChild(versionDiv);
+
+let speechRate;
 
 startButton.onclick = () => {
 	
@@ -52,6 +56,9 @@ startButton.onclick = () => {
 			numbersForReading.push(i);
 		}
 	}
+	
+	let speechRateString = speechRateInput.value;
+	speechRate = parseFloat(speechRateString);
 	
 	resultMillis = 0;
 	takeMeasurement(0, true);
@@ -86,7 +93,7 @@ function takeMeasurement(iteration, traditionellVerdrehtEnabled) {
 	
 	let utterance = new SpeechSynthesisUtterance(utteranceContent);
 
-	utterance.rate = 1.0;
+	utterance.rate = speechRate;
 
 	let nowMillis;
 	
