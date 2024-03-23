@@ -211,6 +211,11 @@ a.web:before {
 	background-image: url(../img/web.svg);
 }
 
+a[href='#scientific-studies']:before {
+	background-image: url(../img/flask.svg);
+	background-size: 24px;
+}
+
 a.github:before {
 	background-image: url(../img/github-circle.svg);
 }

@@ -241,7 +241,7 @@ h3 {
 	font-size: 1rem;
 }
 
-a, button {
+a:not([href^="mailto:"]), button {
     display: block;
     width: 100%;
     font-size: 16px;
@@ -264,6 +264,11 @@ a, button {
     background: var(--button-bg-color);
     -webkit-tap-highlight-color:rgba(0,0,0,0);
     position: relative;
+}
+
+a[href^="mailto:"] {
+	color: inherit;
+	text-decoration: underline;
 }
 
 .splitButton {
