@@ -14,7 +14,8 @@ export default class GlobalSettings extends Options {
 			quickAccessZwanzigeinsEnabled: false,
 			quickAccessTraditionellVerdrehtEnabled: true,
 			quickAccessZehneinsEndnullEnabled: false,
-			quickAccessZwanzigeinsEndnullEnabled: false
+			quickAccessZwanzigeinsEndnullEnabled: false,
+			experimentModeEnabled: false
 		});
 
 		this.applyTheme();
@@ -54,6 +55,8 @@ export default class GlobalSettings extends Options {
 			this.quickAccessCheckboxTraditonellVerdreht = this.speechModeQuickAccessElem.querySelector('[value="traditionellVerdreht"]');
 			this.quickAccessCheckboxZehneinsEndnull = this.speechModeQuickAccessElem.querySelector('[value="zehneinsEndnull"]');
 			this.quickAccessCheckboxZwanzigeinsEndnull = this.speechModeQuickAccessElem.querySelector('[value="zwanzigeinsEndnull"]');
+			
+			this.experimentModeEnabledCheckbox = settingsPageElem.querySelector('#experimentModeEnabled');
 		}
 
 		// else testmode

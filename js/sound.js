@@ -10,9 +10,15 @@ export default class Sound {
 	}
 
 	playInteger(integer, finishedHandler) {
-
-		let word = this.getLetterizedNumber(integer);
-		this.playWord(word, finishedHandler);
+	
+		if(GlobalSettings.INSTANCE.experimentModeEnabled) {
+			this.playAudioFile(integer);
+		}
+		else {
+						
+			let word = this.getLetterizedNumber(integer);
+			this.playWord(word, finishedHandler);
+		}
 	}
 
 	playWord(word, finishedHandler) {
@@ -66,6 +72,51 @@ export default class Sound {
 			default:
 				return this.letterizer.letterizeZehnEinsNumber(number);
 		}
+	}
+	
+	playAudioFile(number) {
+		
+		if(!this.audioContext) {
+			this.audioContext = new AudioContext();
+		}
+		
+		let speechMode = GlobalSettings.INSTANCE.twistedSpeechMode;
+		
+		let mp3uri = '/mp3/';
+		
+		if(speechMode == 'zehneins') {
+			mp3uri += 'zehneins';
+		}
+		else if(speechMode == 'traditionellVerdreht') {
+			mp3uri += 'traditionell-verdreht';
+		}
+		
+		if(number < 10) {
+			number = '00' + number;
+		}
+		else if(number < 100) {
+			number = '0' + number;
+		}
+		
+		mp3uri += '/rate-100/audio-' + number + '.mp3';
+		
+		fetch(mp3uri)
+			.then(response => {
+				
+				return response.arrayBuffer();
+			})
+			.then(arrayBuffer => {
+				
+				return this.audioContext.decodeAudioData(arrayBuffer);
+			})
+			.then(audioBuffer => {
+				
+				let sourceNode = this.audioContext.createBufferSource();
+				sourceNode.buffer = audioBuffer;
+				sourceNode.connect(this.audioContext.destination);
+				sourceNode.start();
+			});
+		
 	}
 	
 }

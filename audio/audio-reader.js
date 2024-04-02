@@ -1,13 +1,17 @@
+import Letterizer from "../js/letterizer.js";
+
+let letterizer = new Letterizer();
+
 function createAudioWords() {
 	
 	let audioWords = [];
+	
+	for (let i = 0; i <= 1000; i++) {
+		
+		let audioWord = letterizer.letterizeZehnEinsNumber(i);
 
-	for (let i = 0; i <= 20; i++) {
-
-		audioWords.push(i);
+		audioWords.push(audioWord);
 	}
-
-	audioWords.push(30, 40, 50, 60, 70, 80, 90, 'hundert', 'tausend', 'million', 'millionen', 'unn');
 	
 	return audioWords;
 }
@@ -15,15 +19,32 @@ function createAudioWords() {
 if(typeof document != 'undefined') {
 	
 	document.onclick = evt => {
+		
+		let ssu = new SpeechSynthesisUtterance("start");
+		window.speechSynthesis.speak(ssu);
 	
 		let audioWords = createAudioWords();
 		
-		for (let audioWord of audioWords) {
-	
-			let ssu = new SpeechSynthesisUtterance(audioWord);
-			window.speechSynthesis.speak(ssu);
-		}
+		speakNextWord(0, audioWords);
 	};
+}
+
+function speakNextWord(index, audioWords) {
+	
+	if(index < audioWords.length) {
+		
+		let audioWord = audioWords[index];
+		
+		let ssu = new SpeechSynthesisUtterance(audioWord);
+		ssu.onend = evt => {
+			
+			setTimeout(() => {
+				
+			speakNextWord(index + 1, audioWords);
+			}, 500);
+		};
+		window.speechSynthesis.speak(ssu);
+	}	
 }
 
 if(typeof module != 'undefined') {
