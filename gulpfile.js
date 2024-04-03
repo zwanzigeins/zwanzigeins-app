@@ -46,6 +46,12 @@ gulp.task('copy-other-to-stage', () => {
 		.pipe(gulp.dest(stagePath));
 });
 
+gulp.task('copy-mp3-to-dist', () => {
+	
+	return gulp.src('mp3/**')
+		.pipe(gulp.dest(distPath + '/mp3'));
+});
+
 gulp.task('rev-all', () => {
 	
 	return gulp.src(stagePath + '/**/*')

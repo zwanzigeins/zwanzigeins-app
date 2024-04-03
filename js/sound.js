@@ -12,6 +12,8 @@ export default class Sound {
 	playInteger(integer, finishedHandler) {
 	
 		if(GlobalSettings.INSTANCE.experimentModeEnabled) {
+			
+			this.lastPlayed = integer;
 			this.playAudioFile(integer);
 		}
 		else {
@@ -47,7 +49,13 @@ export default class Sound {
 	playAgain() {
 
 		if (this.lastPlayed) {
-			this.playWord(this.lastPlayed);
+			
+			if(typeof this.lastPlayed == 'number') {
+				this.playAudioFile(this.lastPlayed);
+			}
+			else {
+				this.playWord(this.lastPlayed);
+			}
 		}
 	}
 
@@ -76,19 +84,33 @@ export default class Sound {
 	
 	playAudioFile(number) {
 		
+		let speechRateString = GlobalSettings.INSTANCE.speechRate;
+		let speechRate = parseFloat(speechRateString);
+		
+		if(speechRate != 1) {
+			
+			alert('Im Experiment-Modus ist nur die Sprechgeschwindigkeit 100% möglich.');
+			return;
+		}
+		
 		if(!this.audioContext) {
 			this.audioContext = new AudioContext();
 		}
 		
 		let speechMode = GlobalSettings.INSTANCE.twistedSpeechMode;
 		
-		let mp3uri = '/mp3/';
+		let mp3uri = 'mp3/';
 		
 		if(speechMode == 'zehneins') {
 			mp3uri += 'zehneins';
 		}
 		else if(speechMode == 'traditionellVerdreht') {
 			mp3uri += 'traditionell-verdreht';
+		}
+		else {
+			
+			alert('Dieser Sprach-Modus ' + speechMode + ' ist im Experiment-Modus nicht verfügbar.');
+			return;
 		}
 		
 		if(number < 10) {
@@ -111,9 +133,26 @@ export default class Sound {
 			})
 			.then(audioBuffer => {
 				
+//				let bassFilter = this.audioContext.createBiquadFilter();
+//				bassFilter.type = "lowshelf"; 
+//				bassFilter.frequency.value = 100;
+//				bassFilter.gain.value = 2;
+//				
+//				let trebleFilter = this.audioContext.createBiquadFilter();
+//				trebleFilter.type = "highshelf"; 
+//				trebleFilter.frequency.value = 1900;
+//				trebleFilter.gain.value = -1;
+//				
+//				bassFilter.connect(trebleFilter);
+				
 				let sourceNode = this.audioContext.createBufferSource();
 				sourceNode.buffer = audioBuffer;
+				
 				sourceNode.connect(this.audioContext.destination);
+				
+//				sourceNode.connect(bassFilter);
+//				trebleFilter.connect(this.audioContext.destination);
+				
 				sourceNode.start();
 			});
 		
