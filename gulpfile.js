@@ -172,5 +172,6 @@ gulp.task('default', gulp.series(
 	'rev-all',
 	'build-service-worker',
 	'copy-debug-resources',
+	'copy-mp3-to-dist'
 	), () => {}
 );

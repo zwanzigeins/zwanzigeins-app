@@ -84,6 +84,12 @@ export default class Sound {
 	
 	playAudioFile(number) {
 		
+		if(!this.audioElement) {
+			this.audioElement = document.createElement('audio');
+			this.audioElement.setAttribute('autoplay', true);
+			document.body.appendChild(this.audioElement);
+		}
+		
 		let speechRateString = GlobalSettings.INSTANCE.speechRate;
 		let speechRate = parseFloat(speechRateString);
 		
@@ -122,40 +128,7 @@ export default class Sound {
 		
 		mp3uri += '/rate-100/audio-' + number + '.mp3';
 		
-		fetch(mp3uri)
-			.then(response => {
-				
-				return response.arrayBuffer();
-			})
-			.then(arrayBuffer => {
-				
-				return this.audioContext.decodeAudioData(arrayBuffer);
-			})
-			.then(audioBuffer => {
-				
-//				let bassFilter = this.audioContext.createBiquadFilter();
-//				bassFilter.type = "lowshelf"; 
-//				bassFilter.frequency.value = 100;
-//				bassFilter.gain.value = 2;
-//				
-//				let trebleFilter = this.audioContext.createBiquadFilter();
-//				trebleFilter.type = "highshelf"; 
-//				trebleFilter.frequency.value = 1900;
-//				trebleFilter.gain.value = -1;
-//				
-//				bassFilter.connect(trebleFilter);
-				
-				let sourceNode = this.audioContext.createBufferSource();
-				sourceNode.buffer = audioBuffer;
-				
-				sourceNode.connect(this.audioContext.destination);
-				
-//				sourceNode.connect(bassFilter);
-//				trebleFilter.connect(this.audioContext.destination);
-				
-				sourceNode.start();
-			});
-		
+		this.audioElement.src = mp3uri;
 	}
 	
 }
