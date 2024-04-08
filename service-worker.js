@@ -225,7 +225,7 @@ function serveRangeResponse(event){
 	let cacheHit = false;
 	  
     event.respondWith(
-    	caches.open("data")
+    	caches.open("v1")
     		.then(cache => {
     			return cache.match(event.request.url);
     		})

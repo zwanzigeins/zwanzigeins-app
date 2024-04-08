@@ -1,4 +1,5 @@
 import Options from './options.js';
+import Pages from './pages.js';
 
 export default class GlobalSettings extends Options {
 
@@ -22,6 +23,8 @@ export default class GlobalSettings extends Options {
 
 		let settingsPageElem = document.getElementById('settings');
 		if (settingsPageElem) {
+			
+			this.pageElem = settingsPageElem;
 
 			let themeRadioElems = settingsPageElem.querySelectorAll('input[name="theme"]');
 			for (let radioElem of themeRadioElems) {
@@ -46,17 +49,38 @@ export default class GlobalSettings extends Options {
 
 					let value = evt.target.value;
 					this.twistedSpeechMode = value;
-					this.saveOptions();					
+					this.saveOptions();
 				};
 			}
-			
+
 			this.quickAccessCheckboxZehneins = this.speechModeQuickAccessElem.querySelector('[value="zehneins"]');
 			this.quickAccessCheckboxZwanzigeins = this.speechModeQuickAccessElem.querySelector('[value="zwanzigeins"]');
 			this.quickAccessCheckboxTraditonellVerdreht = this.speechModeQuickAccessElem.querySelector('[value="traditionellVerdreht"]');
 			this.quickAccessCheckboxZehneinsEndnull = this.speechModeQuickAccessElem.querySelector('[value="zehneinsEndnull"]');
 			this.quickAccessCheckboxZwanzigeinsEndnull = this.speechModeQuickAccessElem.querySelector('[value="zwanzigeinsEndnull"]');
-			
+
 			this.experimentModeEnabledCheckbox = settingsPageElem.querySelector('#experimentModeEnabled');
+
+			this.experimentModeEnabledCheckbox.addEventListener('input', () => {
+
+				if (this.experimentModeEnabledCheckbox.checked) {
+
+					this.downloadAudioFiles(() => {
+
+						this.updateDownloadedIndication();
+					});
+				}
+			});
+
+			Pages.INSTANCE.addBeforeOpenedHandler(id => {
+
+				if (id == 'settings') {
+
+					if (this.experimentModeEnabled) {
+						this.updateDownloadedIndication();
+					}
+				}
+			});
 		}
 
 		// else testmode
@@ -96,9 +120,9 @@ export default class GlobalSettings extends Options {
 			document.documentElement.classList.remove('dark-theme');
 		}
 	}
-	
+
 	isDarkThemeActive() {
-		
+
 		return document.documentElement.classList.contains('dark-theme');
 	}
 
@@ -141,35 +165,200 @@ export default class GlobalSettings extends Options {
 	getSpeechModeQuickAccessElement() {
 
 		for (let speechModeQuickAccessCheckbox of this.speechModeQuickAccessCheckboxes) {
-			
-			if(speechModeQuickAccessCheckbox.value == this.twistedSpeechMode){
+
+			if (speechModeQuickAccessCheckbox.value == this.twistedSpeechMode) {
 				speechModeQuickAccessCheckbox.checked = true;
 				break;
 			}
 		}
-		
+
 		this.showOrHideQuickAccessOption(this.quickAccessCheckboxZehneins, 'zehneins', this.quickAccessZehneinsEnabled);
 		this.showOrHideQuickAccessOption(this.quickAccessCheckboxZwanzigeins, 'zwanzigeins', this.quickAccessZwanzigeinsEnabled);
 		this.showOrHideQuickAccessOption(this.quickAccessCheckboxTraditonellVerdreht, 'traditionellVerdreht', this.quickAccessTraditionellVerdrehtEnabled);
 		this.showOrHideQuickAccessOption(this.quickAccessCheckboxZehneinsEndnull, 'zehneinsEndnull', this.quickAccessZehneinsEndnullEnabled);
-		this.showOrHideQuickAccessOption(this.quickAccessCheckboxZwanzigeinsEndnull, 'zwanzigeinsEndnull', this.quickAccessZwanzigeinsEndnullEnabled);			
-		
+		this.showOrHideQuickAccessOption(this.quickAccessCheckboxZwanzigeinsEndnull, 'zwanzigeinsEndnull', this.quickAccessZwanzigeinsEndnullEnabled);
+
 		return this.speechModeQuickAccessElem;
 	}
-	
-	showOrHideQuickAccessOption(checkboxElem, speechModeName, quickAccessEnabled){
-		
-		if(checkboxElem.value == speechModeName){
-				
+
+	showOrHideQuickAccessOption(checkboxElem, speechModeName, quickAccessEnabled) {
+
+		if (checkboxElem.value == speechModeName) {
+
 			let fieldElem = checkboxElem.parentElement;
-			
-			if(quickAccessEnabled) {
+
+			if (quickAccessEnabled) {
 				fieldElem.removeAttribute('hidden');
 			}
 			else {
-				fieldElem.setAttribute('hidden', '');					
+				fieldElem.setAttribute('hidden', '');
 			}
 		}
+	}
+
+	updateDownloadedIndication() {
+
+		this.areAudioFilesDownloaded(downloaded => {
+
+			let msg;
+
+			let audioFilesDownloadedInfoElem = this.pageElem.querySelector('.audioFilesDownloadedInfo');
+
+			if (downloaded) {
+
+				audioFilesDownloadedInfoElem.classList.add('downloaded');
+				msg = 'Audio-Dateien vollständig heruntergeladen.';
+			}
+			else {
+
+				audioFilesDownloadedInfoElem.classList.remove('downloaded');
+				msg = 'Audio-Dateien nicht heruntergeladen.';
+			}
+
+			audioFilesDownloadedInfoElem.textContent = msg;
+		});
+	}
+
+	areAudioFilesDownloaded(yesNoHandler) {
+
+		let expectedAudioFiles = [];
+		
+		let audioFileUri;
+
+		for (let number = 1; number < 1000; number++) {
+
+			this.getAudioFileUri(number, true);
+			expectedAudioFiles.push(audioFileUri);
+
+			audioFileUri = this.getAudioFileUri(number, false);
+			expectedAudioFiles.push(audioFileUri);
+		}
+
+		let foundAudioFiles = 0;
+
+		caches.open('v1')
+			.then(cache => {
+
+				return cache.keys();
+			})
+			.then(requests => {
+
+				for (let request of requests) {
+
+					let url = new URL(request.url);
+
+					if (url.pathname.endsWith('.mp3')) {
+						foundAudioFiles++;
+					}
+				}
+
+				if (foundAudioFiles == 2000) {
+					yesNoHandler(true);
+				}
+				else {
+					yesNoHandler(false);
+				}
+			})
+			;
+	}
+
+	downloadAudioFiles(finishedHandler) {
+
+		let number = 1;
+		let traditionellVerdrehtEnabled = true;
+		
+		this.updateDownloadProgressMsg(number);
+
+		let downloadFinishedHandler = () => {
+
+			number++;
+
+			if (number <= 1000) {
+				this.downloadAudioFileToCache(number, traditionellVerdrehtEnabled, downloadFinishedHandler);
+				this.updateDownloadProgressMsg(number);
+			}
+			else {
+
+				if (traditionellVerdrehtEnabled) {
+
+					traditionellVerdrehtEnabled = false;
+					number = 1;
+					this.downloadAudioFileToCache(number, traditionellVerdrehtEnabled, downloadFinishedHandler);
+				}
+				else {
+					this.updateDownloadProgressMsg(-1);
+					finishedHandler();
+				}
+			}
+		}
+
+		this.downloadAudioFileToCache(number, traditionellVerdrehtEnabled, downloadFinishedHandler);
+	}
+	
+	updateDownloadProgressMsg(currentDownloadCount) {
+		
+		let downloadProgressElem = this.pageElem.querySelector('.downloadProgress');
+		
+		if(currentDownloadCount == -1) {
+			downloadProgressElem.textContent = '';	
+		}
+		else {
+			
+			let msg = 'Lade Datei ' + currentDownloadCount + '/2000';
+			downloadProgressElem.textContent = msg;
+		}
+	}
+
+	downloadAudioFileToCache(number, traditionellVerdrehtEnabled, finishedHandler) {
+
+		let mp3uri = this.getAudioFileUri(number, traditionellVerdrehtEnabled);
+
+		let fetchResponse;
+
+		fetch(mp3uri)
+			.then(response => {
+
+				fetchResponse = response;
+				return caches.open('v1');
+			})
+			.then(cache => {
+
+				cache.put(mp3uri, fetchResponse);
+				finishedHandler();
+			})
+			.catch(() => {
+				alert('Fehler beim Herunterladen von ' + mp3uri);
+			})
+			;
+
+	}
+
+	getAudioFileUri(number, traditionellVerdrehtEnabled) {
+
+		let mp3uri = 'mp3/';
+
+		if (location.host == 'zwanzigeins.jetzt') {
+			mp3uri = '../app/mp3/';
+		}
+
+		if (traditionellVerdrehtEnabled) {
+			mp3uri += 'traditionell-verdreht';
+		}
+		else {
+			mp3uri += 'zehneins';
+		}
+
+
+		if (number < 10) {
+			number = '00' + number;
+		}
+		else if (number < 100) {
+			number = '0' + number;
+		}
+
+		mp3uri += '/rate-100/audio-' + number + '.mp3';
+
+		return mp3uri;
 	}
 
 }

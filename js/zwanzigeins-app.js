@@ -1,4 +1,6 @@
 import ListenAndWriteGame from './listen-and-write-game.js';
+
+
 import MentalArithmeticGame from './mental-arithmetic-game.js';
 import NumberDictationGame from './number-dictation-game.js';
 import Pages from './pages.js';
@@ -6,10 +8,10 @@ import Sound from './sound.js';
 import GlobalSettings from './global-settings.js';
 import Statistics from './statistics.js';
 
-GlobalSettings.INSTANCE = new GlobalSettings();
-
 Sound.INSTANCE = new Sound();
 Pages.INSTANCE = new Pages();
+
+GlobalSettings.INSTANCE = new GlobalSettings();
 
 let listenAndWriteGame = new ListenAndWriteGame();
 let mentalArithmeticGame = new MentalArithmeticGame();

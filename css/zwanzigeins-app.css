@@ -306,3 +306,32 @@ body.updateInstalled > .pages > [id$='-game']:first-child ~ #reloadForUpdate {
 	padding: 0.5rem;
 	font-style: italic;
 }
+
+.audioFilesDownloadedInfo {
+	text-align: right;
+	color: var(--error-color);
+}
+
+.audioFilesDownloadedInfo.downloaded {
+	color: var(--success-color);
+}
+
+.downloadProgress {
+	position: absolute;
+	height: 3rem;
+	min-height: 3rem;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	border-top: var(--default-border-color) solid 1px;
+	background: var(--default-panel-bg-color);
+	font-weight: bold;
+	font-size: 1.2rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.downloadProgress:empty {
+	display: none;
+}

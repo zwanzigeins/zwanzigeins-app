@@ -3,6 +3,7 @@
     --header-font-color: white;
     --selected-bg-color: #1482cc;
     --error-color: #d32f2f;
+    --success-color: #1c954f;
     --default-panel-bg-color: #fff;
     --default-font-color: rgb(51, 51, 51);
     --default-border-color: #ccc;
@@ -25,6 +26,8 @@ html.dark-theme{
 	--default-panel-bg-color: #333;
 	--default-font-color: #fff;
 	--default-border-color: #484848;
+	
+	--success-color: #22b560;
 	
 	--body-bg-color: #262626;
 	--pages-container-border-color: transparent;
