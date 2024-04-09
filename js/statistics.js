@@ -287,7 +287,7 @@ export default class Statistics {
 		
 		let emptyExtraColDelimiters = ';;;;;;;;;;;;';
 		
-		let csv = 'Profil;Spiel;Zeit-Stempel;Sprach-Modus;Sprech-Geschwindigkeit;Darstellung;Aufgaben-Anzahl;Spiel-Dauer(s);Spiel-Fehler;Spiel-Optionen;Experiment-Modus;' + emptyExtraCols + 'Geraete-Infos';
+		let csv = 'Profil;Spiel;Zeit-Stempel;Sprach-Modus;Sprech-Geschwindigkeit;Darstellung;Aufgaben-Anzahl;Spiel-Dauer(s);Spiel-Fehler;Spiel-Optionen;' + emptyExtraCols + 'Experiment-Modus;Geraete-Infos';
 		
 
 		if (!this.uaParser) {
@@ -364,13 +364,12 @@ export default class Statistics {
 				numTasksOutput,
 				elapsedTimeOutput,
 				gameScore.numErrors,
-				gameOptionsJson,
-				experimentModeOutput
+				gameOptionsJson				
 			);
 
 			let row = rowParts.join(';');
 			row += emptyExtraColDelimiters;
-			row += ';' + deviceInfosOutput;
+			row += ';' + experimentModeOutput + ';' + deviceInfosOutput;
 
 			csv += '\n' + row;
 		}
