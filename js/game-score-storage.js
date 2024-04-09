@@ -30,6 +30,8 @@ export default class GameScoreStorage {
 		
 		let theme = GlobalSettings.INSTANCE.isDarkThemeActive() ? 'dark' : 'bright';
 		let userAgent = navigator.userAgent;
+		
+		let experimentModeEnabled = GlobalSettings.INSTANCE.isExperimentModeEnabled();
 
 		let gameScoreEntry = {
 
@@ -40,7 +42,8 @@ export default class GameScoreStorage {
 			theme,
 			elapsedTime,
 			numErrors,
-			gameOptions,			
+			gameOptions,
+			experimentModeEnabled,	
 			userAgent
 		};
 

@@ -11,7 +11,7 @@ export default class Sound {
 
 	playInteger(integer, finishedHandler) {
 	
-		if(GlobalSettings.INSTANCE.experimentModeEnabled) {
+		if(GlobalSettings.INSTANCE.experimentModeEnabled && integer <= 100) {
 			
 			this.lastPlayed = integer;
 			this.playAudioFile(integer);

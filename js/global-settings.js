@@ -66,8 +66,11 @@ export default class GlobalSettings extends Options {
 				if (this.experimentModeEnabledCheckbox.checked) {
 
 					this.downloadAudioFiles(() => {
-
-						this.updateDownloadedIndication();
+						
+						setTimeout(() => {
+							
+							this.updateDownloadedIndication();
+						}, 1000);
 					});
 				}
 			});
@@ -124,6 +127,11 @@ export default class GlobalSettings extends Options {
 	isDarkThemeActive() {
 
 		return document.documentElement.classList.contains('dark-theme');
+	}
+	
+	isExperimentModeEnabled() {
+		
+		return this.experimentModeEnabled;
 	}
 
 	processDataClearRequest() {
@@ -225,7 +233,7 @@ export default class GlobalSettings extends Options {
 		
 		let audioFileUri;
 
-		for (let number = 1; number < 1000; number++) {
+		for (let number = 1; number <= 100; number++) {
 
 			this.getAudioFileUri(number, true);
 			expectedAudioFiles.push(audioFileUri);
@@ -252,7 +260,7 @@ export default class GlobalSettings extends Options {
 					}
 				}
 
-				if (foundAudioFiles == 2000) {
+				if (foundAudioFiles >= 200) {
 					yesNoHandler(true);
 				}
 				else {
@@ -273,9 +281,16 @@ export default class GlobalSettings extends Options {
 
 			number++;
 
-			if (number <= 1000) {
+			if (number <= 100) {
 				this.downloadAudioFileToCache(number, traditionellVerdrehtEnabled, downloadFinishedHandler);
-				this.updateDownloadProgressMsg(number);
+				
+				let progressNumber = number; 
+				
+				if(!traditionellVerdrehtEnabled) {
+					progressNumber  = number + 100;
+				}
+				
+				this.updateDownloadProgressMsg(progressNumber);
 			}
 			else {
 
@@ -304,7 +319,7 @@ export default class GlobalSettings extends Options {
 		}
 		else {
 			
-			let msg = 'Lade Datei ' + currentDownloadCount + '/2000';
+			let msg = 'Lade Datei ' + currentDownloadCount + '/200';
 			downloadProgressElem.textContent = msg;
 		}
 	}
@@ -347,7 +362,6 @@ export default class GlobalSettings extends Options {
 		else {
 			mp3uri += 'zehneins';
 		}
-
 
 		if (number < 10) {
 			number = '00' + number;
