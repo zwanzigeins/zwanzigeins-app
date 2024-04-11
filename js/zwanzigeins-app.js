@@ -22,34 +22,33 @@ new Statistics(listenAndWriteGame);
 new Statistics(mentalArithmeticGame);
 
 function initExpandables(container) {
-	
+
 	let h2s = container.querySelectorAll('h2');
-	
+
 	h2s.forEach(h2 => {
-		
+
 		h2.onclick = () => {
-			
+
 			h2.classList.toggle('expanded');
 		};
 	});
-	
 }
 
 Pages.INSTANCE.addBeforeOpenedHandler(pageId => {
-	
-	if(pageId == 'manual') {
-		
+
+	if (pageId == 'manual') {
+
 		let manualContentContainer = document.getElementById('manualContent');
-		if(manualContentContainer.textContent == '') {
+		if (manualContentContainer.textContent == '') {
 			// dev-mode => load manual-content from file
 			// in prod-mode it is already inserted by build-process
 			fetch("manual.html")
 				.then(response => {
-					
+
 					return response.text();
 				})
 				.then(text => {
-					
+
 					manualContentContainer.innerHTML = text;
 					initExpandables(manualContentContainer);
 				})
@@ -91,7 +90,7 @@ let swUri = 'service-worker.js';
 
 let reloadButton = document.querySelector('#reloadForUpdate > button');
 reloadButton.onclick = () => {
-	location.reload();	
+	location.reload();
 };
 
 window.navigator.serviceWorker.getRegistration().then(registration => {
@@ -101,9 +100,9 @@ window.navigator.serviceWorker.getRegistration().then(registration => {
 	}
 	else {
 		registration.update();
-		
+
 		window.navigator.serviceWorker.addEventListener('controllerchange', () => {
-			
+
 			document.body.classList.add('updateInstalled');
 		});
 	}
@@ -115,3 +114,18 @@ giveConsentAnchor.addEventListener('click', () => {
 	document.documentElement.classList.remove('consent-required');
 	localStorage.setItem('consent-given', 'true');
 });
+
+if (typeof speechSynthesis === "undefined") {
+
+	alert('Dieses Gerät unterstützt keine Sprachausgabe. Die App ist so nur eingeschränkt nutzbar.');
+}
+else {
+
+	const voices = speechSynthesis.getVoices();
+
+	if (voices.length == 0) {
+		
+		alert('Auf diesem Gerät ist keine Stimme für die Sprachausgabe installiert. Die App ist so nur eingeschränkt nutzbar.\n' + 
+		'Bitte installiere eine deutsche Stimme für die Sprachausgabe.');
+	}	
+}
