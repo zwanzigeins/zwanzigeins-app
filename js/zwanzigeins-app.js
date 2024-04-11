@@ -136,7 +136,7 @@ else {
 			
 			console.log('voice-lang: ' + voice.lang)
 			
-			if(voice.lang == 'de_DE') {
+			if(voice.lang == 'de_DE' || voice.lang == 'de-DE') {
 				deDeVoiceFound = true;
 			}			
 		}
