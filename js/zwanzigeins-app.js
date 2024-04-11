@@ -115,17 +115,40 @@ giveConsentAnchor.addEventListener('click', () => {
 	localStorage.setItem('consent-given', 'true');
 });
 
-if (typeof speechSynthesis === "undefined") {
 
+
+if (typeof speechSynthesis === "undefined") {
+	
 	alert('Dieses Gerät unterstützt keine Sprachausgabe. Die App ist so nur eingeschränkt nutzbar.');
 }
 else {
-
-	const voices = speechSynthesis.getVoices();
-
-	if (voices.length == 0) {
+	
+	// wait on voices to be loaded before fetching list
+	window.speechSynthesis.onvoiceschanged = () => {
 		
-		alert('Auf diesem Gerät ist keine Stimme für die Sprachausgabe installiert. Die App ist so nur eingeschränkt nutzbar.\n' + 
-		'Bitte installiere eine deutsche Stimme für die Sprachausgabe.');
-	}	
+		console.log('onvoiceschanged received.');
+
+		const voices = speechSynthesis.getVoices();
+		
+		let deDeVoiceFound = false;
+		
+		for(let voice of voices) {
+			
+			console.log('voice-lang: ' + voice.lang)
+			
+			if(voice.lang == 'de_DE') {
+				deDeVoiceFound = true;
+			}			
+		}
+
+		if (!deDeVoiceFound) {
+
+			alert('Auf diesem Gerät ist keine deutsche Stimme für die Sprachausgabe installiert. Die App ist so nur eingeschränkt nutzbar.\n' +
+				'Bitte installiere eine deutsche Stimme für die Sprachausgabe.');
+		}
+	};
+	
+	// trigger onvoiceschanged
+	speechSynthesis.getVoices();
+
 }
