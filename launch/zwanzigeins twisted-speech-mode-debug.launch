@@ -3,13 +3,7 @@
     <stringAttribute key="args" value=""/>
     <stringAttribute key="bad_container_name" value="/zwanzigeins-app/laun"/>
     <booleanAttribute key="org.eclipse.debug.core.ATTR_FORCE_SYSTEM_CONSOLE_ENCODING" value="false"/>
-    <stringAttribute key="org.eclipse.debug.core.ATTR_WORKING_DIRECTORY" value="/home/luk/git/zwanzigeins-app"/>
-    <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-        <listEntry value="/zwanzigeins-app/dev/twisted-speech-mode-debug.js"/>
-    </listAttribute>
-    <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
-        <listEntry value="1"/>
-    </listAttribute>
+    <stringAttribute key="org.eclipse.debug.core.ATTR_WORKING_DIRECTORY" value="${project_loc}"/>
     <booleanAttribute key="org.eclipse.lsp4e.debug.model.ATTR_CUSTOM_DEBUG_ADAPTER" value="false"/>
     <booleanAttribute key="org.eclipse.lsp4e.debug.model.ATTR_CUSTOM_LAUNCH_PARAMS" value="true"/>
     <stringAttribute key="org.eclipse.lsp4e.debug.model.ATTR_DSP_MODE" value="launch server"/>
@@ -17,5 +11,5 @@
     <stringAttribute key="org.eclipse.lsp4e.debug.model.ATTR_DSP_PARAM" value="{&quot;experimentalDefaultType&quot;: &quot;module&quot;}"/>
     <stringAttribute key="org.eclipse.lsp4e.debug.model.ATTR_DSP_SERVER_HOST" value="127.0.0.1"/>
     <intAttribute key="org.eclipse.lsp4e.debug.model.ATTR_DSP_SERVER_PORT" value="4711"/>
-    <stringAttribute key="program" value="/home/luk/git/zwanzigeins-app/dev/twisted-speech-mode-debug.js"/>
+    <stringAttribute key="program" value="${project_loc}/dev/twisted-speech-mode-debug.js"/>
 </launchConfiguration>

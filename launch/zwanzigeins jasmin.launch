@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.eclipse.wildwebdeveloper.launchConfiguration.nodeDebug">
-    <stringAttribute key="args" value="--experimental-default-type=module"/>
+    <stringAttribute key="args" value=""/>
     <booleanAttribute key="org.eclipse.debug.core.ATTR_FORCE_SYSTEM_CONSOLE_ENCODING" value="false"/>
-    <stringAttribute key="org.eclipse.debug.core.ATTR_WORKING_DIRECTORY" value="."/>
+    <stringAttribute key="org.eclipse.debug.core.ATTR_WORKING_DIRECTORY" value="${project_loc}"/>
     <booleanAttribute key="org.eclipse.lsp4e.debug.model.ATTR_CUSTOM_DEBUG_ADAPTER" value="false"/>
     <booleanAttribute key="org.eclipse.lsp4e.debug.model.ATTR_CUSTOM_LAUNCH_PARAMS" value="false"/>
     <stringAttribute key="org.eclipse.lsp4e.debug.model.ATTR_DSP_MODE" value="launch server"/>
