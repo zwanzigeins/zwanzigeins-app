@@ -1,5 +1,6 @@
 import Utils from './utils.js';
 import Pages from './pages.js';
+import TwistedSpeechInputConverter from './twisted-speech-input-converter.js';
 
 export default class NumberDictationGame {
 
@@ -14,6 +15,8 @@ export default class NumberDictationGame {
 		};
 
 		this.outputElem = numberDictationGamePage.querySelector('.numberDictationOutput');
+		
+		this.twistedSpeechModeConverter = new TwistedSpeechInputConverter();
 	}
 
 	startGame() {
@@ -25,17 +28,17 @@ export default class NumberDictationGame {
 		recognition.continuous = false;
 		recognition.lang = 'de-DE';
 		recognition.interimResults = false;
-		recognition.maxAlternatives = 1;
-
+		recognition.maxAlternatives = 10;
+		
 		recognition.onresult = event => {
 
-			var resultText = event.results[0][0].transcript;
-			console.log('resultText: ' + resultText);
+			var speechRecognitionInput = event.results[0][0].transcript;
+			console.log('speech-recognition-input: ' + speechRecognitionInput);
 
-			let numberified = Utils.numberifySpeechResult(resultText);
+			let numberified = this.twistedSpeechModeConverter.convertTwistedSpeechInput(speechRecognitionInput);
 			this.outputElem.textContent = numberified;
 		};
-
+		
 		recognition.onspeechend = () => {
 
 			recognition.stop();
@@ -47,6 +50,8 @@ export default class NumberDictationGame {
 		};
 
 		recognition.onerror = event => {
+			
+			console.log(event);
 
 			this.startGame();
 		}

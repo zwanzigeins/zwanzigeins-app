@@ -93,20 +93,23 @@ reloadButton.onclick = () => {
 	location.reload();
 };
 
-window.navigator.serviceWorker.getRegistration().then(registration => {
-
-	if (registration == null) {
-		window.navigator.serviceWorker.register(swUri);
-	}
-	else {
-		registration.update();
-
-		window.navigator.serviceWorker.addEventListener('controllerchange', () => {
-
-			document.body.classList.add('updateInstalled');
-		});
-	}
-});
+if(window.navigator.serviceWorker) {
+	
+	window.navigator.serviceWorker.getRegistration().then(registration => {
+	
+		if (registration == null) {
+			window.navigator.serviceWorker.register(swUri);
+		}
+		else {
+			registration.update();
+	
+			window.navigator.serviceWorker.addEventListener('controllerchange', () => {
+	
+				document.body.classList.add('updateInstalled');
+			});
+		}
+	});
+}
 
 let giveConsentAnchor = document.querySelector('a#give-consent');
 giveConsentAnchor.addEventListener('click', () => {
@@ -126,16 +129,12 @@ else {
 	// wait on voices to be loaded before fetching list
 	window.speechSynthesis.onvoiceschanged = () => {
 		
-		console.log('onvoiceschanged received.');
-
 		const voices = speechSynthesis.getVoices();
 		
 		let deDeVoiceFound = false;
 		
 		for(let voice of voices) {
-			
-			console.log('voice-lang: ' + voice.lang)
-			
+						
 			if(voice.lang == 'de_DE' || voice.lang == 'de-DE') {
 				deDeVoiceFound = true;
 			}			

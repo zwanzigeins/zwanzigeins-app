@@ -2,6 +2,7 @@
   "name": "zwanzigeins-app",
   "version": "0.1.0",
   "description": "Kopfrechen-Trainer für die unverdrehte Zahlensprechweise.",
+  "type": "module",
   "main": "src/zwanzigeins-app.js",
   "scripts": {
     "test": "jasmine"
@@ -22,7 +23,7 @@
     "gulp-rev-all": "^3.0.0",
     "gulp-ssh": "^0.7.0",
     "gulp-uglifycss": "^1.1.0",
-    "jasmine": "^4.5.0",
+    "jasmine": "^5.2.0",
     "local-web-server": "^3.0.7",
     "rollup": "^1.32.1",
     "rollup-plugin-uglify-es": "0.0.1",
