@@ -1,13 +1,10 @@
-const
-  	gulp = require('gulp'),
-  	rollup = require('gulp-better-rollup'),
-  	uglify = require('rollup-plugin-uglify-es'),
-  	uglifycss = require('gulp-uglifycss'),
-  	shell = require('shelljs'),
-  	fs = require('fs'),
-  	os = require('os'),
-	revAll = require('gulp-rev-all')
-  	;
+import gulp from 'gulp';
+import rollup from 'gulp-better-rollup';
+import uglify from 'rollup-plugin-uglify-es';
+import uglifycss from 'gulp-uglifycss';
+import shell from 'shelljs';
+import fs from 'fs';
+import revAll from 'gulp-rev-all';
 
 const 
 	stagePath = 'build/stage',

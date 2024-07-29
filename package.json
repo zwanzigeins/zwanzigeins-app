@@ -18,13 +18,13 @@
   },
   "homepage": "https://github.com/zwanzigeins-app/zwanzigeins-app#readme",
   "devDependencies": {
-    "gulp": "^4.0.2",
+    "gulp": "^5.0.0",
     "gulp-better-rollup": "^4.0.1",
     "gulp-rev-all": "^3.0.0",
-    "gulp-ssh": "^0.7.0",
+    "gulp-ssh": "^0.0.2",
     "gulp-uglifycss": "^1.1.0",
     "jasmine": "^5.2.0",
-    "local-web-server": "^3.0.7",
+    "local-web-server": "^5.3.4",
     "rollup": "^1.32.1",
     "rollup-plugin-uglify-es": "0.0.1",
     "shelljs": "^0.8.4"
