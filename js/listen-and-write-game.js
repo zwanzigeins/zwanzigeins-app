@@ -1,8 +1,8 @@
 import Options from './options.js';
-import NumberGame from './number-game.js';
 import Sound from './sound.js';
+import NumberTypingGame from './number-typing-game.js';
 
-export default class ListenAndWriteGame extends NumberGame {
+export default class ListenAndWriteGame extends NumberTypingGame {
 
 	constructor() {
 

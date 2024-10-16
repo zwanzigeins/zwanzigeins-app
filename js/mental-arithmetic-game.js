@@ -1,9 +1,9 @@
-import NumberGame from './number-game.js';
+import NumberTypingGame from './number-typing-game.js';
 import Utils from './utils.js';
 import Sound from './sound.js';
 import MentalArithmeticGameOptions from './mental-arithmetic-game-options.js';
 
-export default class MentalArithmeticGame extends NumberGame {
+export default class MentalArithmeticGame extends NumberTypingGame {
 
 	constructor() {
 
