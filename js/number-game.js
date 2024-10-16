@@ -140,6 +140,12 @@ export default class NumberGame {
 	 * Verarbeitet die Eingabe einer Zahl. 
 	 */
 	processNumberInput(number) {
+		
+		if(isNaN(number)) {
+			
+			console.error('NaN was inputted: ' + number);
+			return;
+		} 
 
 		// wenn die Antwort bereits korrekt ist, ignoriere sämtliche Eingaben
 		// (es läuft gerade ein Timeout, welches die nächste Runde einleitet)

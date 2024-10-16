@@ -190,6 +190,11 @@ a[href='#listen-and-write-menu']:before {
 	background-image: url(../img/ic_hearing_24px.svg);
 }
 
+a[href='#number-dictation-game']:before {
+	background-image: url(../img/microphone.svg);
+	background-size: 24px;
+}
+
 a[href='#mental-arithmetic-menu']:before {
 	background-image: url(../img/mental-arithmetic.svg);
 }
