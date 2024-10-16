@@ -43,8 +43,9 @@ export default class NumberGame {
 		for (let i = 0; i < numBtns.length; i++) {
 
 			Utils.setPressHandler(numBtns[i], e => {
-
-				let number = parseInt(e.currentTarget.innerHTML);
+				
+				let numberString = e.currentTarget.dataset.number;
+				let number = parseInt(numberString);
 				this.processNumberInput(number);
 			});
 		}

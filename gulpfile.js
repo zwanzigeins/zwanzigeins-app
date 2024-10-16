@@ -5,6 +5,12 @@ import uglifycss from 'gulp-uglifycss';
 import shell from 'shelljs';
 import fs from 'fs';
 import revAll from 'gulp-rev-all';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// restore node-js-global variables inside ES-module
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const 
 	stagePath = 'build/stage',
@@ -27,7 +33,7 @@ gulp.task('build-css', () => {
 
 gulp.task('copy-images-to-stage', () => {
 	
-	return gulp.src('img/**/*')
+	return gulp.src('img/**/*', {encoding: false})
 		.pipe(gulp.dest(stagePath + '/img'));
 });
 
@@ -51,7 +57,7 @@ gulp.task('copy-mp3-to-dist', () => {
 
 gulp.task('rev-all', () => {
 	
-	return gulp.src(stagePath + '/**/*')
+	return gulp.src(stagePath + '/**/*', {encoding: false})
 		.pipe(revAll.revision({ includeFilesInManifest: ['.css', '.js', '.png', '.svg', '.html'] }))
 		.pipe(gulp.dest(distPath))
 		.pipe(revAll.manifestFile())

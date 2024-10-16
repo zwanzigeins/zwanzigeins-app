@@ -11,7 +11,7 @@
 	
 	"icons": [
 		{
-			"src": "img/zwanzigeins-favicon-rounded-x192.png",
+			"src": "img/zwanzigeins-app-icon-rounded-192.png",
 			"sizes": "192x192",
 			"type": "image/png",
 			"purpose": "any"
@@ -23,7 +23,7 @@
 			"purpose": "maskable"
 		},
 		{
-			"src": "img/zwanzigeins-favicon-rounded-x384.png",
+			"src": "img/zwanzigeins-app-icon-rounded-384.png",
 			"sizes": "384x384",
 			"type": "image/png",
 			"purpose": "any"
@@ -35,7 +35,7 @@
 			"purpose": "maskable"
 		},
 		{
-			"src": "img/zwanzigeins-favicon-rounded-x512.png",
+			"src": "img/zwanzigeins-app-icon-rounded-512.png",
 			"sizes": "512x512",
 			"type": "image/png",
 			"purpose": "any"

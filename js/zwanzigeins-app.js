@@ -126,25 +126,37 @@ if (typeof speechSynthesis === "undefined") {
 }
 else {
 	
+	// at app-start, the voices-list ist not always populated, 
+	// so wait until document loaded and add some delay
+	
+	document.addEventListener('load', evt => {
+		
+		setTimeout(() => {
+			
+			const voices = speechSynthesis.getVoices();
+					
+			let deDeVoiceFound = false;
+			
+			for(let voice of voices) {
+							
+				if(voice.lang == 'de_DE' || voice.lang == 'de-DE') {
+					deDeVoiceFound = true;
+				}			
+			}
+
+			if (!deDeVoiceFound) {
+
+				alert('Auf diesem Gerät ist keine deutsche Stimme für die Sprachausgabe installiert. Die App ist so nur eingeschränkt nutzbar.\n' +
+					'Bitte installiere eine deutsche Stimme für die Sprachausgabe.');
+			}
+			
+		}, 500);
+	});
+	
 	// wait on voices to be loaded before fetching list
 	window.speechSynthesis.onvoiceschanged = () => {
 		
-		const voices = speechSynthesis.getVoices();
 		
-		let deDeVoiceFound = false;
-		
-		for(let voice of voices) {
-						
-			if(voice.lang == 'de_DE' || voice.lang == 'de-DE') {
-				deDeVoiceFound = true;
-			}			
-		}
-
-		if (!deDeVoiceFound) {
-
-			alert('Auf diesem Gerät ist keine deutsche Stimme für die Sprachausgabe installiert. Die App ist so nur eingeschränkt nutzbar.\n' +
-				'Bitte installiere eine deutsche Stimme für die Sprachausgabe.');
-		}
 	};
 	
 	// trigger onvoiceschanged
