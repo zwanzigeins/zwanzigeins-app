@@ -1,6 +1,8 @@
 import NumberGame from './number-game.js';
 import Utils from './utils.js';
 import Sound from './sound.js';
+import Pages from './pages.js';
+import GlobalSettings from './global-settings.js';
 
 export default class NumberTypingGame extends NumberGame {
 	
@@ -15,7 +17,7 @@ export default class NumberTypingGame extends NumberGame {
 		}
 		else {
 			answerElemSelector = ':not(.auditive) > .answer';
-		}	
+		}
 		
 		this.answerElem = this.gameElem.querySelector(answerElemSelector);
 		this.currentAnswer = '';
@@ -48,6 +50,16 @@ export default class NumberTypingGame extends NumberGame {
 
 			this.resetCurrentAnswer();
 		});
+		
+		Pages.INSTANCE.addBeforeOpenedHandler(pageId => {
+
+			if (pageId == menuPageId) {
+
+				let speechModeQuickAccessElem = GlobalSettings.INSTANCE.getSpeechModeQuickAccessElement();
+				let center = this.menuElem.querySelector('.center');
+				center.appendChild(speechModeQuickAccessElem);
+			}
+		});
 	}
 	
 	/**
@@ -57,13 +69,16 @@ export default class NumberTypingGame extends NumberGame {
 		
 		if(isNaN(number)) {
 			
-			console.error('NaN was inputted: ' + number);
+			console.error('NaN as input not allowed: ' + number);
 			return;
 		} 
 
 		// wenn die Antwort bereits korrekt ist, ignoriere sämtliche Eingaben
 		// (es läuft gerade ein Timeout, welches die nächste Runde einleitet)
 		if (this.isCurrentAnswerCorrect()) {
+			
+			super.processCorrectAnswer();
+			
 			return;
 		}
 

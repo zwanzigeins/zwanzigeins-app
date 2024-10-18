@@ -1,8 +1,6 @@
 import ListenAndWriteGame from './listen-and-write-game.js';
-
-
+import SeeAndSpeakGame from './see-and-speak-game.js';
 import MentalArithmeticGame from './mental-arithmetic-game.js';
-import NumberDictationGame from './number-dictation-game.js';
 import Pages from './pages.js';
 import Sound from './sound.js';
 import GlobalSettings from './global-settings.js';
@@ -14,11 +12,11 @@ Pages.INSTANCE = new Pages();
 GlobalSettings.INSTANCE = new GlobalSettings();
 
 let listenAndWriteGame = new ListenAndWriteGame();
+let seeAndSpeakGame = new SeeAndSpeakGame();
 let mentalArithmeticGame = new MentalArithmeticGame();
 
-new NumberDictationGame();
-
 new Statistics(listenAndWriteGame);
+new Statistics(seeAndSpeakGame);
 new Statistics(mentalArithmeticGame);
 
 function initExpandables(container) {

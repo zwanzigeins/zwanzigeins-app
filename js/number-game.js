@@ -24,16 +24,6 @@ export default class NumberGame {
 		this.numErrors = 0;
 		// remember previous task to prevent consecutive putting of same task
 		this.prevTask;
-
-		Pages.INSTANCE.addBeforeOpenedHandler(pageId => {
-
-			if (pageId == menuPageId) {
-
-				let speechModeQuickAccessElem = GlobalSettings.INSTANCE.getSpeechModeQuickAccessElement();
-				let center = this.menuElem.querySelector('.center');
-				center.appendChild(speechModeQuickAccessElem);
-			}
-		});
 	}
 
 	putNewTask() {
@@ -166,7 +156,28 @@ export default class NumberGame {
 
 		this.answerElem.classList.remove('error', 'correct');
 	}
+	
+	processCorrectAnswer() {
+		
+		// Ergebnis wurde durch die letzte Eingabe korrekt -> Styles setzen,
+		// 500ms lang anzeigen & anschließend nächste Runde aufrufen / Spiel
+		// beenden
+		this.styleCorrectAnswer();
 
+		setTimeout(() => {
+
+			if (this.tasksPut < this.options.numTasks) {
+				this.putNewTask();
+			}
+			else {
+				// keine Tasks mehr übrig -> Spiel beenden
+				this.finishGame();
+			}
+
+		}, 500);
+		return;
+	}
+	
 	// ##### custom level handling #####
 
 	initCustomLevelHandling(defaultOptions) {
@@ -312,9 +323,6 @@ export default class NumberGame {
 	/** abstract */
 	presentNewTask(task) { };
 	
-	/** abstract */
-	supportsCustomLevels() { };
-
 	/** abstract */
 	provideCustomLevelLabelText(customLevel) { };
 

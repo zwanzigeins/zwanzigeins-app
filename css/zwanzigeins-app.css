@@ -4,6 +4,7 @@
 	--button-gradient-top-active-color: #d9dddd;
 	--button-gradient-bottom-color-active: #c6c3c3;
 	--correct-indication-bg: #22b560;
+	--incorrect-indication-bg: #b00002;
 }
 
 html.dark-theme{
@@ -12,6 +13,7 @@ html.dark-theme{
 	--button-gradient-top-active-color: var(--button-bg-active-color);
 	--button-gradient-bottom-active-color: var(--button-bg-active-color);
 	--correct-indication-bg: #1c954f;
+	--incorrect-indication-bg: #b00002;
 }
 
 .profileEnabled[data-checked='false'] + .field{
@@ -64,6 +66,13 @@ html.dark-theme{
 	text-align: left;
 }
 
+.task,
+.answer {
+	height: 6rem;
+	background-color: var(--input-bg-color);
+	background-image: none;	
+}
+
 .numberGame > table{
 	flex: 1;
 	display: table;
@@ -72,13 +81,6 @@ html.dark-theme{
 	border-collapse: collapse;
 	/* iphone needs height: full-height - header-height */
 	height: calc(100% - 3rem);
-}
-
-.numberGame .task,
-.numberGame .answer {
-	height: 6rem;
-	background-color: var(--input-bg-color);
-	background-image: none;
 }
 
 .numberGame td{
@@ -97,12 +99,12 @@ html.dark-theme{
     display: none;
 }
 
-.numberGame .answer.error{
-	background: #b00002;
+.answer.error{
+	background: var(--incorrect-indication-bg);
 	color: white;
 }
 
-.numberGame .answer.correct{
+.answer.correct{
 	background: var(--correct-indication-bg);
 	color: white;
 }
@@ -156,14 +158,59 @@ html.dark-theme{
 	background-image: linear-gradient(to bottom, var(--button-gradient-top-active-color), var(--button-gradient-bottom-active-color));
 }
 
-#numberDictationGame .answer {
-	height: 6rem;
-	font-size: 2.5rem;
+#see-and-speak-menu .error {
+	margin-top: 2rem;
+	text-align: center;
+	color: var(--error-color);
+	font-weight: bold;
+}
+
+#see-and-speak-game > .center{
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+#see-and-speak-game > .center > .task {
+	font-size: 3rem;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background-color: var(--input-bg-color);
+	position: relative;
+	top: -5rem;
+	background: transparent;
 }
+
+#see-and-speak-game > .center > .task.correct {
+	background: var(--correct-indication-bg);
+	color: white;
+}
+
+#see-and-speak-game > .center > .task.error {
+	background: var(--incorrect-indication-bg);
+	color: white;
+}
+
+#see-and-speak-game > .center > button{
+	position: absolute;
+	bottom: 0;
+	height: 5rem;
+	margin: 0;
+	text-align: center;
+}
+
+#see-and-speak-game > .center > button:before{
+	position: static;
+	background-image: url(../img/microphone.svg);
+	transition: 0.2s;
+}
+
+#see-and-speak-game > .center > button.active:before{
+	filter: var(--active-icon-filter);
+}
+
+
 
 button.share:before {
 	background-image: url(../img/ic_share_24px.svg);
@@ -190,7 +237,7 @@ a[href='#listen-and-write-menu']:before {
 	background-image: url(../img/ic_hearing_24px.svg);
 }
 
-a[href='#number-dictation-game']:before {
+a[href='#see-and-speak-menu']:before {
 	background-image: url(../img/microphone.svg);
 	background-size: 24px;
 }

@@ -37,16 +37,6 @@ export default class MentalArithmeticGame extends NumberTypingGame {
 		let defaultLevelOptions = this.createDefaultLevelOptions();
 
 		super.initCustomLevelHandling(defaultLevelOptions);
-
-
-		// declare empty variables for documentation
-		this.rightResult;
-
-		this.wrongAnswerOccured;
-		this.wrongAnswerTimeStamp;
-
-		this.tasksPut = 0;
-		this.gameStartTimeStamp;
 	}
 
 	getPredefinedLevelOptions(levelName) {
@@ -303,9 +293,6 @@ export default class MentalArithmeticGame extends NumberTypingGame {
 	}
 
 	getAllPredefinedLevelOptions() {
-
-
-
 
 	}
 

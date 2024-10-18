@@ -304,12 +304,21 @@ export default class Statistics {
 			}
 
 			let gameNameOutput;
-
-			if (this.gameName == 'listen-and-write') {
-				gameNameOutput = 'Hoeren-und-Schreiben';
-			}
-			else {
-				gameNameOutput = 'Kopfrechnen';
+			
+			switch(this.gameName) {
+				
+				case 'listen-and-write':
+					
+					gameNameOutput = 'Hoeren-und-Schreiben';
+					break;
+					
+				case 'see-and-speak':
+					
+					gameNameOutput = 'Sehen-und-Schreiben';
+					break;
+					
+				default:
+					gameNameOutput = 'Kopfrechnen';
 			}
 
 			let speechRateOutput = gameScore.speechRate;

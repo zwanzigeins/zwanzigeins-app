@@ -9,6 +9,17 @@
 	content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
 <meta name="theme-color" content="#222"/>
 <title>Zwanzigeins-App</title>
+<style>
+
+@media (prefers-color-scheme: dark) {
+
+    html{
+        background-color: #333;
+    }
+}
+
+</style>
+
 <script>
     if(navigator.userAgent.indexOf(' iPhone ') != -1) {
         document.documentElement.classList.add('iphone');
@@ -46,7 +57,7 @@
 				</p>
 				<h2>Hauptmenü</h2>
 				<a href="#listen-and-write-menu">Hören &amp; Schreiben</a>
-<!-- 				<a href="#number-dictation-game">Sehen &amp; Sprechen</a> -->
+				<a href="#see-and-speak-menu">Sehen &amp; Sprechen</a>
 				<a href="#mental-arithmetic-menu">Kopfrechnen</a>
 				
 				<a href="#settings">Einstellungen</a>
@@ -500,15 +511,75 @@
 				</tr>
 			</table>
 		</div>
-
-		<div id="number-dictation-game" class="page">
+		
+		<div id="see-and-speak-menu" class="page">
 			<header>
 				<button class="back"></button>
-				<h1>Zahlen unverdreht sprechen</h1>
+				<h1>Sehen &amp; Sprechen</h1>
 			</header>
 			<div class="center">
-				<div class="numberDictationOutput answer"></div>
-				<button class="start">Start</button>
+				Bei diesem Spiel muss man die gezeigten Zahlen in "zehneins"-Sprechweise
+				oder traditionell verdreht aussprechen.
+				<br>
+				
+				<section class='options'>
+				
+					<button class="start">Start</button>				
+					
+					<h2>Stelligkeit</h2>
+					<div class="controlGroup">
+						<div class="field">
+							<input type="radio" name="arity" id="arity2" value="2">
+							<label for="arity2"> 2</label>
+						</div>
+						<div class="field">
+							<input type="radio" name="arity" id="arity3" value="3">
+							<label for="arity3"> 3</label>
+						</div>				
+					</div>
+					
+					<h2>Anzahl Aufgaben</h2>
+					<div class="controlGroup">
+						<div class="field">
+							<input type="radio" name="numTasks" id="see-and-speak-numTasks-5" value="5">
+							<label for="see-and-speak-numTasks-5"> 5</label>
+						</div>
+						<div class="field">
+							<input type="radio" name="numTasks" id="see-and-speak-numTasks-10" value="10">
+							<label for="see-and-speak-numTasks-10"> 10</label>
+						</div>
+						<div class="field">
+							<input type="radio" name="numTasks" id="see-and-speak-numTasks-20" value="20">
+							<label for="see-and-speak-numTasks-20"> 20</label>
+						</div>					
+					</div>
+					
+					<h2>Sprechweise</h2>
+					<div class="controlGroup">
+						<div class="field">
+							<input type="radio" name="twistedSpeechMode" id="seeAndSpeak-zehneins" value="zehneins"> 
+								<label for="seeAndSpeak-zehneins"> zehneins</label>
+						</div>					
+						<div class="field">
+							<input type="radio" name="twistedSpeechMode"
+								id="seeAndSpeak-traditionellVerdreht" value="traditionellVerdreht">
+							<label for="seeAndSpeak-traditionellVerdreht"> traditionell verdreht</label>				
+						</div>
+					</div>
+				
+				</section>
+				
+			</div>
+		</div>
+
+		<div id="see-and-speak-game" class="page" data-prevent-initial-display>
+			<header class="iphone-only">
+				<button class="back"></button>
+				<h1></h1>
+			</header>
+			<div class="center">
+				<div class="task answer"></div>
+				<button class="microphone">&nbsp;</button>
 			</div>
 		</div>
 
@@ -677,8 +748,9 @@
 			</header>
 			<div class="center">
 
-				<a href='#statistics-listen-and-write'>Hören &amp; Schreiben</a> <a
-					href='#statistics-mental-arithmetic'>Kopfrechnen</a>
+				<a href='#statistics-listen-and-write'>Hören &amp; Schreiben</a>
+				<a href='#statistics-see-and-speak'>Sehen &amp; Sprechen</a>
+				<a href='#statistics-mental-arithmetic'>Kopfrechnen</a>
 			</div>
 		</div>
 
@@ -686,6 +758,17 @@
 			<header>
 				<button class="back"></button>
 				<h1>Statistik: Hören &amp; Schreiben</h1>
+				<button class="clear"></button>
+				<button class="download"></button>
+				<!--                 <button class="share"></button> -->
+			</header>
+			<div class="center"></div>
+		</div>
+		
+		<div id="statistics-see-and-speak" class="page statisticsPage">
+			<header>
+				<button class="back"></button>
+				<h1>Statistik: Sehen &amp; Sprechen</h1>
 				<button class="clear"></button>
 				<button class="download"></button>
 				<!--                 <button class="share"></button> -->
