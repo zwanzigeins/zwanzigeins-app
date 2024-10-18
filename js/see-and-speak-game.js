@@ -2,21 +2,21 @@ import Utils from './utils.js';
 import NumberGame from './number-game.js';
 import TwistedSpeechInputConverter from './twisted-speech-input-converter.js';
 import Options from './options.js';
-
+import Pages from './pages.js';
 export default class SeeAndSpeakGame extends NumberGame {
 
 	constructor() {
 
 		super('see-and-speak', 'see-and-speak-menu', 'see-and-speak-game');
-		
+
 		if (typeof SpeechRecognition === 'undefined' && typeof webkitSpeechRecognition === 'undefined') {
-		    // the variable is defined
-			
-			let optionsArea = this.menuElem.querySelector('.options');			
+			// the variable is defined
+
+			let optionsArea = this.menuElem.querySelector('.options');
 			optionsArea.innerHTML = '<div class="error">Dieser Browser unterstützt keine Spracheingabe.</div>';
 			return;
 		}
-		
+
 		let defaultOptions = {
 			arity: 2,
 			numTasks: 5,
@@ -33,21 +33,21 @@ export default class SeeAndSpeakGame extends NumberGame {
 
 			this.startGame();
 		});
-		
+
 		this.taskElem = this.gameElem.querySelector('.task');
 		this.answerElem = this.taskElem;
-		
+
 		this.microphoneButton = this.gameElem.querySelector('.microphone');
 		this.microphoneButton.addEventListener('click', evt => {
-			
-			if(this.recognitionRunning) {
+
+			if (this.recognitionRunning) {
 				this.recognition.stop();
 			}
 			else {
 				this.recognition.start();
 			}
 		});
-		
+
 		this.recognitionRunning = false;
 	}
 
@@ -65,65 +65,61 @@ export default class SeeAndSpeakGame extends NumberGame {
 			recognition.maxAlternatives = 10;
 
 			let rightResultGiven = true;
-			
+
 			let timeout = 0;
 
 			recognition.onresult = event => {
 
 				let result;
 
-				if(this.options.twistedSpeechMode == 'zehneins') {					
-					result = this.twistedSpeechModeConverter.convertTwistedSpeechRecognition(event)
+				if (this.options.twistedSpeechMode == 'zehneins') {
+					
+					let currentArity = this.options.arity;
+					result = this.twistedSpeechModeConverter.convertTwistedSpeechRecognition(currentArity, event);
 				}
 				else {
-					
+
 					var speechRecognitionInput = event.results[0][0].transcript;
 					console.log('speech-recognition-input: ' + speechRecognitionInput);
 					result = speechRecognitionInput;
 				}
-				
-				if(result == this.rightResult) {
-					
+
+				if (result == this.rightResult) {
+
 					rightResultGiven = true;
 					recognition.stop();
 					clearTimeout(timeout);
-					this.taskElem.classList.remove("error"); 	
+					this.taskElem.classList.remove("error");
 					super.processCorrectAnswer();
 				}
 				else {
 					this.numErrors++;
 					rightResultGiven = false;
-					this.taskElem.classList.add("error"); 				
+					this.taskElem.classList.add("error");
 				}
 			};
-			
+
 			recognition.onstart = () => {
-				
+
 				this.recognitionRunning = true;
 				this.microphoneButton.classList.add('active');
 			};
 
 			recognition.onend = () => {
-				
+
 				this.recognitionRunning = false;
 				this.microphoneButton.classList.remove('active');
-				
-				if(!rightResultGiven) {
 
-					recognition.start();
-
-					/*
-					timeout = setTimeout(() => {
-						
+				if (!rightResultGiven) {
+					
+					if(Pages.INSTANCE.getCurrentId() == 'see-and-speak-game') {
 						recognition.start();
-					}, 200);
-
-					*/
+					}
 				}
 			}
 
 			recognition.onnomatch = () => {
-				
+
 			};
 
 			recognition.onerror = event => {
@@ -136,7 +132,7 @@ export default class SeeAndSpeakGame extends NumberGame {
 	}
 
 	startGame() {
-		
+
 		this.initSpeechRecognitionIfNeeded();
 		super.startGame();
 	}
@@ -172,27 +168,27 @@ export default class SeeAndSpeakGame extends NumberGame {
 			problem: random,
 			rightResult: random
 		};
-		
+
 		this.recognition.start();
 
 		return task;
 	}
 
 	presentNewTask(task) {
-	
+
 		this.taskElem.textContent = task.problem;
 	}
-	
+
 	provideCustomLevelLabelText(levelOptions) {
-		
-		let labelText = 
+
+		let labelText =
 			levelOptions.arity + '-stellig, ' +
 			levelOptions.numTasks + ' Aufgaben, ' +
 			levelOptions.twistedSpeechMode;
-			
+
 		return labelText;
 	}
-	
+
 	getGameNameTranslation() {
 
 		return 'Sehen & Sprechen';

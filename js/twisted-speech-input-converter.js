@@ -1,16 +1,20 @@
 export default class TwistedSpeechInputConverter {
 
-	convertTwistedSpeechRecognition(speechRecognitionEvent) {
+	convertTwistedSpeechRecognition(arity, speechRecognitionEvent) {
 
 		let speechRecognitionResultList = speechRecognitionEvent.results[0];
 		
 		let rightTranscript;
 		
-		let maxWhiteSpaces = 0;		
+		let maxWhiteSpaces = 0;
+		
+		let alternatives = '';
 		
 		for (let speechRecognitionAlternative of speechRecognitionResultList) {
 
 			let transcript = speechRecognitionAlternative.transcript;
+			
+			alternatives += transcript + ' | ';
 			
 			let numWhitespaces = 0;
 			
@@ -63,8 +67,29 @@ export default class TwistedSpeechInputConverter {
 			}
 		}
 		
+		console.log('alternatives: ' + alternatives);
+		
 		if(maxWhiteSpaces == 0) {
-			return null;
+			
+			let firstAlternative = speechRecognitionResultList[0];
+			let transcript = firstAlternative.transcript;
+			
+			var digitsOnlyRegex = /^\d+$/;
+			
+			if(digitsOnlyRegex.test(transcript)) {
+				
+				// insert whitespace before last character
+			    let preparedTranscript = transcript.substring(0, transcript.length - 1);
+				preparedTranscript += ' ';
+				preparedTranscript += transcript.substring(transcript.length - 1);
+				
+				console.log('preparedTranscript: ' + preparedTranscript);
+				
+				rightTranscript = preparedTranscript;				
+			}
+			else {
+				return null;
+			}
 		}
 		
 		return this.convertTwistedSpeechInput(rightTranscript);
