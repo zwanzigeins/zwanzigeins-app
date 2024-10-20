@@ -56,7 +56,6 @@ export default class SeeAndSpeakGame extends NumberGame {
 		if (!this.recognition) {
 
 			var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
-			var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
 
 			var recognition = new SpeechRecognition();
 			recognition.continuous = false;

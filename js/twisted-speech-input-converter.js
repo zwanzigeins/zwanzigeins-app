@@ -14,6 +14,31 @@ export default class TwistedSpeechInputConverter {
 
 			let transcript = speechRecognitionAlternative.transcript;
 			
+			// iphone sometimes has number-words in it's transcript
+			transcript = transcript.toLowerCase();
+			
+			transcript = transcript
+				.replaceAll('eins', '1')
+				.replaceAll('zwei', '2')
+				.replaceAll('drei', '3')
+				.replaceAll('vier', '4')
+				.replaceAll('fünf', '5')
+				.replaceAll('sechs', '6')
+				.replaceAll('sieben', '7')
+				.replaceAll('acht', '8')
+				.replaceAll('neun', '9')
+				.replaceAll('zehn', '10')
+				.replaceAll('zwanzig', '20')
+				.replaceAll('dreißig', '30')
+				.replaceAll('vierzig', '40')
+				.replaceAll('fünfzig', '50')
+				.replaceAll('sechzig', '60')
+				.replaceAll('siebzig', '70')
+				.replaceAll('achtzig', '80')
+				.replaceAll('neunzig', '90')
+				.replaceAll('hundert', '100')
+				;
+			
 			alternatives += transcript + ' | ';
 			
 			let numWhitespaces = 0;
