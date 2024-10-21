@@ -77,7 +77,7 @@
 				<h1>Hören &amp; Schreiben</h1>
 			</header>
 			<div class="center">
-				<p>Bei diesem Spiel muss man eine gesprochene Zahl korrekt eingeben.</p>
+				<p>Bei diesem Spiel musst du eine gesprochene Zahl korrekt eingeben.</p>
 
 				<a class="btnStart" href="#listen-and-write-game" data-level="easy">Leicht</a>
 				<a class="btnStart" href="#listen-and-write-game"
@@ -518,7 +518,7 @@
 				<h1>Sehen &amp; Sprechen</h1>
 			</header>
 			<div class="center">
-				Bei diesem Spiel muss man die gezeigten Zahlen in "zehneins"-Sprechweise
+				Bei diesem Spiel musst du die gezeigten Zahlen in "zehneins"-Sprechweise
 				oder traditionell verdreht aussprechen.
 				<br>
 				
@@ -563,8 +563,21 @@
 						<div class="field">
 							<input type="radio" name="twistedSpeechMode"
 								id="seeAndSpeak-traditionellVerdreht" value="traditionellVerdreht">
-							<label for="seeAndSpeak-traditionellVerdreht"> traditionell verdreht</label>				
+							<label for="seeAndSpeak-traditionellVerdreht">
+							traditionell verdreht
+													
+							</label>				
 						</div>
+					</div>
+					
+					<br>
+					<br>
+					<div class="field">
+						<input type="checkbox" name="debugModeEnabled"
+							id="seeAndSpeak-debugModeEnabled" value="true">
+						<label for="seeAndSpeak-debugModeEnabled"> Debug-Modus
+						<span class='control'></span>
+						</label>				
 					</div>
 				
 				</section>
@@ -579,6 +592,7 @@
 			</header>
 			<div class="center">
 				<div class="task answer"></div>
+				<div class='debugOutput'></div>
 				<button class="microphone">&nbsp;</button>
 			</div>
 		</div>

@@ -168,18 +168,25 @@ html.dark-theme{
 #see-and-speak-game > .center{
 	padding: 0;
 	display: flex;
-	flex-direction: column;
+	flex-direction: column;	
+}
+
+#see-and-speak-game:not(.debugModeEnabled) > .center {
 	justify-content: center;
 }
 
 #see-and-speak-game > .center > .task {
 	font-size: 3rem;
 	display: flex;
-	align-items: center;
+	background: transparent;
 	justify-content: center;
+	align-items: center;
+}
+
+#see-and-speak-game:not(.debugModeEnabled) > .center > .task {
+	justify-content: center;	
 	position: relative;
 	top: -5rem;
-	background: transparent;
 }
 
 #see-and-speak-game > .center > .task.correct {
@@ -190,6 +197,11 @@ html.dark-theme{
 #see-and-speak-game > .center > .task.error {
 	background: var(--incorrect-indication-bg);
 	color: white;
+}
+
+#see-and-speak-game .debugOutput {
+	font-size: 2rem;
+	padding: 0 2rem;
 }
 
 #see-and-speak-game > .center > button{
@@ -209,8 +221,6 @@ html.dark-theme{
 #see-and-speak-game > .center > button.active:before{
 	filter: var(--active-icon-filter);
 }
-
-
 
 button.share:before {
 	background-image: url(../img/ic_share_24px.svg);

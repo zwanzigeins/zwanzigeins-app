@@ -7,6 +7,8 @@ export default class Pages {
 		this.pagesElem = document.querySelector('body > .pages');
 
 		this.beforeOpenedHandlers = [];
+		
+		this.pageChangedHandlers = [];
 
 		window.onhashchange = () => {
 			var navToken = location.hash.substring(1);
@@ -53,8 +55,15 @@ export default class Pages {
 
 			handler.call(null, id);
 		}
+		
+		let oldPageId = this.pagesElem.firstChild.id;
 
 		this.pagesElem.insertBefore(pageElem, this.pagesElem.firstChild);
+		
+		for (let handler of this.pageChangedHandlers) {
+
+			handler.call(null, oldPageId, id);
+		}
 	}
 
 	getCurrentId() {
@@ -83,6 +92,11 @@ export default class Pages {
 	addBeforeOpenedHandler(handler) {
 
 		this.beforeOpenedHandlers.push(handler);
+	}
+
+	addPageChangedHandler(handler) {
+
+		this.pageChangedHandlers.push(handler);
 	}
 
 }

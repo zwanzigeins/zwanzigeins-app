@@ -1,14 +1,11 @@
 export default class TwistedSpeechInputConverter {
 
 	convertTwistedSpeechRecognition(arity, speechRecognitionEvent) {
-
+		
+		let rightTranscript;		
+		let maxWhiteSpaces = 0;		
+		
 		let speechRecognitionResultList = speechRecognitionEvent.results[0];
-		
-		let rightTranscript;
-		
-		let maxWhiteSpaces = 0;
-		
-		let alternatives = '';
 		
 		for (let speechRecognitionAlternative of speechRecognitionResultList) {
 
@@ -18,6 +15,11 @@ export default class TwistedSpeechInputConverter {
 			transcript = transcript.toLowerCase();
 			
 			transcript = transcript
+				.replaceAll('.', ' ')
+				.replaceAll(',', ' ')
+				.replaceAll('-', ' ')
+				.replaceAll(':', ' ')
+				.replaceAll('/', ' ')
 				.replaceAll('eins', '1')
 				.replaceAll('zwei', '2')
 				.replaceAll('drei', '3')
@@ -38,9 +40,7 @@ export default class TwistedSpeechInputConverter {
 				.replaceAll('neunzig', '90')
 				.replaceAll('hundert', '100')
 				;
-			
-			alternatives += transcript + ' | ';
-			
+						
 			let numWhitespaces = 0;
 			
 			let onlyDigitsOrWhitespace = true;
@@ -55,16 +55,6 @@ export default class TwistedSpeechInputConverter {
 							numWhitespaces++;
 							break;
 							
-						case ',':
-						case '.':
-							
-							// consider version with comma or dot
-							// as potentially right candidate 
-							if(!rightTranscript) {
-								rightTranscript = transcript; 
-							}
-							break;
-						
 						case '0':	
 						case '1':
 						case '2':
@@ -91,9 +81,7 @@ export default class TwistedSpeechInputConverter {
 				maxWhiteSpaces = numWhitespaces;
 			}
 		}
-		
-		console.log('alternatives: ' + alternatives);
-		
+				
 		if(maxWhiteSpaces == 0) {
 			
 			let firstAlternative = speechRecognitionResultList[0];
