@@ -51,7 +51,7 @@ gulp.task('copy-other-to-stage', () => {
 
 gulp.task('copy-mp3-to-dist', () => {
 	
-	return gulp.src('mp3/**')
+	return gulp.src('mp3/**', {encoding: false})
 		.pipe(gulp.dest(distPath + '/mp3'));
 });
 

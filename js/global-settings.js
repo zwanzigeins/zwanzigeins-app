@@ -23,7 +23,7 @@ export default class GlobalSettings extends Options {
 
 		let settingsPageElem = document.getElementById('settings');
 		if (settingsPageElem) {
-			
+
 			this.pageElem = settingsPageElem;
 
 			let themeRadioElems = settingsPageElem.querySelectorAll('input[name="theme"]');
@@ -66,9 +66,9 @@ export default class GlobalSettings extends Options {
 				if (this.experimentModeEnabledCheckbox.checked) {
 
 					this.downloadAudioFiles(() => {
-						
+
 						setTimeout(() => {
-							
+
 							this.updateDownloadedIndication();
 						}, 1000);
 					});
@@ -128,9 +128,9 @@ export default class GlobalSettings extends Options {
 
 		return document.documentElement.classList.contains('dark-theme');
 	}
-	
+
 	isExperimentModeEnabled() {
-		
+
 		return this.experimentModeEnabled;
 	}
 
@@ -142,7 +142,11 @@ export default class GlobalSettings extends Options {
 
 			localStorage.clear();
 
-			navigator.serviceWorker.getRegistrations()
+			window.caches.delete('v1')
+				.then(() => {
+
+					return navigator.serviceWorker.getRegistrations();
+				})
 				.then(registrations => {
 
 					for (let registration of registrations) {
@@ -230,7 +234,7 @@ export default class GlobalSettings extends Options {
 	areAudioFilesDownloaded(yesNoHandler) {
 
 		let expectedAudioFiles = [];
-		
+
 		let audioFileUri;
 
 		for (let number = 1; number <= 100; number++) {
@@ -274,7 +278,7 @@ export default class GlobalSettings extends Options {
 
 		let number = 1;
 		let traditionellVerdrehtEnabled = true;
-		
+
 		this.updateDownloadProgressMsg(number);
 
 		let downloadFinishedHandler = () => {
@@ -283,13 +287,13 @@ export default class GlobalSettings extends Options {
 
 			if (number <= 100) {
 				this.downloadAudioFileToCache(number, traditionellVerdrehtEnabled, downloadFinishedHandler);
-				
-				let progressNumber = number; 
-				
-				if(!traditionellVerdrehtEnabled) {
-					progressNumber  = number + 100;
+
+				let progressNumber = number;
+
+				if (!traditionellVerdrehtEnabled) {
+					progressNumber = number + 100;
 				}
-				
+
 				this.updateDownloadProgressMsg(progressNumber);
 			}
 			else {
@@ -309,16 +313,16 @@ export default class GlobalSettings extends Options {
 
 		this.downloadAudioFileToCache(number, traditionellVerdrehtEnabled, downloadFinishedHandler);
 	}
-	
+
 	updateDownloadProgressMsg(currentDownloadCount) {
-		
+
 		let downloadProgressElem = this.pageElem.querySelector('.downloadProgress');
-		
-		if(currentDownloadCount == -1) {
-			downloadProgressElem.textContent = '';	
+
+		if (currentDownloadCount == -1) {
+			downloadProgressElem.textContent = '';
 		}
 		else {
-			
+
 			let msg = 'Lade Datei ' + currentDownloadCount + '/200';
 			downloadProgressElem.textContent = msg;
 		}

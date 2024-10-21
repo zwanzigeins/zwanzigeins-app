@@ -128,7 +128,7 @@ export default class SeeAndSpeakGame extends NumberGame {
 						'<p>Aufgabe: ' + 
 							this.rightResult + 
 						'</p>' +
-						'<p>Spracheingabe-Alternativen:</p>'
+						'<p>Spracheingabe:</p>'
 						;
 					
 					debugOutputHtml += transcripts.join('<br>');
