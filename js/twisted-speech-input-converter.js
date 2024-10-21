@@ -22,6 +22,7 @@ export default class TwistedSpeechInputConverter {
 				.replaceAll('/', ' ')
 				.replaceAll('eins', '1')
 				.replaceAll('zwei', '2')
+				.replaceAll('II', '2')
 				.replaceAll('drei', '3')
 				.replaceAll('vier', '4')
 				.replaceAll('fünf', '5')
