@@ -39,15 +39,20 @@ export default class SeeAndSpeakGame extends NumberGame {
 		this.answerElem = this.taskElem;
 		
 		this.debugOutputElem = this.gameElem.querySelector('.debugOutput');
+		
+		this.recognitionAutoStartEnabled = true;
 
 		this.microphoneButton = this.gameElem.querySelector('.microphone');
 		this.microphoneButton.addEventListener('click', evt => {
 
 			if (this.recognitionRunning) {
+				
 				this.recognition.stop();
+				this.recognitionAutoStartEnabled = false;
 			}
 			else {
 				this.recognition.start();
+				this.recognitionAutoStartEnabled = true;
 			}
 		});
 
@@ -174,7 +179,7 @@ export default class SeeAndSpeakGame extends NumberGame {
 				this.recognitionRunning = false;
 				this.microphoneButton.classList.remove('active');
 
-				if (!rightResultGiven) {
+				if (!rightResultGiven && this.recognitionAutoStartEnabled) {
 					
 					if(Pages.INSTANCE.getCurrentId() == 'see-and-speak-game') {
 						recognition.start();
@@ -207,6 +212,8 @@ export default class SeeAndSpeakGame extends NumberGame {
 		this.initSpeechRecognitionIfNeeded();
 		
 		this.debugOutputElem.innerHTML = '';
+		
+		this.recognitionAutoStartEnabled = true;
 		
 		super.startGame();
 	}

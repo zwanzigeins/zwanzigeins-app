@@ -17,11 +17,12 @@ export default class TwistedSpeechInputConverter {
 			transcript = transcript
 				.replaceAll('.', ' ')
 				.replaceAll(',', ' ')
-				.replaceAll('-', ' ')
+				.replaceAll('-', '')
 				.replaceAll(':', ' ')
 				.replaceAll('/', ' ')
 				.replaceAll('eins', '1')
 				.replaceAll('zwei', '2')
+				.replaceAll('III', '3')
 				.replaceAll('II', '2')
 				.replaceAll('drei', '3')
 				.replaceAll('vier', '4')
@@ -41,6 +42,8 @@ export default class TwistedSpeechInputConverter {
 				.replaceAll('neunzig', '90')
 				.replaceAll('hundert', '100')
 				;
+
+			transcript = transcript.trim();
 						
 			let numWhitespaces = 0;
 			
