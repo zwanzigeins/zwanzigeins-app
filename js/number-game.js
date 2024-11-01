@@ -22,6 +22,11 @@ export default class NumberGame {
 		this.gameStartTimeStamp = new Date();
 		this.tasksPut = 0;
 		this.numErrors = 0;
+
+		this.gameProgressDetails = [];
+		this.currentTaskNumErrors = 0;
+		this.currentTaskStartMillis;
+
 		// remember previous task to prevent consecutive putting of same task
 		this.prevTask;
 	}
@@ -43,10 +48,14 @@ export default class NumberGame {
 			}
 		}
 
+		this.currentTaskNumErrors = 0;
+
 		this.rightResult = newTask.rightResult;
 		this.resetCurrentAnswer();
 
 		this.presentNewTask(newTask);
+		this.currentTaskStartMillis = Date.now();
+
 		this.tasksPut++;
 		this.prevTask = newTask;
 	}
@@ -98,6 +107,8 @@ export default class NumberGame {
 		this.tasksPut = 0;
 		this.numErrors = 0;
 		this.prevTask = null;
+		
+		this.gameProgressDetails = [];
 
 		window.location.hash = this.gamePageId;
 
@@ -137,7 +148,7 @@ export default class NumberGame {
 			optionsPayload = this.options;
 		}
 
-		this.gameScoreStorage.saveGameScore(elapsedTimeString, this.numErrors, optionsPayload);
+		this.gameScoreStorage.saveGameScore(elapsedTimeString, this.numErrors, optionsPayload, this.gameProgressDetails);
 
 		window.history.back();
 	}
@@ -156,13 +167,19 @@ export default class NumberGame {
 
 		this.answerElem.classList.remove('error', 'correct');
 	}
-	
+
 	processCorrectAnswer() {
-		
+
 		// Ergebnis wurde durch die letzte Eingabe korrekt -> Styles setzen,
 		// 500ms lang anzeigen & anschließend nächste Runde aufrufen / Spiel
 		// beenden
 		this.styleCorrectAnswer();
+
+		let now = Date.now();
+		let elapsedForTask = now - this.currentTaskStartMillis;
+		
+		let gameProgressDetail = [this.rightResult, this.currentTaskNumErrors, elapsedForTask];
+		this.gameProgressDetails.push(gameProgressDetail);
 
 		setTimeout(() => {
 
@@ -173,11 +190,9 @@ export default class NumberGame {
 				// keine Tasks mehr übrig -> Spiel beenden
 				this.finishGame();
 			}
-
 		}, 500);
-		return;
 	}
-	
+
 	// ##### custom level handling #####
 
 	initCustomLevelHandling(defaultOptions) {
@@ -273,8 +288,8 @@ export default class NumberGame {
 			levelButton.onclick = evt => {
 
 				let level = evt.currentTarget.customLevel;
-				
-				if(!this.options) {
+
+				if (!this.options) {
 					this.options = level;
 				}
 				else {
@@ -322,7 +337,7 @@ export default class NumberGame {
 
 	/** abstract */
 	presentNewTask(task) { };
-	
+
 	/** abstract */
 	provideCustomLevelLabelText(customLevel) { };
 

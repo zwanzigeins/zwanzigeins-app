@@ -14,7 +14,7 @@ export default class GameScoreStorage {
 		this.storageNameSpaceKey = 'game-scores: ' + game.gameName;
 	}
 
-	saveGameScore(elapsedTime, numErrors, gameOptions) {
+	saveGameScore(elapsedTime, numErrors, gameOptions, gameProgressDetails) {
 
 		let now = new Date();
 		let isoString = now.toISOString();
@@ -43,6 +43,7 @@ export default class GameScoreStorage {
 			elapsedTime,
 			numErrors,
 			gameOptions,
+			gameProgressDetails,
 			experimentModeEnabled,	
 			userAgent
 		};

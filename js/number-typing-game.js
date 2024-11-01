@@ -100,22 +100,8 @@ export default class NumberTypingGame extends NumberGame {
 		this.currentAnswer = this.currentAnswer + number;
 
 		if (this.isCurrentAnswerCorrect()) {
-			// Ergebnis wurde durch die letzte Eingabe korrekt -> Styles setzen,
-			// 500ms lang anzeigen & anschließend nächste Runde aufrufen / Spiel
-			// beenden
-			this.styleCorrectAnswer();
-
-			setTimeout(() => {
-
-				if (this.tasksPut < this.options.numTasks) {
-					this.putNewTask();
-				}
-				else {
-					// keine Tasks mehr übrig -> Spiel beenden
-					this.finishGame();
-				}
-
-			}, 500);
+			
+			super.processCorrectAnswer();
 			return;
 		}
 
@@ -130,6 +116,7 @@ export default class NumberTypingGame extends NumberGame {
 			this.wrongAnswerTimeStamp = new Date();
 
 			this.numErrors++;
+			this.currentTaskNumErrors++;
 		}
 	}
 		
