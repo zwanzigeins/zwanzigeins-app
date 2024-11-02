@@ -376,16 +376,27 @@ export default class Statistics {
 				gameOptionsJson				
 			);
 			
-			let gameProgressDetailsJson = '';
+			let gameProgressDetailsOutput = '';
 			
 			if(gameScore.gameProgressDetails) {
 				
-				gameProgressDetailsJson = JSON.stringify(gameScore.gameProgressDetails);
+				gameProgressDetailsOutput = JSON.stringify(gameScore.gameProgressDetails);
+				
+				let gameProgressTotalNumErrors = 0;
+				let gameProgressTotalMillis = 0;
+				
+				for(let gameProgressDetail of gameScore.gameProgressDetails) {
+					
+					gameProgressTotalNumErrors += gameProgressDetail[1];
+					gameProgressTotalMillis += gameProgressDetail[2];
+				}
+				
+				gameProgressDetailsOutput += ',' + gameProgressTotalNumErrors + ',' + gameProgressTotalMillis;
 			}
 			
 			let row = rowParts.join(';');
 			row += emptyExtraColDelimiters;
-			row += ';' + experimentModeOutput + ';' + deviceInfosOutput + ';' + gameProgressDetailsJson;
+			row += ';' + experimentModeOutput + ';' + deviceInfosOutput + ';' + gameProgressDetailsOutput;
 
 			csv += '\n' + row;
 		}

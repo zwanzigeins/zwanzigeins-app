@@ -1,8 +1,6 @@
 import Utils from './utils.js';
 import Options from './options.js';
 import GameScoreStorage from './game-score-storage.js';
-import Pages from './pages.js';
-import GlobalSettings from './global-settings.js';
 
 export default class NumberGame {
 
@@ -19,7 +17,9 @@ export default class NumberGame {
 
 		// declare for documentation
 		this.wrongAnswerOccured = false;
-		this.gameStartTimeStamp = new Date();
+
+		this.gameStartTimeMillis;
+
 		this.tasksPut = 0;
 		this.numErrors = 0;
 
@@ -32,6 +32,8 @@ export default class NumberGame {
 	}
 
 	putNewTask() {
+
+		this.currentTaskStartMillis = Date.now();
 
 		let newTask = this.generateNewTask();
 
@@ -54,7 +56,6 @@ export default class NumberGame {
 		this.resetCurrentAnswer();
 
 		this.presentNewTask(newTask);
-		this.currentTaskStartMillis = Date.now();
 
 		this.tasksPut++;
 		this.prevTask = newTask;
@@ -103,33 +104,29 @@ export default class NumberGame {
 	startGame() {
 
 		this.wrongAnswerOccured = false;
-		this.gameStartTimeStamp = new Date();
+
 		this.tasksPut = 0;
 		this.numErrors = 0;
 		this.prevTask = null;
-		
+
 		this.gameProgressDetails = [];
 
 		window.location.hash = this.gamePageId;
+
+		this.gameStartTimeMillis = Date.now();
 
 		this.putNewTask();
 	}
 
 	finishGame() {
 
-		let elapsed = new Date().getTime() - this.gameStartTimeStamp.getTime();
-		let elapsedDate = new Date(elapsed);
+		let elapsed = Date.now() - this.gameStartTimeMillis;
+
+		let elapsedTimeString = Utils.formatMillisAsMinutesWithSeconds(elapsed);
 
 		let overlayDialog = document.querySelector('.dialog');
 
 		overlayDialog.classList.add('showing');
-		let minutes = elapsedDate.getMinutes();
-		let seconds = elapsedDate.getSeconds();
-		if (seconds < 10) {
-			seconds = '0' + seconds;
-		}
-
-		let elapsedTimeString = minutes + ':' + seconds;
 
 		document.getElementById('lastGameTime').innerHTML = elapsedTimeString;
 
@@ -175,13 +172,13 @@ export default class NumberGame {
 		// beenden
 		this.styleCorrectAnswer();
 
-		let now = Date.now();
-		let elapsedForTask = now - this.currentTaskStartMillis;
-		
-		let gameProgressDetail = [this.rightResult, this.currentTaskNumErrors, elapsedForTask];
-		this.gameProgressDetails.push(gameProgressDetail);
-
 		setTimeout(() => {
+
+			let now = Date.now();
+			let elapsedForTask = now - this.currentTaskStartMillis;
+
+			let gameProgressDetail = [this.rightResult, this.currentTaskNumErrors, elapsedForTask];
+			this.gameProgressDetails.push(gameProgressDetail);
 
 			if (this.tasksPut < this.options.numTasks) {
 				this.putNewTask();
