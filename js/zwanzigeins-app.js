@@ -91,18 +91,18 @@ reloadButton.onclick = () => {
 	location.reload();
 };
 
-if(window.navigator.serviceWorker) {
-	
+if (window.navigator.serviceWorker) {
+
 	window.navigator.serviceWorker.getRegistration().then(registration => {
-	
+
 		if (registration == null) {
 			window.navigator.serviceWorker.register(swUri);
 		}
 		else {
 			registration.update();
-	
+
 			window.navigator.serviceWorker.addEventListener('controllerchange', () => {
-	
+
 				document.body.classList.add('updateInstalled');
 			});
 		}
@@ -116,48 +116,40 @@ giveConsentAnchor.addEventListener('click', () => {
 	localStorage.setItem('consent-given', 'true');
 });
 
-
-
 if (typeof speechSynthesis === "undefined") {
-	
 	alert('Dieses Gerät unterstützt keine Sprachausgabe. Die App ist so nur eingeschränkt nutzbar.');
 }
 else {
-	
 	// at app-start, the voices-list ist not always populated, 
 	// so wait until document loaded and add some delay
-	
-	document.addEventListener('load', evt => {
-		
-		setTimeout(() => {
-			
-			const voices = speechSynthesis.getVoices();
-					
-			let deDeVoiceFound = false;
-			
-			for(let voice of voices) {
-							
-				if(voice.lang == 'de_DE' || voice.lang == 'de-DE') {
-					deDeVoiceFound = true;
-				}			
-			}
 
-			if (!deDeVoiceFound) {
+	window.addEventListener('load', () => {
 
-				alert('Auf diesem Gerät ist keine deutsche Stimme für die Sprachausgabe installiert. Die App ist so nur eingeschränkt nutzbar.\n' +
-					'Bitte installiere eine deutsche Stimme für die Sprachausgabe.');
-			}
-			
-		}, 500);
+		checkAvailableVoices();
 	});
-	
-	// wait on voices to be loaded before fetching list
-	window.speechSynthesis.onvoiceschanged = () => {
-		
-		
-	};
-	
-	// trigger onvoiceschanged
-	speechSynthesis.getVoices();
-
 }
+
+function checkAvailableVoices() {
+
+	setTimeout(() => {
+
+		const voices = speechSynthesis.getVoices();
+
+		let deDeVoiceFound = false;
+
+		for (let voice of voices) {
+
+			if (voice.lang == 'de_DE' || voice.lang == 'de-DE') {
+				deDeVoiceFound = true;
+			}
+		}
+
+		if (!deDeVoiceFound) {
+
+			alert('Auf diesem Gerät ist keine deutsche Stimme für die Sprachausgabe installiert. Die App ist so nur eingeschränkt nutzbar.\n' +
+				'Bitte installiere eine deutsche Stimme für die Sprachausgabe.');
+		}
+
+	}, 500);
+}
+
