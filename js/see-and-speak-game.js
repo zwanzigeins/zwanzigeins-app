@@ -163,6 +163,7 @@ export default class SeeAndSpeakGame extends NumberGame {
 				else {
 
 					this.numErrors++;
+					this.currentTaskNumErrors++;
 					rightResultGiven = false;
 					this.taskElem.classList.add("error");
 				}
@@ -249,8 +250,10 @@ export default class SeeAndSpeakGame extends NumberGame {
 			problem: random,
 			rightResult: random
 		};
-
-		this.recognition.start();
+		
+		if(!this.recognitionRunning) {
+			this.recognition.start();
+		}
 
 		return task;
 	}

@@ -25,7 +25,16 @@ export default class GameScoreStorage {
 		let timeStamp = isoString.substring(0, millisecondsDelimiterIdx);
 
 		let profileName = GlobalSettings.INSTANCE.getProfileName();
-		let twistedSpeechMode = GlobalSettings.INSTANCE.twistedSpeechMode;
+		
+		let twistedSpeechMode;
+		
+		if(gameOptions.twistedSpeechMode) {
+			twistedSpeechMode = gameOptions.twistedSpeechMode;
+		}
+		else {
+			twistedSpeechMode = GlobalSettings.INSTANCE.twistedSpeechMode;
+		}
+		
 		let speechRate = GlobalSettings.INSTANCE.speechRate;
 		
 		let theme = GlobalSettings.INSTANCE.isDarkThemeActive() ? 'dark' : 'bright';

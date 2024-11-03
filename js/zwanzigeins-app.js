@@ -146,8 +146,8 @@ function checkAvailableVoices() {
 
 		if (!deDeVoiceFound) {
 
-			alert('Auf diesem Gerät ist keine deutsche Stimme für die Sprachausgabe installiert. Die App ist so nur eingeschränkt nutzbar.\n' +
-				'Bitte installiere eine deutsche Stimme für die Sprachausgabe.');
+//			alert('Auf diesem Gerät ist keine deutsche Stimme für die Sprachausgabe installiert. Die App ist so nur eingeschränkt nutzbar.\n' +
+//				'Bitte installiere eine deutsche Stimme für die Sprachausgabe.');
 		}
 
 	}, 500);
