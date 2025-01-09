@@ -56,7 +56,7 @@ export default class GameScoreStorage {
 			experimentModeEnabled,	
 			userAgent
 		};
-
+		
 		let gameOptionsJson = JSON.stringify(gameOptions);
 
 		let storageKey = this.storageNameSpaceKey + '|' + gameOptionsJson;
@@ -67,6 +67,8 @@ export default class GameScoreStorage {
 		let gameScoresJson = JSON.stringify(gameScores);
 
 		localStorage.setItem(storageKey, gameScoresJson);
+		
+		console.log('saved gamescore, gamescore-count is now: ' + gameScores.length);
 	}
 
 	getGameScores(levelOptions) {

@@ -67,6 +67,8 @@ export default class NumberTypingGame extends NumberGame {
 	 */
 	processNumberInput(number) {
 		
+		console.log('processing typed number: ' + number);
+		
 		if(isNaN(number)) {
 			
 			console.error('NaN as input not allowed: ' + number);
@@ -125,10 +127,14 @@ export default class NumberTypingGame extends NumberGame {
 		super.startGame();
 		
 		window.onkeydown = e => {
+			
+			// process keydowns only if this game is showing
+			if(location.hash == '#' + this.gamePageId) {
 
-			let digit = parseInt(e.key);
-			if (!isNaN(digit)) {
-				this.processNumberInput(digit);
+				let digit = parseInt(e.key);
+				if (!isNaN(digit)) {
+					this.processNumberInput(digit);
+				}
 			}
 		}
 	}
